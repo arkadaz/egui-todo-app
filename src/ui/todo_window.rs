@@ -71,13 +71,12 @@ pub fn draw_todo_window(
                     .filter(|(date, tasks)| !tasks.is_empty() && **date < *selected_date)
                     .map(|(date, _)| *date)
                     .collect();
-                past_dates.sort_unstable_by(|a, b| b.cmp(a)); // Sort from most recent to oldest
+                past_dates.sort_unstable_by(|a, b| b.cmp(a));
 
                 if past_dates.is_empty() {
                     ui.label("No tasks from previous days.");
                 } else {
                     for date in past_dates {
-                        // Get a MUTABLE reference to the tasks to allow modification
                         if let Some(tasks) = todos_by_date.get_mut(&date) {
                             if tasks.is_empty() { continue; }
 
