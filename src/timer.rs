@@ -133,7 +133,7 @@ impl StudyTimer {
 
 pub fn play_beep(stream_handle: &OutputStreamHandle) {
     if let Ok(sink) = Sink::try_new(stream_handle) {
-        let source = SineWave::new(440.0).take_duration(Duration::from_millis(200)).amplify(0.20);
+        let source = SineWave::new(440.0).take_duration(Duration::from_millis(400)).amplify(0.20);
         sink.append(source);
         sink.detach();
     }

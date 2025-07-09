@@ -36,7 +36,7 @@ pub fn draw_todo_window(
             ui.add_space(5.0);
             
             let mut to_delete = None;
-            let top_scroll_height = ui.available_height() * 0.4; // Adjust height for history view
+            let top_scroll_height = ui.available_height() * 0.4;
 
             // Scroll area for the current day's tasks
             egui::ScrollArea::vertical().max_height(top_scroll_height).show(ui, |ui| {
@@ -77,15 +77,16 @@ pub fn draw_todo_window(
                     ui.label("No tasks from previous days.");
                 } else {
                     for date in past_dates {
-                        if let Some(tasks) = todos_by_date.get(&date) {
+                        // Get a MUTABLE reference to the tasks to allow modification
+                        if let Some(tasks) = todos_by_date.get_mut(&date) {
                             if tasks.is_empty() { continue; }
 
                             ui.label(egui::RichText::new(date.format("%A, %B %-d").to_string()).strong());
                             ui.add_space(2.0);
 
-                            for task in tasks {
-                                let icon = if task.completed { "✅" } else { "⬜" };
-                                ui.label(format!("{} {}", icon, &task.text));
+                            // Iterate mutably and use a checkbox for each task
+                            for task in tasks.iter_mut() {
+                                ui.checkbox(&mut task.completed, &task.text);
                             }
                             ui.separator();
                         }

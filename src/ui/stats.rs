@@ -29,7 +29,7 @@ pub fn draw_stats_window(ctx: &egui::Context, is_open: &mut bool, stats: &Stats)
             let month_key = format!("{}-{}", today.year(), today.month());
             let this_month_sessions = stats.monthly_streaks.get(&month_key).cloned().unwrap_or(0);
 
-            ui.heading("Today's Progress");
+            ui.heading("📅 Today's Progress");
             ui.label(format!("- Sessions Completed: {}", today_sessions));
             ui.label(format!("- Time Studied: {:02}:{:02}:{:02}", today_h, today_m, today_s));
             ui.separator();

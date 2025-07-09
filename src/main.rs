@@ -171,7 +171,6 @@ impl eframe::App for FocusHubApp {
         ui::draw_calendar_window(ctx, &mut self.ui_manager.show_calendar, &mut self.calendar_date, &mut self.selected_date, &self.app_data.todos_by_date);
         ui::draw_stats_window(ctx, &mut self.ui_manager.show_stats, &self.timer.stats);
         ui::draw_rewards_window(ctx, &mut self.ui_manager.show_rewards, &mut self.app_data.rewards, &mut self.new_reward_input);
-        ui::draw_notification_window(ctx, &mut self.ui_manager);
     }
 }
 

@@ -24,6 +24,7 @@ pub fn draw_rewards_window(
             }
             ui.separator();
             ui.heading("Your Rewards");
+            rewards.sort_by_key(|r| r.completed);
             let mut to_delete = None;
             egui::ScrollArea::vertical().show(ui, |ui| {
                 for (i, reward) in rewards.iter_mut().enumerate() {
