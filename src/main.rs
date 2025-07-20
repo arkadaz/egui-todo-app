@@ -57,7 +57,7 @@ pub struct UIManager {
 impl FocusHubApp {
     fn new(cc: &eframe::CreationContext<'_>, app_data: AppData) -> Self {
         let (stream, stream_handle) = OutputStream::try_default().unwrap();
-        let (_file_tx, file_rx) = mpsc::channel(); // Placeholder
+        let (_file_tx, file_rx) = mpsc::channel();
 
         let local_time = Local::now();
         let today = local_time.date_naive();
@@ -78,9 +78,9 @@ impl FocusHubApp {
         Self {
             timer: StudyTimer::new(
                 app_data.stats.clone(),
-                Duration::from_secs(25 * 60),
+                Duration::from_secs(1 * 60),
                 Duration::from_secs(5 * 60),
-                4,
+                1,
             ),
             app_data,
             gif_handler,
