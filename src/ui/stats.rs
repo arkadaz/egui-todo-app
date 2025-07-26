@@ -1,6 +1,6 @@
-use eframe::egui;
-use chrono::{Datelike, Local};
 use crate::app_data::Stats;
+use chrono::{Datelike, Local};
+use eframe::egui;
 
 pub fn draw_stats_window(ctx: &egui::Context, is_open: &mut bool, stats: &Stats) {
     let mut open = *is_open;
@@ -16,7 +16,9 @@ pub fn draw_stats_window(ctx: &egui::Context, is_open: &mut bool, stats: &Stats)
             let hours = (total_seconds % (24 * 3600)) / 3600;
             let minutes = (total_seconds % 3600) / 60;
             let seconds = total_seconds % 60;
-            ui.label(format!("Total Study Time: {}d {}h {}m {}s", days, hours, minutes, seconds));
+            ui.label(format!(
+                "Total Study Time: {days}d {hours}h {minutes}m {seconds}s",
+            ));
             ui.separator();
 
             let today = Local::now().date_naive();
@@ -30,12 +32,14 @@ pub fn draw_stats_window(ctx: &egui::Context, is_open: &mut bool, stats: &Stats)
             let this_month_sessions = stats.monthly_streaks.get(&month_key).cloned().unwrap_or(0);
 
             ui.heading("📅 Today's Progress");
-            ui.label(format!("- Sessions Completed: {}", today_sessions));
-            ui.label(format!("- Time Studied: {:02}:{:02}:{:02}", today_h, today_m, today_s));
+            ui.label(format!("- Sessions Completed: {today_sessions}",));
+            ui.label(format!(
+                "- Time Studied: {today_h:02}:{today_m:02}:{today_s:02}",
+            ));
             ui.separator();
 
             ui.heading("📅 This Month's Progress");
-            ui.label(format!("- Sessions Completed: {}", this_month_sessions));
+            ui.label(format!("- Sessions Completed: {this_month_sessions}"));
         });
     *is_open = open;
 }

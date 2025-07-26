@@ -1,13 +1,19 @@
-use std::time::{Duration, Instant};
-use chrono::{Local, Datelike};
-use rodio::{OutputStreamHandle, Sink, Source, source::SineWave};
 use crate::app_data::Stats;
+use chrono::{Datelike, Local};
+use rodio::{OutputStreamHandle, Sink, Source, source::SineWave};
+use std::time::{Duration, Instant};
 
 #[derive(PartialEq, Clone, Copy)]
-pub enum TimerMode { Work, Break }
+pub enum TimerMode {
+    Work,
+    Break,
+}
 
 #[derive(PartialEq, Clone, Copy)]
-pub enum TimerState { Paused, Running }
+pub enum TimerState {
+    Paused,
+    Running,
+}
 
 pub struct StudyTimer {
     pub work_duration: Duration,
@@ -23,7 +29,12 @@ pub struct StudyTimer {
 }
 
 impl StudyTimer {
-    pub fn new(stats: Stats, work_duration: Duration, break_duration: Duration, total_loops: u32) -> Self {
+    pub fn new(
+        stats: Stats,
+        work_duration: Duration,
+        break_duration: Duration,
+        total_loops: u32,
+    ) -> Self {
         Self {
             work_duration,
             break_duration,
@@ -38,7 +49,12 @@ impl StudyTimer {
         }
     }
 
-    pub fn set_durations(&mut self, work_duration: Duration, break_duration: Duration, total_loops: u32) {
+    pub fn set_durations(
+        &mut self,
+        work_duration: Duration,
+        break_duration: Duration,
+        total_loops: u32,
+    ) {
         self.work_duration = work_duration;
         self.break_duration = break_duration;
         self.total_loops = total_loops;
@@ -46,10 +62,14 @@ impl StudyTimer {
     }
 
     pub fn tick(&mut self) -> bool {
-        if self.timer_state != TimerState::Running { return false; }
+        if self.timer_state != TimerState::Running {
+            return false;
+        }
 
         let now = Instant::now();
-        let elapsed = self.last_tick.map_or(Duration::ZERO, |t| now.duration_since(t));
+        let elapsed = self
+            .last_tick
+            .map_or(Duration::ZERO, |t| now.duration_since(t));
         self.last_tick = Some(now);
 
         if self.timer_mode == TimerMode::Work {
@@ -67,7 +87,11 @@ impl StudyTimer {
             false
         } else {
             if self.timer_mode == TimerMode::Work {
-                *self.stats.daily_study_seconds.entry(Local::now().date_naive()).or_insert(0) += self.time_remaining.as_secs();
+                *self
+                    .stats
+                    .daily_study_seconds
+                    .entry(Local::now().date_naive())
+                    .or_insert(0) += self.time_remaining.as_secs();
             }
             self.time_remaining = Duration::ZERO;
             self.switch_session();
@@ -133,7 +157,9 @@ impl StudyTimer {
 
 pub fn play_beep(stream_handle: &OutputStreamHandle) {
     if let Ok(sink) = Sink::try_new(stream_handle) {
-        let source = SineWave::new(440.0).take_duration(Duration::from_millis(400)).amplify(0.20);
+        let source = SineWave::new(440.0)
+            .take_duration(Duration::from_millis(400))
+            .amplify(0.20);
         sink.append(source);
         sink.detach();
     }

@@ -67,18 +67,17 @@ impl FocusHubApp {
         let mut gif_handler = GifHandler::new();
         if let Some(path_str) = gif_path {
             if !gif_handler.load_from_path(PathBuf::from(path_str)) {
-                 gif_handler.load_from_path(PathBuf::from("assets/background.gif"));
+                gif_handler.load_from_path(PathBuf::from("assets/background.gif"));
             }
         } else {
             gif_handler.load_from_path(PathBuf::from("assets/background.gif"));
         }
         gif_handler.prime_cache(&cc.egui_ctx);
 
-
         Self {
             timer: StudyTimer::new(
                 app_data.stats.clone(),
-                Duration::from_secs(1 * 60),
+                Duration::from_secs(60 * 60),
                 Duration::from_secs(5 * 60),
                 1,
             ),
@@ -143,7 +142,7 @@ impl eframe::App for FocusHubApp {
             rfd::MessageDialog::new()
                 .set_level(rfd::MessageLevel::Error)
                 .set_title("Save Error")
-                .set_description(format!("Could not save app data: {}", e))
+                .set_description(format!("Could not save app data: {e}"))
                 .show();
         }
     }
@@ -167,17 +166,37 @@ impl eframe::App for FocusHubApp {
         self.ui_top_menu(ctx);
         ui::draw_central_panel(ctx, &mut self.timer, &self.current_time);
 
-        ui::draw_todo_window(ctx, &mut self.ui_manager.show_todos, &mut self.app_data.todos_by_date, &mut self.new_todo_input, &mut self.selected_date);
-        ui::draw_calendar_window(ctx, &mut self.ui_manager.show_calendar, &mut self.calendar_date, &mut self.selected_date, &self.app_data.todos_by_date);
+        ui::draw_todo_window(
+            ctx,
+            &mut self.ui_manager.show_todos,
+            &mut self.app_data.todos_by_date,
+            &mut self.new_todo_input,
+            &mut self.selected_date,
+        );
+        ui::draw_calendar_window(
+            ctx,
+            &mut self.ui_manager.show_calendar,
+            &mut self.calendar_date,
+            &mut self.selected_date,
+            &self.app_data.todos_by_date,
+        );
         ui::draw_stats_window(ctx, &mut self.ui_manager.show_stats, &self.timer.stats);
-        ui::draw_rewards_window(ctx, &mut self.ui_manager.show_rewards, &mut self.app_data.rewards, &mut self.new_reward_input);
+        ui::draw_rewards_window(
+            ctx,
+            &mut self.ui_manager.show_rewards,
+            &mut self.app_data.rewards,
+            &mut self.new_reward_input,
+        );
     }
 }
 
 impl FocusHubApp {
     fn update_clock(&mut self) {
         let offset = FixedOffset::east_opt(self.selected_gmt_offset * 3600).unwrap();
-        self.current_time = Utc::now().with_timezone(&offset).format("%H:%M:%S").to_string();
+        self.current_time = Utc::now()
+            .with_timezone(&offset)
+            .format("%H:%M:%S")
+            .to_string();
     }
 
     fn ui_top_menu(&mut self, ctx: &egui::Context) {
@@ -188,19 +207,32 @@ impl FocusHubApp {
                         let (tx, rx) = mpsc::channel();
                         self.file_dialog_receiver = rx;
                         thread::spawn(move || {
-                            if let Some(path) = rfd::FileDialog::new().add_filter("GIF", &["gif"]).pick_file() {
+                            if let Some(path) = rfd::FileDialog::new()
+                                .add_filter("GIF", &["gif"])
+                                .pick_file()
+                            {
                                 tx.send(path).ok();
                             }
                         });
                         ui.close_menu();
                     }
-                    if ui.button("Quit").clicked() { self.should_quit = true; }
+                    if ui.button("Quit").clicked() {
+                        self.should_quit = true;
+                    }
                 });
 
-                if ui.button("To-Do List").clicked() { self.ui_manager.show_todos = !self.ui_manager.show_todos; }
-                if ui.button("📅 Calendar").clicked() { self.ui_manager.show_calendar = !self.ui_manager.show_calendar; }
-                if ui.button("📊 Stats").clicked() { self.ui_manager.show_stats = !self.ui_manager.show_stats; }
-                if ui.button("🏆 Rewards").clicked() { self.ui_manager.show_rewards = !self.ui_manager.show_rewards; }
+                if ui.button("To-Do List").clicked() {
+                    self.ui_manager.show_todos = !self.ui_manager.show_todos;
+                }
+                if ui.button("📅 Calendar").clicked() {
+                    self.ui_manager.show_calendar = !self.ui_manager.show_calendar;
+                }
+                if ui.button("📊 Stats").clicked() {
+                    self.ui_manager.show_stats = !self.ui_manager.show_stats;
+                }
+                if ui.button("🏆 Rewards").clicked() {
+                    self.ui_manager.show_rewards = !self.ui_manager.show_rewards;
+                }
 
                 ui.menu_button("Settings", |ui| {
                     ui.label("Time Zone (GMT):");
@@ -238,7 +270,7 @@ impl FocusHubApp {
         if self.timer.timer_state == TimerState::Paused {
             self.app_data.stats = self.timer.stats.clone();
             if let Err(e) = app_data::save(&self.app_data) {
-                 eprintln!("Failed to quick-save stats: {}", e);
+                eprintln!("Failed to quick-save stats: {e}");
             }
         }
     }

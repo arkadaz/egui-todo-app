@@ -1,8 +1,8 @@
-use serde::{Serialize, Deserialize};
+use chrono::NaiveDate;
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fs;
 use std::path::PathBuf;
-use chrono::NaiveDate;
 
 const DATA_FILE: &str = "focushub_data.json";
 
@@ -39,7 +39,10 @@ pub struct AppData {
 
 fn get_data_path() -> Result<PathBuf, std::io::Error> {
     let exe_path = std::env::current_exe()?;
-    let dir = exe_path.parent().unwrap_or(&PathBuf::from("")).to_path_buf();
+    let dir = exe_path
+        .parent()
+        .unwrap_or(&PathBuf::from(""))
+        .to_path_buf();
     Ok(dir.join(DATA_FILE))
 }
 

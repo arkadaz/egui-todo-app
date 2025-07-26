@@ -1,5 +1,5 @@
-use eframe::egui;
 use crate::app_data::Reward;
+use eframe::egui;
 
 pub fn draw_rewards_window(
     ctx: &egui::Context,
@@ -15,7 +15,13 @@ pub fn draw_rewards_window(
         .default_width(300.0)
         .show(ctx, |ui| {
             ui.heading("Add a New Reward");
-            if ui.text_edit_singleline(new_reward_input).on_hover_text("Enter a new reward...").lost_focus() && ui.input(|i| i.key_pressed(egui::Key::Enter)) && !new_reward_input.trim().is_empty() {
+            if ui
+                .text_edit_singleline(new_reward_input)
+                .on_hover_text("Enter a new reward...")
+                .lost_focus()
+                && ui.input(|i| i.key_pressed(egui::Key::Enter))
+                && !new_reward_input.trim().is_empty()
+            {
                 rewards.push(Reward {
                     name: new_reward_input.trim().to_owned(),
                     completed: false,

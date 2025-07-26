@@ -1,7 +1,7 @@
-use std::collections::HashMap;
-use eframe::egui;
-use chrono::NaiveDate;
 use crate::app_data::TodoItem;
+use chrono::NaiveDate;
+use eframe::egui;
+use std::collections::HashMap;
 
 pub fn draw_todo_window(
     ctx: &egui::Context,
@@ -24,39 +24,51 @@ pub fn draw_todo_window(
             });
             ui.separator();
 
-            let add_todo_response = ui.text_edit_singleline(new_todo_input)
+            let add_todo_response = ui
+                .text_edit_singleline(new_todo_input)
                 .on_hover_text("What needs to be done? (Press Enter to add)");
-            if add_todo_response.lost_focus() && ui.input(|i| i.key_pressed(egui::Key::Enter)) && !new_todo_input.trim().is_empty() {
+            if add_todo_response.lost_focus()
+                && ui.input(|i| i.key_pressed(egui::Key::Enter))
+                && !new_todo_input.trim().is_empty()
+            {
                 let todos_for_day = todos_by_date.entry(*selected_date).or_default();
-                todos_for_day.push(TodoItem { text: new_todo_input.trim().to_owned(), completed: false });
+                todos_for_day.push(TodoItem {
+                    text: new_todo_input.trim().to_owned(),
+                    completed: false,
+                });
                 new_todo_input.clear();
                 add_todo_response.request_focus();
             }
 
             ui.add_space(5.0);
-            
+
             let mut to_delete = None;
             let top_scroll_height = ui.available_height() * 0.4;
 
             // Scroll area for the current day's tasks
-            egui::ScrollArea::vertical().max_height(top_scroll_height).show(ui, |ui| {
-                let todos_for_day = todos_by_date.entry(*selected_date).or_default();
-                if todos_for_day.is_empty() {
-                    ui.label("No tasks for this day.");
-                } else {
-                    for (i, todo) in todos_for_day.iter_mut().enumerate() {
-                        ui.horizontal(|ui| {
-                            ui.checkbox(&mut todo.completed, &todo.text);
-                            if ui.button("❌").on_hover_text("Remove task").clicked() {
-                                to_delete = Some(i);
-                            }
-                        });
+            egui::ScrollArea::vertical()
+                .max_height(top_scroll_height)
+                .show(ui, |ui| {
+                    let todos_for_day = todos_by_date.entry(*selected_date).or_default();
+                    if todos_for_day.is_empty() {
+                        ui.label("No tasks for this day.");
+                    } else {
+                        for (i, todo) in todos_for_day.iter_mut().enumerate() {
+                            ui.horizontal(|ui| {
+                                ui.checkbox(&mut todo.completed, &todo.text);
+                                if ui.button("❌").on_hover_text("Remove task").clicked() {
+                                    to_delete = Some(i);
+                                }
+                            });
+                        }
                     }
-                }
-            });
+                });
 
             if let Some(index) = to_delete {
-                todos_by_date.entry(*selected_date).or_default().remove(index);
+                todos_by_date
+                    .entry(*selected_date)
+                    .or_default()
+                    .remove(index);
             }
 
             ui.separator();
@@ -78,9 +90,13 @@ pub fn draw_todo_window(
                 } else {
                     for date in past_dates {
                         if let Some(tasks) = todos_by_date.get_mut(&date) {
-                            if tasks.is_empty() { continue; }
+                            if tasks.is_empty() {
+                                continue;
+                            }
 
-                            ui.label(egui::RichText::new(date.format("%A, %B %-d").to_string()).strong());
+                            ui.label(
+                                egui::RichText::new(date.format("%A, %B %-d").to_string()).strong(),
+                            );
                             ui.add_space(2.0);
 
                             // Iterate mutably and use a checkbox for each task
@@ -93,6 +109,6 @@ pub fn draw_todo_window(
                 }
             });
         });
-        
+
     *is_open = open;
 }
