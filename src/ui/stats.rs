@@ -1,4 +1,4 @@
-use crate::app_data::Stats;
+use crate::domain::Stats;
 use chrono::{Datelike, Local};
 use eframe::egui;
 

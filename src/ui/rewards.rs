@@ -1,4 +1,4 @@
-use crate::app_data::Reward;
+use crate::domain::Reward;
 use eframe::egui;
 
 pub fn draw_rewards_window(

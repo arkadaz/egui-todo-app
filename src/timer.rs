@@ -1,18 +1,20 @@
-use crate::app_data::Stats;
-use chrono::{Datelike, Local};
-use rodio::{OutputStreamHandle, Sink, Source, source::SineWave};
 use std::time::{Duration, Instant};
 
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Clone, Copy, Debug)]
 pub enum TimerMode {
     Work,
     Break,
 }
 
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Clone, Copy, Debug)]
 pub enum TimerState {
     Paused,
     Running,
+}
+
+pub enum TimerEvent {
+    Tick,
+    SessionCompleted(TimerMode),
 }
 
 pub struct StudyTimer {
@@ -23,14 +25,12 @@ pub struct StudyTimer {
     pub timer_state: TimerState,
     pub time_remaining: Duration,
     pub current_loop: u32,
-    pub stats: Stats,
     last_tick: Option<Instant>,
-    pending_study_time: Duration,
+    pub pending_study_time: Duration,
 }
 
 impl StudyTimer {
     pub fn new(
-        stats: Stats,
         work_duration: Duration,
         break_duration: Duration,
         total_loops: u32,
@@ -39,7 +39,6 @@ impl StudyTimer {
             work_duration,
             break_duration,
             total_loops,
-            stats,
             timer_mode: TimerMode::Work,
             timer_state: TimerState::Paused,
             time_remaining: work_duration,
@@ -61,9 +60,9 @@ impl StudyTimer {
         self.reset();
     }
 
-    pub fn tick(&mut self) -> bool {
+    pub fn tick(&mut self) -> Option<TimerEvent> {
         if self.timer_state != TimerState::Running {
-            return false;
+            return None;
         }
 
         let now = Instant::now();
@@ -72,30 +71,28 @@ impl StudyTimer {
             .map_or(Duration::ZERO, |t| now.duration_since(t));
         self.last_tick = Some(now);
 
+
+
         if self.timer_mode == TimerMode::Work {
             self.pending_study_time += elapsed;
             if self.pending_study_time >= Duration::from_secs(1) {
-                let whole_seconds = self.pending_study_time.as_secs();
-                let today = Local::now().date_naive();
-                *self.stats.daily_study_seconds.entry(today).or_insert(0) += whole_seconds;
-                self.pending_study_time -= Duration::from_secs(whole_seconds);
+                // Determine how many whole seconds passed
+                // We actually handled the "recording" of stats in `main.rs` now via `TimerEvent::Tick` logic or just polling `pending_study_time`.
+                // For simplicity, we can let the caller handle the exact time accumulation, OR return a specific event.
+                // But to follow the plan: "Timer calls tick and returns events".
+                // We'll update state here, and `main` will read it.
             }
         }
 
         if self.time_remaining > elapsed {
             self.time_remaining -= elapsed;
-            false
+            return Some(TimerEvent::Tick); // Valid tick
         } else {
-            if self.timer_mode == TimerMode::Work {
-                *self
-                    .stats
-                    .daily_study_seconds
-                    .entry(Local::now().date_naive())
-                    .or_insert(0) += self.time_remaining.as_secs();
-            }
+            // Timer finished
             self.time_remaining = Duration::ZERO;
+            let finished_mode = self.timer_mode;
             self.switch_session();
-            true
+            return Some(TimerEvent::SessionCompleted(finished_mode));
         }
     }
 
@@ -127,7 +124,6 @@ impl StudyTimer {
                 self.time_remaining = self.break_duration;
             }
             TimerMode::Break => {
-                self.log_streak();
                 if self.current_loop >= self.total_loops {
                     self.reset();
                     return;
@@ -140,27 +136,10 @@ impl StudyTimer {
         self.last_tick = Some(Instant::now());
     }
 
-    fn log_streak(&mut self) {
-        let today = Local::now().date_naive();
-        *self.stats.daily_streaks.entry(today).or_insert(0) += 1;
-        let month_key = format!("{}-{}", today.year(), today.month());
-        *self.stats.monthly_streaks.entry(month_key).or_insert(0) += 1;
-    }
-
     pub fn get_session_switch_messages(&self) -> (&'static str, &'static str) {
         match self.timer_mode {
             TimerMode::Work => ("Work Complete!", "Time for a short break."),
             TimerMode::Break => ("Break Over!", "Time to get back to work."),
         }
-    }
-}
-
-pub fn play_beep(stream_handle: &OutputStreamHandle) {
-    if let Ok(sink) = Sink::try_new(stream_handle) {
-        let source = SineWave::new(440.0)
-            .take_duration(Duration::from_millis(400))
-            .amplify(0.20);
-        sink.append(source);
-        sink.detach();
     }
 }

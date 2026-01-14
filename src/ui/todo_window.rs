@@ -1,4 +1,4 @@
-use crate::app_data::TodoItem;
+use crate::domain::TodoItem;
 use chrono::NaiveDate;
 use eframe::egui;
 use std::collections::HashMap;
@@ -47,6 +47,7 @@ pub fn draw_todo_window(
 
             // Scroll area for the current day's tasks
             egui::ScrollArea::vertical()
+                .id_salt("daily_tasks_scroll")
                 .max_height(top_scroll_height)
                 .show(ui, |ui| {
                     let todos_for_day = todos_by_date.entry(*selected_date).or_default();
@@ -77,7 +78,9 @@ pub fn draw_todo_window(
             ui.heading("Task History");
             ui.separator();
 
-            egui::ScrollArea::vertical().show(ui, |ui| {
+            egui::ScrollArea::vertical()
+                .id_salt("history_tasks_scroll")
+                .show(ui, |ui| {
                 let mut past_dates: Vec<_> = todos_by_date
                     .iter()
                     .filter(|(date, tasks)| !tasks.is_empty() && **date < *selected_date)
