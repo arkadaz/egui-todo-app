@@ -9,12 +9,19 @@ import 'pages/stats_page.dart';
 import 'pages/tasks_page.dart';
 import 'src/rust/api/focus_hub.dart';
 
-/// The desktop app's dark look, with the orange of the app icon.
-ThemeData focusHubTheme() => ThemeData(
+/// Colors from the orange of the app icon. Dark like the desktop app, or light when the
+/// phone is set to light mode. Made once: working out a palette from a seed color is slow.
+ThemeData focusHubTheme(Brightness brightness) =>
+    brightness == Brightness.dark ? _darkTheme : _lightTheme;
+
+final _lightTheme = _theme(Brightness.light);
+final _darkTheme = _theme(Brightness.dark);
+
+ThemeData _theme(Brightness brightness) => ThemeData(
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
         seedColor: const Color(0xFFE8914A),
-        brightness: Brightness.dark,
+        brightness: brightness,
       ),
     );
 
@@ -28,7 +35,9 @@ class FocusHubApp extends StatelessWidget {
     return MaterialApp(
       title: 'Focus Hub',
       debugShowCheckedModeBanner: false,
-      theme: focusHubTheme(),
+      theme: focusHubTheme(Brightness.light),
+      darkTheme: focusHubTheme(Brightness.dark),
+      themeMode: ThemeMode.system, // follow the phone's setting
       home: HomeShell(controller: controller),
     );
   }
@@ -47,6 +56,13 @@ class HomeShell extends StatefulWidget {
 
 class _HomeShellState extends State<HomeShell> {
   int _page = 0;
+  // Made once, so switching tabs doesn't rebuild every page.
+  late final List<Widget> _pages = [
+    FocusPage(controller: _controller),
+    TasksPage(controller: _controller),
+    StatsPage(controller: _controller),
+    RewardsPage(controller: _controller),
+  ];
   late final AppLifecycleListener _lifecycle;
   late final StreamSubscription<SessionAlert> _alerts;
   late final StreamSubscription<String> _messages;
@@ -77,6 +93,26 @@ class _HomeShellState extends State<HomeShell> {
     if (warning != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _showWarning(warning));
     }
+    WidgetsBinding.instance.addPostFrameCallback((_) => _offerHomeIcon());
+  }
+
+  /// On first launch: "Put Focus Hub on your Home screen?" Asked once, whatever the answer.
+  Future<void> _offerHomeIcon() async {
+    if (!await _controller.shouldOfferHomeIcon() || !mounted) return;
+    _controller.homeIconOffered();
+    final add = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        icon: const Icon(Icons.add_to_home_screen),
+        title: const Text('Add to Home screen?'),
+        content: const Text('Put the Focus Hub icon on your Home screen, to start a session in one tap.'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Not now')),
+          FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text('Add icon')),
+        ],
+      ),
+    );
+    if (add == true) await _controller.homeScreen.add(); // Android asks the user to confirm
   }
 
   @override
@@ -134,31 +170,58 @@ class _HomeShellState extends State<HomeShell> {
     );
   }
 
+  static const _destinations = [
+    (icon: Icons.timer_outlined, selectedIcon: Icons.timer, label: 'Focus'),
+    (icon: Icons.checklist, selectedIcon: Icons.checklist, label: 'Tasks'),
+    (icon: Icons.bar_chart, selectedIcon: Icons.bar_chart, label: 'Stats'),
+    (icon: Icons.emoji_events_outlined, selectedIcon: Icons.emoji_events, label: 'Rewards'),
+  ];
+
   @override
   Widget build(BuildContext context) {
+    // IndexedStack keeps every tab alive, so text boxes and scroll positions stay put.
+    // TickerMode pauses the hidden ones' animations (the background GIF would otherwise keep
+    // playing, and redrawing the screen, behind the other tabs).
+    final pages = IndexedStack(
+      index: _page,
+      children: [
+        for (var i = 0; i < _pages.length; i++) TickerMode(enabled: i == _page, child: _pages[i]),
+      ],
+    );
+    void select(int page) => setState(() => _page = page);
+
+    // Wide windows (desktop, tablets) get a rail on the left instead of a bottom bar.
+    if (MediaQuery.sizeOf(context).width >= 800) {
+      return Scaffold(
+        body: Row(
+          children: [
+            NavigationRail(
+              selectedIndex: _page,
+              onDestinationSelected: select,
+              labelType: NavigationRailLabelType.all,
+              destinations: [
+                for (final d in _destinations)
+                  NavigationRailDestination(
+                    icon: Icon(d.icon),
+                    selectedIcon: Icon(d.selectedIcon),
+                    label: Text(d.label),
+                  ),
+              ],
+            ),
+            const VerticalDivider(width: 1),
+            Expanded(child: pages),
+          ],
+        ),
+      );
+    }
     return Scaffold(
-      // IndexedStack keeps every tab alive, so text boxes and scroll positions stay put.
-      body: IndexedStack(
-        index: _page,
-        children: [
-          FocusPage(controller: _controller),
-          TasksPage(controller: _controller),
-          StatsPage(controller: _controller),
-          RewardsPage(controller: _controller),
-        ],
-      ),
+      body: pages,
       bottomNavigationBar: NavigationBar(
         selectedIndex: _page,
-        onDestinationSelected: (page) => setState(() => _page = page),
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.timer_outlined), selectedIcon: Icon(Icons.timer), label: 'Focus'),
-          NavigationDestination(icon: Icon(Icons.checklist), label: 'Tasks'),
-          NavigationDestination(icon: Icon(Icons.bar_chart), label: 'Stats'),
-          NavigationDestination(
-            icon: Icon(Icons.emoji_events_outlined),
-            selectedIcon: Icon(Icons.emoji_events),
-            label: 'Rewards',
-          ),
+        onDestinationSelected: select,
+        destinations: [
+          for (final d in _destinations)
+            NavigationDestination(icon: Icon(d.icon), selectedIcon: Icon(d.selectedIcon), label: d.label),
         ],
       ),
     );
@@ -175,7 +238,7 @@ class StartupErrorApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: focusHubTheme(),
+      theme: focusHubTheme(Brightness.dark),
       home: Scaffold(
         body: Center(
           child: Padding(

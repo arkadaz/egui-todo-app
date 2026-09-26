@@ -47,6 +47,19 @@ pub fn month_title(year: i32, month: u32) -> Result<String> {
     Ok(first_of_month(year, month)?.format("%B %Y").to_string())
 }
 
+/// A Monday-to-Sunday week: "Sep 21 – 27, 2026", "Sep 28 – Oct 4, 2026" or
+/// "Dec 29, 2025 – Jan 4, 2026".
+pub fn week_title(monday: NaiveDate) -> String {
+    let sunday = monday + chrono::Days::new(6);
+    if monday.year() != sunday.year() {
+        format!("{} – {}", monday.format("%b %-d, %Y"), sunday.format("%b %-d, %Y"))
+    } else if monday.month() != sunday.month() {
+        format!("{} – {}", monday.format("%b %-d"), sunday.format("%b %-d, %Y"))
+    } else {
+        format!("{} – {}", monday.format("%b %-d"), sunday.format("%-d, %Y"))
+    }
+}
+
 /// The key used for monthly statistics, like "2026-9" (the desktop app's format).
 pub fn month_key(date: NaiveDate) -> String {
     format!("{}-{}", date.year(), date.month())
@@ -70,6 +83,17 @@ pub fn hh_mm_ss(total_seconds: u64) -> String {
 pub fn mm_ss(duration: Duration) -> String {
     let secs = duration.as_secs();
     format!("{:02}:{:02}", secs / 60, secs % 60)
+}
+
+/// "2h 5m", "45m", "0m"
+pub fn hours_minutes(total_seconds: u64) -> String {
+    let hours = total_seconds / 3600;
+    let minutes = (total_seconds % 3600) / 60;
+    if hours > 0 {
+        format!("{hours}h {minutes}m")
+    } else {
+        format!("{minutes}m")
+    }
 }
 
 /// "GMT+07:00", "GMT-03:30"
@@ -111,6 +135,9 @@ mod tests {
         assert_eq!(mm_ss(Duration::from_secs(3600)), "60:00");
         assert_eq!(mm_ss(Duration::from_millis(59_900)), "00:59");
         assert_eq!(month_key(NaiveDate::from_ymd_opt(2026, 9, 1).unwrap()), "2026-9");
+        assert_eq!(hours_minutes(7500), "2h 5m");
+        assert_eq!(hours_minutes(2700), "45m");
+        assert_eq!(hours_minutes(59), "0m");
     }
 
     #[test]
@@ -118,5 +145,13 @@ mod tests {
         assert_eq!(gmt_label(7 * 3600), "GMT+07:00");
         assert_eq!(gmt_label(-(3 * 3600 + 1800)), "GMT-03:30");
         assert_eq!(gmt_label(0), "GMT+00:00");
+    }
+
+    #[test]
+    fn titles_weeks() {
+        let monday = |y, m, d| NaiveDate::from_ymd_opt(y, m, d).unwrap();
+        assert_eq!(week_title(monday(2026, 9, 21)), "Sep 21 – 27, 2026");
+        assert_eq!(week_title(monday(2026, 9, 28)), "Sep 28 – Oct 4, 2026");
+        assert_eq!(week_title(monday(2025, 12, 29)), "Dec 29, 2025 – Jan 4, 2026");
     }
 }

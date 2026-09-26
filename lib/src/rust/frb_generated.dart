@@ -69,7 +69,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.13.0';
 
   @override
-  int get rustContentHash => -1454161223;
+  int get rustContentHash => -1783799993;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -92,12 +92,26 @@ abstract class RustLibApi extends BaseApi {
     required String text,
   });
 
+  bool crateApiFocusHubFocusHubAnimateBackground({required FocusHub that});
+
+  void crateApiFocusHubFocusHubApplyPreset({
+    required FocusHub that,
+    required int index,
+  });
+
   String? crateApiFocusHubFocusHubBackgroundPath({required FocusHub that});
+
+  List<BackupView> crateApiFocusHubFocusHubBackups({required FocusHub that});
 
   CalendarMonth crateApiFocusHubFocusHubCalendarMonth({
     required FocusHub that,
     required int year,
     required int month,
+    required String selectedDate,
+  });
+
+  CalendarWeek crateApiFocusHubFocusHubCalendarWeek({
+    required FocusHub that,
     required String selectedDate,
   });
 
@@ -107,23 +121,40 @@ abstract class RustLibApi extends BaseApi {
 
   String crateApiFocusHubFocusHubDataFile({required FocusHub that});
 
-  void crateApiFocusHubFocusHubDeleteReward({
+  Deleted crateApiFocusHubFocusHubDeleteReward({
     required FocusHub that,
     required int index,
   });
 
-  void crateApiFocusHubFocusHubDeleteTodo({
+  Deleted crateApiFocusHubFocusHubDeleteTodo({
     required FocusHub that,
     required String date,
     required int index,
+  });
+
+  void crateApiFocusHubFocusHubEditReward({
+    required FocusHub that,
+    required int index,
+    required String name,
+  });
+
+  void crateApiFocusHubFocusHubEditTodo({
+    required FocusHub that,
+    required String date,
+    required int index,
+    required String text,
   });
 
   String crateApiFocusHubFocusHubExportJson({required FocusHub that});
 
-  List<DayTodos> crateApiFocusHubFocusHubHistoryBefore({
+  List<HistoryMonth> crateApiFocusHubFocusHubHistory({
     required FocusHub that,
-    required String date,
+    required String before,
+    required HistoryFilter filter,
+    required String search,
   });
+
+  bool crateApiFocusHubFocusHubHomeIconOffered({required FocusHub that});
 
   ImportSummary crateApiFocusHubFocusHubImportJson({
     required FocusHub that,
@@ -132,19 +163,64 @@ abstract class RustLibApi extends BaseApi {
 
   String? crateApiFocusHubFocusHubLoadWarning({required FocusHub that});
 
+  MergeSummary crateApiFocusHubFocusHubMergeJson({
+    required FocusHub that,
+    required String json,
+  });
+
+  void crateApiFocusHubFocusHubMoveTodo({
+    required FocusHub that,
+    required String date,
+    required int from,
+    required int to,
+  });
+
+  int crateApiFocusHubFocusHubMoveUnfinishedTo({
+    required FocusHub that,
+    required String date,
+  });
+
   FocusHub crateApiFocusHubFocusHubOpen({required String dataDir});
+
+  bool crateApiFocusHubFocusHubReloadIfChanged({required FocusHub that});
 
   void crateApiFocusHubFocusHubResetTimer({required FocusHub that});
 
+  void crateApiFocusHubFocusHubRestoreBackup({
+    required FocusHub that,
+    required String date,
+  });
+
+  void crateApiFocusHubFocusHubRestoreReward({
+    required FocusHub that,
+    required int index,
+    required String name,
+    required bool completed,
+  });
+
+  void crateApiFocusHubFocusHubRestoreTodo({
+    required FocusHub that,
+    required String date,
+    required int index,
+    required String text,
+    required bool completed,
+  });
+
   List<RewardView> crateApiFocusHubFocusHubRewards({required FocusHub that});
 
-  void crateApiFocusHubFocusHubSave({required FocusHub that});
+  bool crateApiFocusHubFocusHubSave({required FocusHub that});
+
+  void crateApiFocusHubFocusHubSetAnimateBackground({
+    required FocusHub that,
+    required bool animate,
+  });
 
   void crateApiFocusHubFocusHubSetBackground({
     required FocusHub that,
-    required String fileName,
-    required List<int> bytes,
+    required PreparedBackground image,
   });
+
+  void crateApiFocusHubFocusHubSetHomeIconOffered({required FocusHub that});
 
   void crateApiFocusHubFocusHubSetRewardCompleted({
     required FocusHub that,
@@ -161,7 +237,10 @@ abstract class RustLibApi extends BaseApi {
     required FocusHub that,
     required int workSecs,
     required int breakSecs,
+    required int longBreakSecs,
     required int loops,
+    required int longBreakEvery,
+    required bool autoStart,
   });
 
   void crateApiFocusHubFocusHubSetTodoCompleted({
@@ -171,9 +250,20 @@ abstract class RustLibApi extends BaseApi {
     required bool completed,
   });
 
+  List<SessionAlert> crateApiFocusHubFocusHubSkipSession({
+    required FocusHub that,
+  });
+
   StatsView crateApiFocusHubFocusHubStats({required FocusHub that});
 
-  List<SessionAlert> crateApiFocusHubFocusHubTick({required FocusHub that});
+  TimerStatus? crateApiFocusHubFocusHubStatusNow({required FocusHub that});
+
+  List<ChartDay> crateApiFocusHubFocusHubStudyChart({
+    required FocusHub that,
+    required int days,
+  });
+
+  TickReport crateApiFocusHubFocusHubTick({required FocusHub that});
 
   TimeZoneView crateApiFocusHubFocusHubTimeZone({required FocusHub that});
 
@@ -188,15 +278,33 @@ abstract class RustLibApi extends BaseApi {
     required FocusHub that,
   });
 
-  List<ScheduledAlert> crateApiFocusHubFocusHubUpcomingAlerts({
+  int crateApiFocusHubFocusHubUnfinishedBefore({
+    required FocusHub that,
+    required String date,
+  });
+
+  List<UpcomingEvent> crateApiFocusHubFocusHubUpcomingEvents({
     required FocusHub that,
   });
+
+  String crateApiFocusHubPreparedBackgroundMessage({
+    required PreparedBackground that,
+  });
+
+  String crateApiFocusHubAddDays({required String date, required int days});
 
   Future<void> crateApiSimpleInitApp();
 
   String crateApiFocusHubLongDate({required String date});
 
   YearMonth crateApiFocusHubMonthOf({required String date});
+
+  Future<PreparedBackground> crateApiFocusHubPrepareBackground({
+    required String path,
+    required int screenSide,
+  });
+
+  List<PresetView> crateApiFocusHubPresets();
 
   YearMonth crateApiFocusHubShiftMonth({
     required int year,
@@ -213,6 +321,15 @@ abstract class RustLibApi extends BaseApi {
   get rust_arc_decrement_strong_count_FocusHub;
 
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_FocusHubPtr;
+
+  RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_PreparedBackground;
+
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_PreparedBackground;
+
+  CrossPlatformFinalizerArg
+  get rust_arc_decrement_strong_count_PreparedBackgroundPtr;
 }
 
 class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
@@ -292,7 +409,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  String? crateApiFocusHubFocusHubBackgroundPath({required FocusHub that}) {
+  bool crateApiFocusHubFocusHubAnimateBackground({required FocusHub that}) {
     return handler.executeSync(
       SyncTask(
         callFfi: () {
@@ -302,6 +419,68 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             serializer,
           );
           return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 3)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubAnimateBackgroundConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubAnimateBackgroundConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_animate_background",
+        argNames: ["that"],
+      );
+
+  @override
+  void crateApiFocusHubFocusHubApplyPreset({
+    required FocusHub that,
+    required int index,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          sse_encode_u_32(index, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 4)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubApplyPresetConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubApplyPresetConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_apply_preset",
+        argNames: ["that", "index"],
+      );
+
+  @override
+  String? crateApiFocusHubFocusHubBackgroundPath({required FocusHub that}) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 5)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_opt_String,
@@ -321,6 +500,32 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
+  List<BackupView> crateApiFocusHubFocusHubBackups({required FocusHub that}) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 6)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_backup_view,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubBackupsConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubBackupsConstMeta =>
+      const TaskConstMeta(debugName: "FocusHub_backups", argNames: ["that"]);
+
+  @override
   CalendarMonth crateApiFocusHubFocusHubCalendarMonth({
     required FocusHub that,
     required int year,
@@ -338,7 +543,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           sse_encode_i_32(year, serializer);
           sse_encode_u_32(month, serializer);
           sse_encode_String(selectedDate, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 4)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 7)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_calendar_month,
@@ -358,6 +563,39 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
+  CalendarWeek crateApiFocusHubFocusHubCalendarWeek({
+    required FocusHub that,
+    required String selectedDate,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          sse_encode_String(selectedDate, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 8)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_calendar_week,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubCalendarWeekConstMeta,
+        argValues: [that, selectedDate],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubCalendarWeekConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_calendar_week",
+        argNames: ["that", "selectedDate"],
+      );
+
+  @override
   void crateApiFocusHubFocusHubClearBackground({required FocusHub that}) {
     return handler.executeSync(
       SyncTask(
@@ -367,7 +605,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 5)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 9)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
@@ -396,7 +634,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 6)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 10)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_String,
@@ -422,7 +660,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 7)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 11)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_String,
@@ -439,7 +677,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "FocusHub_data_file", argNames: ["that"]);
 
   @override
-  void crateApiFocusHubFocusHubDeleteReward({
+  Deleted crateApiFocusHubFocusHubDeleteReward({
     required FocusHub that,
     required int index,
   }) {
@@ -452,10 +690,10 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             serializer,
           );
           sse_encode_u_32(index, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 8)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 12)!;
         },
         codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
+          decodeSuccessData: sse_decode_deleted,
           decodeErrorData: sse_decode_AnyhowException,
         ),
         constMeta: kCrateApiFocusHubFocusHubDeleteRewardConstMeta,
@@ -472,7 +710,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  void crateApiFocusHubFocusHubDeleteTodo({
+  Deleted crateApiFocusHubFocusHubDeleteTodo({
     required FocusHub that,
     required String date,
     required int index,
@@ -487,10 +725,10 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           );
           sse_encode_String(date, serializer);
           sse_encode_u_32(index, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 9)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 13)!;
         },
         codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
+          decodeSuccessData: sse_decode_deleted,
           decodeErrorData: sse_decode_AnyhowException,
         ),
         constMeta: kCrateApiFocusHubFocusHubDeleteTodoConstMeta,
@@ -507,6 +745,78 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
+  void crateApiFocusHubFocusHubEditReward({
+    required FocusHub that,
+    required int index,
+    required String name,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          sse_encode_u_32(index, serializer);
+          sse_encode_String(name, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 14)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubEditRewardConstMeta,
+        argValues: [that, index, name],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubEditRewardConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_edit_reward",
+        argNames: ["that", "index", "name"],
+      );
+
+  @override
+  void crateApiFocusHubFocusHubEditTodo({
+    required FocusHub that,
+    required String date,
+    required int index,
+    required String text,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          sse_encode_String(date, serializer);
+          sse_encode_u_32(index, serializer);
+          sse_encode_String(text, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 15)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubEditTodoConstMeta,
+        argValues: [that, date, index, text],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubEditTodoConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_edit_todo",
+        argNames: ["that", "date", "index", "text"],
+      );
+
+  @override
   String crateApiFocusHubFocusHubExportJson({required FocusHub that}) {
     return handler.executeSync(
       SyncTask(
@@ -516,7 +826,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 10)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 16)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_String,
@@ -536,9 +846,11 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  List<DayTodos> crateApiFocusHubFocusHubHistoryBefore({
+  List<HistoryMonth> crateApiFocusHubFocusHubHistory({
     required FocusHub that,
-    required String date,
+    required String before,
+    required HistoryFilter filter,
+    required String search,
   }) {
     return handler.executeSync(
       SyncTask(
@@ -548,24 +860,55 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          sse_encode_String(date, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 11)!;
+          sse_encode_String(before, serializer);
+          sse_encode_history_filter(filter, serializer);
+          sse_encode_String(search, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 17)!;
         },
         codec: SseCodec(
-          decodeSuccessData: sse_decode_list_day_todos,
+          decodeSuccessData: sse_decode_list_history_month,
           decodeErrorData: sse_decode_AnyhowException,
         ),
-        constMeta: kCrateApiFocusHubFocusHubHistoryBeforeConstMeta,
-        argValues: [that, date],
+        constMeta: kCrateApiFocusHubFocusHubHistoryConstMeta,
+        argValues: [that, before, filter, search],
         apiImpl: this,
       ),
     );
   }
 
-  TaskConstMeta get kCrateApiFocusHubFocusHubHistoryBeforeConstMeta =>
+  TaskConstMeta get kCrateApiFocusHubFocusHubHistoryConstMeta =>
       const TaskConstMeta(
-        debugName: "FocusHub_history_before",
-        argNames: ["that", "date"],
+        debugName: "FocusHub_history",
+        argNames: ["that", "before", "filter", "search"],
+      );
+
+  @override
+  bool crateApiFocusHubFocusHubHomeIconOffered({required FocusHub that}) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 18)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubHomeIconOfferedConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubHomeIconOfferedConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_home_icon_offered",
+        argNames: ["that"],
       );
 
   @override
@@ -582,7 +925,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             serializer,
           );
           sse_encode_String(json, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 12)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 19)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_import_summary,
@@ -611,7 +954,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 13)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 20)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_opt_String,
@@ -631,13 +974,116 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
+  MergeSummary crateApiFocusHubFocusHubMergeJson({
+    required FocusHub that,
+    required String json,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          sse_encode_String(json, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 21)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_merge_summary,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubMergeJsonConstMeta,
+        argValues: [that, json],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubMergeJsonConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_merge_json",
+        argNames: ["that", "json"],
+      );
+
+  @override
+  void crateApiFocusHubFocusHubMoveTodo({
+    required FocusHub that,
+    required String date,
+    required int from,
+    required int to,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          sse_encode_String(date, serializer);
+          sse_encode_u_32(from, serializer);
+          sse_encode_u_32(to, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 22)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubMoveTodoConstMeta,
+        argValues: [that, date, from, to],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubMoveTodoConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_move_todo",
+        argNames: ["that", "date", "from", "to"],
+      );
+
+  @override
+  int crateApiFocusHubFocusHubMoveUnfinishedTo({
+    required FocusHub that,
+    required String date,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          sse_encode_String(date, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 23)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_u_32,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubMoveUnfinishedToConstMeta,
+        argValues: [that, date],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubMoveUnfinishedToConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_move_unfinished_to",
+        argNames: ["that", "date"],
+      );
+
+  @override
   FocusHub crateApiFocusHubFocusHubOpen({required String dataDir}) {
     return handler.executeSync(
       SyncTask(
         callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
           sse_encode_String(dataDir, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 14)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 24)!;
         },
         codec: SseCodec(
           decodeSuccessData:
@@ -655,6 +1101,35 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "FocusHub_open", argNames: ["dataDir"]);
 
   @override
+  bool crateApiFocusHubFocusHubReloadIfChanged({required FocusHub that}) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 25)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_bool,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubReloadIfChangedConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubReloadIfChangedConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_reload_if_changed",
+        argNames: ["that"],
+      );
+
+  @override
   void crateApiFocusHubFocusHubResetTimer({required FocusHub that}) {
     return handler.executeSync(
       SyncTask(
@@ -664,7 +1139,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 15)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 26)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
@@ -684,6 +1159,115 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
+  void crateApiFocusHubFocusHubRestoreBackup({
+    required FocusHub that,
+    required String date,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          sse_encode_String(date, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 27)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubRestoreBackupConstMeta,
+        argValues: [that, date],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubRestoreBackupConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_restore_backup",
+        argNames: ["that", "date"],
+      );
+
+  @override
+  void crateApiFocusHubFocusHubRestoreReward({
+    required FocusHub that,
+    required int index,
+    required String name,
+    required bool completed,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          sse_encode_u_32(index, serializer);
+          sse_encode_String(name, serializer);
+          sse_encode_bool(completed, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 28)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubRestoreRewardConstMeta,
+        argValues: [that, index, name, completed],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubRestoreRewardConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_restore_reward",
+        argNames: ["that", "index", "name", "completed"],
+      );
+
+  @override
+  void crateApiFocusHubFocusHubRestoreTodo({
+    required FocusHub that,
+    required String date,
+    required int index,
+    required String text,
+    required bool completed,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          sse_encode_String(date, serializer);
+          sse_encode_u_32(index, serializer);
+          sse_encode_String(text, serializer);
+          sse_encode_bool(completed, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 29)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubRestoreTodoConstMeta,
+        argValues: [that, date, index, text, completed],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubRestoreTodoConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_restore_todo",
+        argNames: ["that", "date", "index", "text", "completed"],
+      );
+
+  @override
   List<RewardView> crateApiFocusHubFocusHubRewards({required FocusHub that}) {
     return handler.executeSync(
       SyncTask(
@@ -693,7 +1277,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 16)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 30)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_list_reward_view,
@@ -710,7 +1294,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "FocusHub_rewards", argNames: ["that"]);
 
   @override
-  void crateApiFocusHubFocusHubSave({required FocusHub that}) {
+  bool crateApiFocusHubFocusHubSave({required FocusHub that}) {
     return handler.executeSync(
       SyncTask(
         callFfi: () {
@@ -719,10 +1303,10 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 17)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 31)!;
         },
         codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
+          decodeSuccessData: sse_decode_bool,
           decodeErrorData: sse_decode_AnyhowException,
         ),
         constMeta: kCrateApiFocusHubFocusHubSaveConstMeta,
@@ -736,10 +1320,9 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "FocusHub_save", argNames: ["that"]);
 
   @override
-  void crateApiFocusHubFocusHubSetBackground({
+  void crateApiFocusHubFocusHubSetAnimateBackground({
     required FocusHub that,
-    required String fileName,
-    required List<int> bytes,
+    required bool animate,
   }) {
     return handler.executeSync(
       SyncTask(
@@ -749,16 +1332,51 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          sse_encode_String(fileName, serializer);
-          sse_encode_list_prim_u_8_loose(bytes, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 18)!;
+          sse_encode_bool(animate, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 32)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubSetAnimateBackgroundConstMeta,
+        argValues: [that, animate],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubSetAnimateBackgroundConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_set_animate_background",
+        argNames: ["that", "animate"],
+      );
+
+  @override
+  void crateApiFocusHubFocusHubSetBackground({
+    required FocusHub that,
+    required PreparedBackground image,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+            image,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 33)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
           decodeErrorData: sse_decode_AnyhowException,
         ),
         constMeta: kCrateApiFocusHubFocusHubSetBackgroundConstMeta,
-        argValues: [that, fileName, bytes],
+        argValues: [that, image],
         apiImpl: this,
       ),
     );
@@ -767,7 +1385,36 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   TaskConstMeta get kCrateApiFocusHubFocusHubSetBackgroundConstMeta =>
       const TaskConstMeta(
         debugName: "FocusHub_set_background",
-        argNames: ["that", "fileName", "bytes"],
+        argNames: ["that", "image"],
+      );
+
+  @override
+  void crateApiFocusHubFocusHubSetHomeIconOffered({required FocusHub that}) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 34)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubSetHomeIconOfferedConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubSetHomeIconOfferedConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_set_home_icon_offered",
+        argNames: ["that"],
       );
 
   @override
@@ -786,7 +1433,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           );
           sse_encode_u_32(index, serializer);
           sse_encode_bool(completed, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 19)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 35)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
@@ -819,7 +1466,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             serializer,
           );
           sse_encode_opt_box_autoadd_i_32(offsetHours, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 20)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 36)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
@@ -843,7 +1490,10 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     required FocusHub that,
     required int workSecs,
     required int breakSecs,
+    required int longBreakSecs,
     required int loops,
+    required int longBreakEvery,
+    required bool autoStart,
   }) {
     return handler.executeSync(
       SyncTask(
@@ -855,15 +1505,26 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           );
           sse_encode_u_32(workSecs, serializer);
           sse_encode_u_32(breakSecs, serializer);
+          sse_encode_u_32(longBreakSecs, serializer);
           sse_encode_u_32(loops, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 21)!;
+          sse_encode_u_32(longBreakEvery, serializer);
+          sse_encode_bool(autoStart, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 37)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
           decodeErrorData: sse_decode_AnyhowException,
         ),
         constMeta: kCrateApiFocusHubFocusHubSetTimerSettingsConstMeta,
-        argValues: [that, workSecs, breakSecs, loops],
+        argValues: [
+          that,
+          workSecs,
+          breakSecs,
+          longBreakSecs,
+          loops,
+          longBreakEvery,
+          autoStart,
+        ],
         apiImpl: this,
       ),
     );
@@ -872,7 +1533,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   TaskConstMeta get kCrateApiFocusHubFocusHubSetTimerSettingsConstMeta =>
       const TaskConstMeta(
         debugName: "FocusHub_set_timer_settings",
-        argNames: ["that", "workSecs", "breakSecs", "loops"],
+        argNames: [
+          "that",
+          "workSecs",
+          "breakSecs",
+          "longBreakSecs",
+          "loops",
+          "longBreakEvery",
+          "autoStart",
+        ],
       );
 
   @override
@@ -893,7 +1562,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           sse_encode_String(date, serializer);
           sse_encode_u_32(index, serializer);
           sse_encode_bool(completed, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 22)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 38)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
@@ -913,6 +1582,37 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
+  List<SessionAlert> crateApiFocusHubFocusHubSkipSession({
+    required FocusHub that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 39)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_session_alert,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubSkipSessionConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubSkipSessionConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_skip_session",
+        argNames: ["that"],
+      );
+
+  @override
   StatsView crateApiFocusHubFocusHubStats({required FocusHub that}) {
     return handler.executeSync(
       SyncTask(
@@ -922,7 +1622,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 23)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 40)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_stats_view,
@@ -939,7 +1639,66 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "FocusHub_stats", argNames: ["that"]);
 
   @override
-  List<SessionAlert> crateApiFocusHubFocusHubTick({required FocusHub that}) {
+  TimerStatus? crateApiFocusHubFocusHubStatusNow({required FocusHub that}) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 41)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_opt_box_autoadd_timer_status,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubStatusNowConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubStatusNowConstMeta =>
+      const TaskConstMeta(debugName: "FocusHub_status_now", argNames: ["that"]);
+
+  @override
+  List<ChartDay> crateApiFocusHubFocusHubStudyChart({
+    required FocusHub that,
+    required int days,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          sse_encode_u_32(days, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 42)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_chart_day,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubStudyChartConstMeta,
+        argValues: [that, days],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubStudyChartConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_study_chart",
+        argNames: ["that", "days"],
+      );
+
+  @override
+  TickReport crateApiFocusHubFocusHubTick({required FocusHub that}) {
     return handler.executeSync(
       SyncTask(
         callFfi: () {
@@ -948,10 +1707,10 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 24)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 43)!;
         },
         codec: SseCodec(
-          decodeSuccessData: sse_decode_list_session_alert,
+          decodeSuccessData: sse_decode_tick_report,
           decodeErrorData: sse_decode_AnyhowException,
         ),
         constMeta: kCrateApiFocusHubFocusHubTickConstMeta,
@@ -974,7 +1733,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 25)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 44)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_time_zone_view,
@@ -1000,7 +1759,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 26)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 45)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_timer_view,
@@ -1030,7 +1789,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             serializer,
           );
           sse_encode_String(date, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 27)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 46)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_list_todo_view,
@@ -1061,7 +1820,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 28)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 47)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_list_session_alert,
@@ -1081,7 +1840,40 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  List<ScheduledAlert> crateApiFocusHubFocusHubUpcomingAlerts({
+  int crateApiFocusHubFocusHubUnfinishedBefore({
+    required FocusHub that,
+    required String date,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+            that,
+            serializer,
+          );
+          sse_encode_String(date, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 48)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_u_32,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubFocusHubUnfinishedBeforeConstMeta,
+        argValues: [that, date],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubFocusHubUnfinishedBeforeConstMeta =>
+      const TaskConstMeta(
+        debugName: "FocusHub_unfinished_before",
+        argNames: ["that", "date"],
+      );
+
+  @override
+  List<UpcomingEvent> crateApiFocusHubFocusHubUpcomingEvents({
     required FocusHub that,
   }) {
     return handler.executeSync(
@@ -1092,24 +1884,79 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 29)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 49)!;
         },
         codec: SseCodec(
-          decodeSuccessData: sse_decode_list_scheduled_alert,
+          decodeSuccessData: sse_decode_list_upcoming_event,
           decodeErrorData: null,
         ),
-        constMeta: kCrateApiFocusHubFocusHubUpcomingAlertsConstMeta,
+        constMeta: kCrateApiFocusHubFocusHubUpcomingEventsConstMeta,
         argValues: [that],
         apiImpl: this,
       ),
     );
   }
 
-  TaskConstMeta get kCrateApiFocusHubFocusHubUpcomingAlertsConstMeta =>
+  TaskConstMeta get kCrateApiFocusHubFocusHubUpcomingEventsConstMeta =>
       const TaskConstMeta(
-        debugName: "FocusHub_upcoming_alerts",
+        debugName: "FocusHub_upcoming_events",
         argNames: ["that"],
       );
+
+  @override
+  String crateApiFocusHubPreparedBackgroundMessage({
+    required PreparedBackground that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+            that,
+            serializer,
+          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 50)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFocusHubPreparedBackgroundMessageConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubPreparedBackgroundMessageConstMeta =>
+      const TaskConstMeta(
+        debugName: "PreparedBackground_message",
+        argNames: ["that"],
+      );
+
+  @override
+  String crateApiFocusHubAddDays({required String date, required int days}) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(date, serializer);
+          sse_encode_i_32(days, serializer);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 51)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_String,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubAddDaysConstMeta,
+        argValues: [date, days],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubAddDaysConstMeta =>
+      const TaskConstMeta(debugName: "add_days", argNames: ["date", "days"]);
 
   @override
   Future<void> crateApiSimpleInitApp() {
@@ -1120,7 +1967,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
-            funcId: 30,
+            funcId: 52,
             port: port_,
           );
         },
@@ -1145,7 +1992,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
           sse_encode_String(date, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 31)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 53)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_String,
@@ -1168,7 +2015,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
           sse_encode_String(date, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 32)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 54)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_year_month,
@@ -1185,6 +2032,64 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "month_of", argNames: ["date"]);
 
   @override
+  Future<PreparedBackground> crateApiFocusHubPrepareBackground({
+    required String path,
+    required int screenSide,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_String(path, serializer);
+          sse_encode_u_32(screenSide, serializer);
+          pdeCallFfi(
+            generalizedFrbRustBinding,
+            serializer,
+            funcId: 55,
+            port: port_,
+          );
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiFocusHubPrepareBackgroundConstMeta,
+        argValues: [path, screenSide],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubPrepareBackgroundConstMeta =>
+      const TaskConstMeta(
+        debugName: "prepare_background",
+        argNames: ["path", "screenSide"],
+      );
+
+  @override
+  List<PresetView> crateApiFocusHubPresets() {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 56)!;
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_list_preset_view,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiFocusHubPresetsConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiFocusHubPresetsConstMeta =>
+      const TaskConstMeta(debugName: "presets", argNames: []);
+
+  @override
   YearMonth crateApiFocusHubShiftMonth({
     required int year,
     required int month,
@@ -1197,7 +2102,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           sse_encode_i_32(year, serializer);
           sse_encode_u_32(month, serializer);
           sse_encode_i_32(delta, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 33)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 57)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_year_month,
@@ -1221,7 +2126,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       SyncTask(
         callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 34)!;
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 58)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_String,
@@ -1245,6 +2150,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   get rust_arc_decrement_strong_count_FocusHub => wire
       .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub;
 
+  RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_PreparedBackground => wire
+      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground;
+
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_PreparedBackground => wire
+      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground;
+
   @protected
   AnyhowException dco_decode_AnyhowException(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
@@ -1258,6 +2171,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return FocusHubImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  PreparedBackground
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return PreparedBackgroundImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -1279,6 +2201,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  PreparedBackground
+  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return PreparedBackgroundImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
   FocusHub
   dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
     dynamic raw,
@@ -1288,9 +2219,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  PreparedBackground
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return PreparedBackgroundImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
   String dco_decode_String(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as String;
+  }
+
+  @protected
+  BackupView dco_decode_backup_view(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return BackupView(
+      date: dco_decode_String(arr[0]),
+      label: dco_decode_String(arr[1]),
+    );
   }
 
   @protected
@@ -1306,17 +2258,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  TimerStatus dco_decode_box_autoadd_timer_status(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_timer_status(raw);
+  }
+
+  @protected
+  int dco_decode_box_autoadd_u_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
+
+  @protected
   CalendarDay dco_decode_calendar_day(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 5)
-      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    if (arr.length != 6)
+      throw Exception('unexpected arr length: expect 6 but see ${arr.length}');
     return CalendarDay(
       day: dco_decode_u_32(arr[0]),
       date: dco_decode_String(arr[1]),
       isToday: dco_decode_bool(arr[2]),
       isSelected: dco_decode_bool(arr[3]),
       hasTodos: dco_decode_bool(arr[4]),
+      hasUnfinished: dco_decode_bool(arr[5]),
     );
   }
 
@@ -1336,15 +2301,55 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  CalendarWeek dco_decode_calendar_week(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return CalendarWeek(
+      title: dco_decode_String(arr[0]),
+      days: dco_decode_list_calendar_day(arr[1]),
+    );
+  }
+
+  @protected
+  ChartDay dco_decode_chart_day(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return ChartDay(
+      date: dco_decode_String(arr[0]),
+      label: dco_decode_String(arr[1]),
+      minutes: dco_decode_f_64(arr[2]),
+      isToday: dco_decode_bool(arr[3]),
+    );
+  }
+
+  @protected
   DayTodos dco_decode_day_todos(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 3)
-      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    if (arr.length != 5)
+      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
     return DayTodos(
       date: dco_decode_String(arr[0]),
       title: dco_decode_String(arr[1]),
-      todos: dco_decode_list_todo_view(arr[2]),
+      summary: dco_decode_String(arr[2]),
+      allDone: dco_decode_bool(arr[3]),
+      todos: dco_decode_list_todo_view(arr[4]),
+    );
+  }
+
+  @protected
+  Deleted dco_decode_deleted(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return Deleted(
+      text: dco_decode_String(arr[0]),
+      completed: dco_decode_bool(arr[1]),
     );
   }
 
@@ -1355,9 +2360,35 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  HistoryFilter dco_decode_history_filter(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return HistoryFilter.values[raw as int];
+  }
+
+  @protected
+  HistoryMonth dco_decode_history_month(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return HistoryMonth(
+      key: dco_decode_String(arr[0]),
+      title: dco_decode_String(arr[1]),
+      summary: dco_decode_String(arr[2]),
+      days: dco_decode_list_day_todos(arr[3]),
+    );
+  }
+
+  @protected
   int dco_decode_i_32(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as int;
+  }
+
+  @protected
+  PlatformInt64 dco_decode_i_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeI64(raw);
   }
 
   @protected
@@ -1374,9 +2405,21 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<BackupView> dco_decode_list_backup_view(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_backup_view).toList();
+  }
+
+  @protected
   List<CalendarDay> dco_decode_list_calendar_day(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>).map(dco_decode_calendar_day).toList();
+  }
+
+  @protected
+  List<ChartDay> dco_decode_list_chart_day(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_chart_day).toList();
   }
 
   @protected
@@ -1386,9 +2429,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  List<int> dco_decode_list_prim_u_8_loose(dynamic raw) {
+  List<HistoryMonth> dco_decode_list_history_month(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return raw as List<int>;
+    return (raw as List<dynamic>).map(dco_decode_history_month).toList();
+  }
+
+  @protected
+  List<PresetView> dco_decode_list_preset_view(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_preset_view).toList();
   }
 
   @protected
@@ -1404,12 +2453,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  List<ScheduledAlert> dco_decode_list_scheduled_alert(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return (raw as List<dynamic>).map(dco_decode_scheduled_alert).toList();
-  }
-
-  @protected
   List<SessionAlert> dco_decode_list_session_alert(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>).map(dco_decode_session_alert).toList();
@@ -1419,6 +2462,25 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   List<TodoView> dco_decode_list_todo_view(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>).map(dco_decode_todo_view).toList();
+  }
+
+  @protected
+  List<UpcomingEvent> dco_decode_list_upcoming_event(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_upcoming_event).toList();
+  }
+
+  @protected
+  MergeSummary dco_decode_merge_summary(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return MergeSummary(
+      tasksAdded: dco_decode_u_32(arr[0]),
+      studyDaysUpdated: dco_decode_u_32(arr[1]),
+      rewardsAdded: dco_decode_u_32(arr[2]),
+    );
   }
 
   @protected
@@ -1434,6 +2496,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  TimerStatus? dco_decode_opt_box_autoadd_timer_status(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_timer_status(raw);
+  }
+
+  @protected
+  int? dco_decode_opt_box_autoadd_u_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_u_32(raw);
+  }
+
+  @protected
+  PresetView dco_decode_preset_view(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return PresetView(
+      index: dco_decode_u_32(arr[0]),
+      name: dco_decode_String(arr[1]),
+    );
+  }
+
+  @protected
   RewardView dco_decode_reward_view(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -1443,19 +2529,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       index: dco_decode_u_32(arr[0]),
       name: dco_decode_String(arr[1]),
       completed: dco_decode_bool(arr[2]),
-    );
-  }
-
-  @protected
-  ScheduledAlert dco_decode_scheduled_alert(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 3)
-      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
-    return ScheduledAlert(
-      delayMs: dco_decode_u_32(arr[0]),
-      title: dco_decode_String(arr[1]),
-      body: dco_decode_String(arr[2]),
     );
   }
 
@@ -1475,14 +2548,32 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   StatsView dco_decode_stats_view(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 5)
-      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    if (arr.length != 9)
+      throw Exception('unexpected arr length: expect 9 but see ${arr.length}');
     return StatsView(
       totalTime: dco_decode_String(arr[0]),
       todaySessions: dco_decode_u_32(arr[1]),
       todayTime: dco_decode_String(arr[2]),
       monthSessions: dco_decode_u_32(arr[3]),
       monthName: dco_decode_String(arr[4]),
+      streakDays: dco_decode_u_32(arr[5]),
+      bestStreakDays: dco_decode_u_32(arr[6]),
+      bestDay: dco_decode_opt_String(arr[7]),
+      last7DaysTime: dco_decode_String(arr[8]),
+    );
+  }
+
+  @protected
+  TickReport dco_decode_tick_report(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return TickReport(
+      ended: dco_decode_list_session_alert(arr[0]),
+      redraw: dco_decode_bool(arr[1]),
+      reloaded: dco_decode_bool(arr[2]),
+      nextTickMs: dco_decode_u_32(arr[3]),
     );
   }
 
@@ -1500,21 +2591,41 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  TimerStatus dco_decode_timer_status(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return TimerStatus(
+      title: dco_decode_String(arr[0]),
+      body: dco_decode_String(arr[1]),
+      running: dco_decode_bool(arr[2]),
+      endsAtMs: dco_decode_i_64(arr[3]),
+    );
+  }
+
+  @protected
   TimerView dco_decode_timer_view(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 9)
-      throw Exception('unexpected arr length: expect 9 but see ${arr.length}');
+    if (arr.length != 15)
+      throw Exception('unexpected arr length: expect 15 but see ${arr.length}');
     return TimerView(
       isWork: dco_decode_bool(arr[0]),
-      isRunning: dco_decode_bool(arr[1]),
-      modeLabel: dco_decode_String(arr[2]),
-      loopLabel: dco_decode_String(arr[3]),
-      remaining: dco_decode_String(arr[4]),
-      progress: dco_decode_f_64(arr[5]),
-      workSecs: dco_decode_u_32(arr[6]),
-      breakSecs: dco_decode_u_32(arr[7]),
-      loops: dco_decode_u_32(arr[8]),
+      isLongBreak: dco_decode_bool(arr[1]),
+      isRunning: dco_decode_bool(arr[2]),
+      isAtStart: dco_decode_bool(arr[3]),
+      modeLabel: dco_decode_String(arr[4]),
+      loopLabel: dco_decode_String(arr[5]),
+      remaining: dco_decode_String(arr[6]),
+      progress: dco_decode_f_64(arr[7]),
+      workSecs: dco_decode_u_32(arr[8]),
+      breakSecs: dco_decode_u_32(arr[9]),
+      longBreakSecs: dco_decode_u_32(arr[10]),
+      loops: dco_decode_u_32(arr[11]),
+      longBreakEvery: dco_decode_u_32(arr[12]),
+      autoStart: dco_decode_bool(arr[13]),
+      preset: dco_decode_opt_box_autoadd_u_32(arr[14]),
     );
   }
 
@@ -1547,6 +2658,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   void dco_decode_unit(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return;
+  }
+
+  @protected
+  UpcomingEvent dco_decode_upcoming_event(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return UpcomingEvent(
+      delayMs: dco_decode_u_32(arr[0]),
+      alertTitle: dco_decode_String(arr[1]),
+      alertBody: dco_decode_String(arr[2]),
+      nextStatus: dco_decode_opt_box_autoadd_timer_status(arr[3]),
+    );
   }
 
   @protected
@@ -1587,6 +2712,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  PreparedBackground
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return PreparedBackgroundImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
   FocusHub
   sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
     SseDeserializer deserializer,
@@ -1611,6 +2748,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  PreparedBackground
+  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return PreparedBackgroundImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
   FocusHub
   sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
     SseDeserializer deserializer,
@@ -1623,10 +2772,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  PreparedBackground
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return PreparedBackgroundImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
   String sse_decode_String(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_list_prim_u_8_strict(deserializer);
     return utf8.decoder.convert(inner);
+  }
+
+  @protected
+  BackupView sse_decode_backup_view(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_date = sse_decode_String(deserializer);
+    var var_label = sse_decode_String(deserializer);
+    return BackupView(date: var_date, label: var_label);
   }
 
   @protected
@@ -1642,6 +2811,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  TimerStatus sse_decode_box_autoadd_timer_status(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_timer_status(deserializer));
+  }
+
+  @protected
+  int sse_decode_box_autoadd_u_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_u_32(deserializer));
+  }
+
+  @protected
   CalendarDay sse_decode_calendar_day(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_day = sse_decode_u_32(deserializer);
@@ -1649,12 +2832,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var var_isToday = sse_decode_bool(deserializer);
     var var_isSelected = sse_decode_bool(deserializer);
     var var_hasTodos = sse_decode_bool(deserializer);
+    var var_hasUnfinished = sse_decode_bool(deserializer);
     return CalendarDay(
       day: var_day,
       date: var_date,
       isToday: var_isToday,
       isSelected: var_isSelected,
       hasTodos: var_hasTodos,
+      hasUnfinished: var_hasUnfinished,
     );
   }
 
@@ -1676,12 +2861,51 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  CalendarWeek sse_decode_calendar_week(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_title = sse_decode_String(deserializer);
+    var var_days = sse_decode_list_calendar_day(deserializer);
+    return CalendarWeek(title: var_title, days: var_days);
+  }
+
+  @protected
+  ChartDay sse_decode_chart_day(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_date = sse_decode_String(deserializer);
+    var var_label = sse_decode_String(deserializer);
+    var var_minutes = sse_decode_f_64(deserializer);
+    var var_isToday = sse_decode_bool(deserializer);
+    return ChartDay(
+      date: var_date,
+      label: var_label,
+      minutes: var_minutes,
+      isToday: var_isToday,
+    );
+  }
+
+  @protected
   DayTodos sse_decode_day_todos(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_date = sse_decode_String(deserializer);
     var var_title = sse_decode_String(deserializer);
+    var var_summary = sse_decode_String(deserializer);
+    var var_allDone = sse_decode_bool(deserializer);
     var var_todos = sse_decode_list_todo_view(deserializer);
-    return DayTodos(date: var_date, title: var_title, todos: var_todos);
+    return DayTodos(
+      date: var_date,
+      title: var_title,
+      summary: var_summary,
+      allDone: var_allDone,
+      todos: var_todos,
+    );
+  }
+
+  @protected
+  Deleted sse_decode_deleted(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_text = sse_decode_String(deserializer);
+    var var_completed = sse_decode_bool(deserializer);
+    return Deleted(text: var_text, completed: var_completed);
   }
 
   @protected
@@ -1691,9 +2915,37 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  HistoryFilter sse_decode_history_filter(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return HistoryFilter.values[inner];
+  }
+
+  @protected
+  HistoryMonth sse_decode_history_month(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_key = sse_decode_String(deserializer);
+    var var_title = sse_decode_String(deserializer);
+    var var_summary = sse_decode_String(deserializer);
+    var var_days = sse_decode_list_day_todos(deserializer);
+    return HistoryMonth(
+      key: var_key,
+      title: var_title,
+      summary: var_summary,
+      days: var_days,
+    );
+  }
+
+  @protected
   int sse_decode_i_32(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getInt32();
+  }
+
+  @protected
+  PlatformInt64 sse_decode_i_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getPlatformInt64();
   }
 
   @protected
@@ -1710,6 +2962,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<BackupView> sse_decode_list_backup_view(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <BackupView>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_backup_view(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
   List<CalendarDay> sse_decode_list_calendar_day(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -1717,6 +2981,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var ans_ = <CalendarDay>[];
     for (var idx_ = 0; idx_ < len_; ++idx_) {
       ans_.add(sse_decode_calendar_day(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<ChartDay> sse_decode_list_chart_day(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <ChartDay>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_chart_day(deserializer));
     }
     return ans_;
   }
@@ -1734,10 +3010,29 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  List<int> sse_decode_list_prim_u_8_loose(SseDeserializer deserializer) {
+  List<HistoryMonth> sse_decode_list_history_month(
+    SseDeserializer deserializer,
+  ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
+
     var len_ = sse_decode_i_32(deserializer);
-    return deserializer.buffer.getUint8List(len_);
+    var ans_ = <HistoryMonth>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_history_month(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<PresetView> sse_decode_list_preset_view(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <PresetView>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_preset_view(deserializer));
+    }
+    return ans_;
   }
 
   @protected
@@ -1755,20 +3050,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var ans_ = <RewardView>[];
     for (var idx_ = 0; idx_ < len_; ++idx_) {
       ans_.add(sse_decode_reward_view(deserializer));
-    }
-    return ans_;
-  }
-
-  @protected
-  List<ScheduledAlert> sse_decode_list_scheduled_alert(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    var len_ = sse_decode_i_32(deserializer);
-    var ans_ = <ScheduledAlert>[];
-    for (var idx_ = 0; idx_ < len_; ++idx_) {
-      ans_.add(sse_decode_scheduled_alert(deserializer));
     }
     return ans_;
   }
@@ -1800,6 +3081,33 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  List<UpcomingEvent> sse_decode_list_upcoming_event(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <UpcomingEvent>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_upcoming_event(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  MergeSummary sse_decode_merge_summary(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_tasksAdded = sse_decode_u_32(deserializer);
+    var var_studyDaysUpdated = sse_decode_u_32(deserializer);
+    var var_rewardsAdded = sse_decode_u_32(deserializer);
+    return MergeSummary(
+      tasksAdded: var_tasksAdded,
+      studyDaysUpdated: var_studyDaysUpdated,
+      rewardsAdded: var_rewardsAdded,
+    );
+  }
+
+  @protected
   String? sse_decode_opt_String(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -1822,6 +3130,38 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  TimerStatus? sse_decode_opt_box_autoadd_timer_status(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_timer_status(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  int? sse_decode_opt_box_autoadd_u_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_u_32(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  PresetView sse_decode_preset_view(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_index = sse_decode_u_32(deserializer);
+    var var_name = sse_decode_String(deserializer);
+    return PresetView(index: var_index, name: var_name);
+  }
+
+  @protected
   RewardView sse_decode_reward_view(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_index = sse_decode_u_32(deserializer);
@@ -1831,19 +3171,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       index: var_index,
       name: var_name,
       completed: var_completed,
-    );
-  }
-
-  @protected
-  ScheduledAlert sse_decode_scheduled_alert(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_delayMs = sse_decode_u_32(deserializer);
-    var var_title = sse_decode_String(deserializer);
-    var var_body = sse_decode_String(deserializer);
-    return ScheduledAlert(
-      delayMs: var_delayMs,
-      title: var_title,
-      body: var_body,
     );
   }
 
@@ -1863,12 +3190,35 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var var_todayTime = sse_decode_String(deserializer);
     var var_monthSessions = sse_decode_u_32(deserializer);
     var var_monthName = sse_decode_String(deserializer);
+    var var_streakDays = sse_decode_u_32(deserializer);
+    var var_bestStreakDays = sse_decode_u_32(deserializer);
+    var var_bestDay = sse_decode_opt_String(deserializer);
+    var var_last7DaysTime = sse_decode_String(deserializer);
     return StatsView(
       totalTime: var_totalTime,
       todaySessions: var_todaySessions,
       todayTime: var_todayTime,
       monthSessions: var_monthSessions,
       monthName: var_monthName,
+      streakDays: var_streakDays,
+      bestStreakDays: var_bestStreakDays,
+      bestDay: var_bestDay,
+      last7DaysTime: var_last7DaysTime,
+    );
+  }
+
+  @protected
+  TickReport sse_decode_tick_report(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_ended = sse_decode_list_session_alert(deserializer);
+    var var_redraw = sse_decode_bool(deserializer);
+    var var_reloaded = sse_decode_bool(deserializer);
+    var var_nextTickMs = sse_decode_u_32(deserializer);
+    return TickReport(
+      ended: var_ended,
+      redraw: var_redraw,
+      reloaded: var_reloaded,
+      nextTickMs: var_nextTickMs,
     );
   }
 
@@ -1886,27 +3236,54 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  TimerStatus sse_decode_timer_status(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_title = sse_decode_String(deserializer);
+    var var_body = sse_decode_String(deserializer);
+    var var_running = sse_decode_bool(deserializer);
+    var var_endsAtMs = sse_decode_i_64(deserializer);
+    return TimerStatus(
+      title: var_title,
+      body: var_body,
+      running: var_running,
+      endsAtMs: var_endsAtMs,
+    );
+  }
+
+  @protected
   TimerView sse_decode_timer_view(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_isWork = sse_decode_bool(deserializer);
+    var var_isLongBreak = sse_decode_bool(deserializer);
     var var_isRunning = sse_decode_bool(deserializer);
+    var var_isAtStart = sse_decode_bool(deserializer);
     var var_modeLabel = sse_decode_String(deserializer);
     var var_loopLabel = sse_decode_String(deserializer);
     var var_remaining = sse_decode_String(deserializer);
     var var_progress = sse_decode_f_64(deserializer);
     var var_workSecs = sse_decode_u_32(deserializer);
     var var_breakSecs = sse_decode_u_32(deserializer);
+    var var_longBreakSecs = sse_decode_u_32(deserializer);
     var var_loops = sse_decode_u_32(deserializer);
+    var var_longBreakEvery = sse_decode_u_32(deserializer);
+    var var_autoStart = sse_decode_bool(deserializer);
+    var var_preset = sse_decode_opt_box_autoadd_u_32(deserializer);
     return TimerView(
       isWork: var_isWork,
+      isLongBreak: var_isLongBreak,
       isRunning: var_isRunning,
+      isAtStart: var_isAtStart,
       modeLabel: var_modeLabel,
       loopLabel: var_loopLabel,
       remaining: var_remaining,
       progress: var_progress,
       workSecs: var_workSecs,
       breakSecs: var_breakSecs,
+      longBreakSecs: var_longBreakSecs,
       loops: var_loops,
+      longBreakEvery: var_longBreakEvery,
+      autoStart: var_autoStart,
+      preset: var_preset,
     );
   }
 
@@ -1934,6 +3311,21 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   @protected
   void sse_decode_unit(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
+  }
+
+  @protected
+  UpcomingEvent sse_decode_upcoming_event(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_delayMs = sse_decode_u_32(deserializer);
+    var var_alertTitle = sse_decode_String(deserializer);
+    var var_alertBody = sse_decode_String(deserializer);
+    var var_nextStatus = sse_decode_opt_box_autoadd_timer_status(deserializer);
+    return UpcomingEvent(
+      delayMs: var_delayMs,
+      alertTitle: var_alertTitle,
+      alertBody: var_alertBody,
+      nextStatus: var_nextStatus,
+    );
   }
 
   @protected
@@ -1974,6 +3366,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    PreparedBackground self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as PreparedBackgroundImpl).frbInternalSseEncode(move: true),
+      serializer,
+    );
+  }
+
+  @protected
+  void
   sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
     FocusHub self,
     SseSerializer serializer,
@@ -2000,6 +3405,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   void
+  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    PreparedBackground self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as PreparedBackgroundImpl).frbInternalSseEncode(move: false),
+      serializer,
+    );
+  }
+
+  @protected
+  void
   sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
     FocusHub self,
     SseSerializer serializer,
@@ -2012,9 +3430,29 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    PreparedBackground self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as PreparedBackgroundImpl).frbInternalSseEncode(move: null),
+      serializer,
+    );
+  }
+
+  @protected
   void sse_encode_String(String self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_list_prim_u_8_strict(utf8.encoder.convert(self), serializer);
+  }
+
+  @protected
+  void sse_encode_backup_view(BackupView self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.date, serializer);
+    sse_encode_String(self.label, serializer);
   }
 
   @protected
@@ -2030,6 +3468,21 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_timer_status(
+    TimerStatus self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_timer_status(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_u_32(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_32(self, serializer);
+  }
+
+  @protected
   void sse_encode_calendar_day(CalendarDay self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_u_32(self.day, serializer);
@@ -2037,6 +3490,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_bool(self.isToday, serializer);
     sse_encode_bool(self.isSelected, serializer);
     sse_encode_bool(self.hasTodos, serializer);
+    sse_encode_bool(self.hasUnfinished, serializer);
   }
 
   @protected
@@ -2050,11 +3504,36 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_calendar_week(CalendarWeek self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.title, serializer);
+    sse_encode_list_calendar_day(self.days, serializer);
+  }
+
+  @protected
+  void sse_encode_chart_day(ChartDay self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.date, serializer);
+    sse_encode_String(self.label, serializer);
+    sse_encode_f_64(self.minutes, serializer);
+    sse_encode_bool(self.isToday, serializer);
+  }
+
+  @protected
   void sse_encode_day_todos(DayTodos self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.date, serializer);
     sse_encode_String(self.title, serializer);
+    sse_encode_String(self.summary, serializer);
+    sse_encode_bool(self.allDone, serializer);
     sse_encode_list_todo_view(self.todos, serializer);
+  }
+
+  @protected
+  void sse_encode_deleted(Deleted self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.text, serializer);
+    sse_encode_bool(self.completed, serializer);
   }
 
   @protected
@@ -2064,9 +3543,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_history_filter(HistoryFilter self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_history_month(HistoryMonth self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.key, serializer);
+    sse_encode_String(self.title, serializer);
+    sse_encode_String(self.summary, serializer);
+    sse_encode_list_day_todos(self.days, serializer);
+  }
+
+  @protected
   void sse_encode_i_32(int self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putInt32(self);
+  }
+
+  @protected
+  void sse_encode_i_64(PlatformInt64 self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putPlatformInt64(self);
   }
 
   @protected
@@ -2078,6 +3578,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_list_backup_view(
+    List<BackupView> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_backup_view(item, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_list_calendar_day(
     List<CalendarDay> self,
     SseSerializer serializer,
@@ -2086,6 +3598,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_i_32(self.length, serializer);
     for (final item in self) {
       sse_encode_calendar_day(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_chart_day(
+    List<ChartDay> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_chart_day(item, serializer);
     }
   }
 
@@ -2102,15 +3626,27 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_list_prim_u_8_loose(
-    List<int> self,
+  void sse_encode_list_history_month(
+    List<HistoryMonth> self,
     SseSerializer serializer,
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.length, serializer);
-    serializer.buffer.putUint8List(
-      self is Uint8List ? self : Uint8List.fromList(self),
-    );
+    for (final item in self) {
+      sse_encode_history_month(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_preset_view(
+    List<PresetView> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_preset_view(item, serializer);
+    }
   }
 
   @protected
@@ -2132,18 +3668,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_i_32(self.length, serializer);
     for (final item in self) {
       sse_encode_reward_view(item, serializer);
-    }
-  }
-
-  @protected
-  void sse_encode_list_scheduled_alert(
-    List<ScheduledAlert> self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_i_32(self.length, serializer);
-    for (final item in self) {
-      sse_encode_scheduled_alert(item, serializer);
     }
   }
 
@@ -2172,6 +3696,26 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_list_upcoming_event(
+    List<UpcomingEvent> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_upcoming_event(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_merge_summary(MergeSummary self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_32(self.tasksAdded, serializer);
+    sse_encode_u_32(self.studyDaysUpdated, serializer);
+    sse_encode_u_32(self.rewardsAdded, serializer);
+  }
+
+  @protected
   void sse_encode_opt_String(String? self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -2192,22 +3736,41 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_opt_box_autoadd_timer_status(
+    TimerStatus? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_timer_status(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_u_32(int? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_u_32(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_preset_view(PresetView self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_32(self.index, serializer);
+    sse_encode_String(self.name, serializer);
+  }
+
+  @protected
   void sse_encode_reward_view(RewardView self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_u_32(self.index, serializer);
     sse_encode_String(self.name, serializer);
     sse_encode_bool(self.completed, serializer);
-  }
-
-  @protected
-  void sse_encode_scheduled_alert(
-    ScheduledAlert self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_u_32(self.delayMs, serializer);
-    sse_encode_String(self.title, serializer);
-    sse_encode_String(self.body, serializer);
   }
 
   @protected
@@ -2225,6 +3788,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_String(self.todayTime, serializer);
     sse_encode_u_32(self.monthSessions, serializer);
     sse_encode_String(self.monthName, serializer);
+    sse_encode_u_32(self.streakDays, serializer);
+    sse_encode_u_32(self.bestStreakDays, serializer);
+    sse_encode_opt_String(self.bestDay, serializer);
+    sse_encode_String(self.last7DaysTime, serializer);
+  }
+
+  @protected
+  void sse_encode_tick_report(TickReport self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_session_alert(self.ended, serializer);
+    sse_encode_bool(self.redraw, serializer);
+    sse_encode_bool(self.reloaded, serializer);
+    sse_encode_u_32(self.nextTickMs, serializer);
   }
 
   @protected
@@ -2236,17 +3812,32 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_timer_status(TimerStatus self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.title, serializer);
+    sse_encode_String(self.body, serializer);
+    sse_encode_bool(self.running, serializer);
+    sse_encode_i_64(self.endsAtMs, serializer);
+  }
+
+  @protected
   void sse_encode_timer_view(TimerView self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_bool(self.isWork, serializer);
+    sse_encode_bool(self.isLongBreak, serializer);
     sse_encode_bool(self.isRunning, serializer);
+    sse_encode_bool(self.isAtStart, serializer);
     sse_encode_String(self.modeLabel, serializer);
     sse_encode_String(self.loopLabel, serializer);
     sse_encode_String(self.remaining, serializer);
     sse_encode_f_64(self.progress, serializer);
     sse_encode_u_32(self.workSecs, serializer);
     sse_encode_u_32(self.breakSecs, serializer);
+    sse_encode_u_32(self.longBreakSecs, serializer);
     sse_encode_u_32(self.loops, serializer);
+    sse_encode_u_32(self.longBreakEvery, serializer);
+    sse_encode_bool(self.autoStart, serializer);
+    sse_encode_opt_box_autoadd_u_32(self.preset, serializer);
   }
 
   @protected
@@ -2272,6 +3863,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   @protected
   void sse_encode_unit(void self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
+  }
+
+  @protected
+  void sse_encode_upcoming_event(UpcomingEvent self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_32(self.delayMs, serializer);
+    sse_encode_String(self.alertTitle, serializer);
+    sse_encode_String(self.alertBody, serializer);
+    sse_encode_opt_box_autoadd_timer_status(self.nextStatus, serializer);
   }
 
   @protected
@@ -2315,9 +3915,20 @@ class FocusHubImpl extends RustOpaque implements FocusHub {
       .api
       .crateApiFocusHubFocusHubAddTodo(that: this, date: date, text: text);
 
+  /// Whether the background GIF plays (off saves battery).
+  bool animateBackground() => RustLib.instance.api
+      .crateApiFocusHubFocusHubAnimateBackground(that: this);
+
+  void applyPreset({required int index}) => RustLib.instance.api
+      .crateApiFocusHubFocusHubApplyPreset(that: this, index: index);
+
   /// The custom background image's path, or `null` for the built-in one.
   String? backgroundPath() =>
       RustLib.instance.api.crateApiFocusHubFocusHubBackgroundPath(that: this);
+
+  /// The daily backups, newest first.
+  List<BackupView> backups() =>
+      RustLib.instance.api.crateApiFocusHubFocusHubBackups(that: this);
 
   CalendarMonth calendarMonth({
     required int year,
@@ -2330,6 +3941,13 @@ class FocusHubImpl extends RustOpaque implements FocusHub {
     selectedDate: selectedDate,
   );
 
+  /// The Monday-to-Sunday week around `selected_date`.
+  CalendarWeek calendarWeek({required String selectedDate}) =>
+      RustLib.instance.api.crateApiFocusHubFocusHubCalendarWeek(
+        that: this,
+        selectedDate: selectedDate,
+      );
+
   void clearBackground() =>
       RustLib.instance.api.crateApiFocusHubFocusHubClearBackground(that: this);
 
@@ -2340,21 +3958,52 @@ class FocusHubImpl extends RustOpaque implements FocusHub {
   String dataFile() =>
       RustLib.instance.api.crateApiFocusHubFocusHubDataFile(that: this);
 
-  void deleteReward({required int index}) => RustLib.instance.api
+  /// Deletes a reward. Returns it, so "Undo" can put it back with `restore_reward`.
+  Deleted deleteReward({required int index}) => RustLib.instance.api
       .crateApiFocusHubFocusHubDeleteReward(that: this, index: index);
 
-  void deleteTodo({required String date, required int index}) => RustLib
+  /// Deletes a task. Returns it, so "Undo" can put it back with `restore_todo`.
+  Deleted deleteTodo({required String date, required int index}) => RustLib
       .instance
       .api
       .crateApiFocusHubFocusHubDeleteTodo(that: this, date: date, index: index);
+
+  void editReward({required int index, required String name}) => RustLib
+      .instance
+      .api
+      .crateApiFocusHubFocusHubEditReward(that: this, index: index, name: name);
+
+  void editTodo({
+    required String date,
+    required int index,
+    required String text,
+  }) => RustLib.instance.api.crateApiFocusHubFocusHubEditTodo(
+    that: this,
+    date: date,
+    index: index,
+    text: text,
+  );
 
   /// All data as JSON (the desktop app's `focushub_data.json` format).
   String exportJson() =>
       RustLib.instance.api.crateApiFocusHubFocusHubExportJson(that: this);
 
-  /// Days before `date` with tasks, newest first.
-  List<DayTodos> historyBefore({required String date}) => RustLib.instance.api
-      .crateApiFocusHubFocusHubHistoryBefore(that: this, date: date);
+  /// Days before `date` with tasks that pass `filter` and contain `search` (ignoring
+  /// case), grouped by month, newest first.
+  List<HistoryMonth> history({
+    required String before,
+    required HistoryFilter filter,
+    required String search,
+  }) => RustLib.instance.api.crateApiFocusHubFocusHubHistory(
+    that: this,
+    before: before,
+    filter: filter,
+    search: search,
+  );
+
+  /// Whether the app already offered to put its icon on the Home screen (once is enough).
+  bool homeIconOffered() =>
+      RustLib.instance.api.crateApiFocusHubFocusHubHomeIconOffered(that: this);
 
   /// Replaces tasks, stats and rewards with those in a `focushub_data.json` file.
   ImportSummary importJson({required String json}) => RustLib.instance.api
@@ -2364,21 +4013,81 @@ class FocusHubImpl extends RustOpaque implements FocusHub {
   String? loadWarning() =>
       RustLib.instance.api.crateApiFocusHubFocusHubLoadWarning(that: this);
 
+  /// Adds the tasks, stats and rewards from a `focushub_data.json` file to what's here,
+  /// without counting anything twice.
+  MergeSummary mergeJson({required String json}) => RustLib.instance.api
+      .crateApiFocusHubFocusHubMergeJson(that: this, json: json);
+
+  /// Moves a task to position `to` within its day.
+  void moveTodo({required String date, required int from, required int to}) =>
+      RustLib.instance.api.crateApiFocusHubFocusHubMoveTodo(
+        that: this,
+        date: date,
+        from: from,
+        to: to,
+      );
+
+  /// Moves every unfinished task from earlier days onto `date`. Returns how many moved.
+  int moveUnfinishedTo({required String date}) => RustLib.instance.api
+      .crateApiFocusHubFocusHubMoveUnfinishedTo(that: this, date: date);
+
+  /// Picks up changes made by a notification button while the app was in the background.
+  /// Returns true if anything changed.
+  bool reloadIfChanged() =>
+      RustLib.instance.api.crateApiFocusHubFocusHubReloadIfChanged(that: this);
+
   void resetTimer() =>
       RustLib.instance.api.crateApiFocusHubFocusHubResetTimer(that: this);
+
+  /// Replaces everything with a daily backup.
+  void restoreBackup({required String date}) => RustLib.instance.api
+      .crateApiFocusHubFocusHubRestoreBackup(that: this, date: date);
+
+  void restoreReward({
+    required int index,
+    required String name,
+    required bool completed,
+  }) => RustLib.instance.api.crateApiFocusHubFocusHubRestoreReward(
+    that: this,
+    index: index,
+    name: name,
+    completed: completed,
+  );
+
+  void restoreTodo({
+    required String date,
+    required int index,
+    required String text,
+    required bool completed,
+  }) => RustLib.instance.api.crateApiFocusHubFocusHubRestoreTodo(
+    that: this,
+    date: date,
+    index: index,
+    text: text,
+    completed: completed,
+  );
 
   List<RewardView> rewards() =>
       RustLib.instance.api.crateApiFocusHubFocusHubRewards(that: this);
 
-  void save() => RustLib.instance.api.crateApiFocusHubFocusHubSave(that: this);
+  /// Saves (call it when the app is hidden). If a notification button changed the data
+  /// meanwhile, loads that instead of overwriting it, and returns true.
+  bool save() => RustLib.instance.api.crateApiFocusHubFocusHubSave(that: this);
 
-  /// Saves a copy of a chosen image (GIF, PNG, JPG or WebP) as the background.
-  void setBackground({required String fileName, required List<int> bytes}) =>
-      RustLib.instance.api.crateApiFocusHubFocusHubSetBackground(
+  void setAnimateBackground({required bool animate}) =>
+      RustLib.instance.api.crateApiFocusHubFocusHubSetAnimateBackground(
         that: this,
-        fileName: fileName,
-        bytes: bytes,
+        animate: animate,
       );
+
+  /// Saves an image from [`prepare_background`] as the background.
+  void setBackground({required PreparedBackground image}) => RustLib
+      .instance
+      .api
+      .crateApiFocusHubFocusHubSetBackground(that: this, image: image);
+
+  void setHomeIconOffered() => RustLib.instance.api
+      .crateApiFocusHubFocusHubSetHomeIconOffered(that: this);
 
   void setRewardCompleted({required int index, required bool completed}) =>
       RustLib.instance.api.crateApiFocusHubFocusHubSetRewardCompleted(
@@ -2394,17 +4103,23 @@ class FocusHubImpl extends RustOpaque implements FocusHub {
         offsetHours: offsetHours,
       );
 
-  /// Changes the session lengths and loops (this resets the timer). Values are limited
-  /// like the desktop app: work up to 120m 59s, break up to 60m 59s, 1 to 20 loops.
+  /// Changes the timer setup (this resets the timer). Values are limited like the desktop
+  /// app: work up to 120m 59s, breaks up to 60m 59s, 1 to 20 loops.
   void setTimerSettings({
     required int workSecs,
     required int breakSecs,
+    required int longBreakSecs,
     required int loops,
+    required int longBreakEvery,
+    required bool autoStart,
   }) => RustLib.instance.api.crateApiFocusHubFocusHubSetTimerSettings(
     that: this,
     workSecs: workSecs,
     breakSecs: breakSecs,
+    longBreakSecs: longBreakSecs,
     loops: loops,
+    longBreakEvery: longBreakEvery,
+    autoStart: autoStart,
   );
 
   void setTodoCompleted({
@@ -2418,11 +4133,23 @@ class FocusHubImpl extends RustOpaque implements FocusHub {
     completed: completed,
   );
 
+  /// Ends the current session now and moves on to the next one.
+  List<SessionAlert> skipSession() =>
+      RustLib.instance.api.crateApiFocusHubFocusHubSkipSession(that: this);
+
   StatsView stats() =>
       RustLib.instance.api.crateApiFocusHubFocusHubStats(that: this);
 
-  /// Call often (a few times a second). Returns the sessions that just ended.
-  List<SessionAlert> tick() =>
+  /// What the ongoing notification should show now (`null` if the timer hasn't started).
+  TimerStatus? statusNow() =>
+      RustLib.instance.api.crateApiFocusHubFocusHubStatusNow(that: this);
+
+  /// Study minutes for each of the last `days` days, oldest first.
+  List<ChartDay> studyChart({required int days}) => RustLib.instance.api
+      .crateApiFocusHubFocusHubStudyChart(that: this, days: days);
+
+  /// Call often (a few times a second).
+  TickReport tick() =>
       RustLib.instance.api.crateApiFocusHubFocusHubTick(that: this);
 
   TimeZoneView timeZone() =>
@@ -2438,7 +4165,39 @@ class FocusHubImpl extends RustOpaque implements FocusHub {
   List<SessionAlert> toggleTimer() =>
       RustLib.instance.api.crateApiFocusHubFocusHubToggleTimer(that: this);
 
-  /// Every session end still to come, if the timer keeps running.
-  List<ScheduledAlert> upcomingAlerts() =>
-      RustLib.instance.api.crateApiFocusHubFocusHubUpcomingAlerts(that: this);
+  /// How many unfinished tasks there are on days before `date`.
+  int unfinishedBefore({required String date}) => RustLib.instance.api
+      .crateApiFocusHubFocusHubUnfinishedBefore(that: this, date: date);
+
+  /// Every session end still to come if the timer keeps running.
+  List<UpcomingEvent> upcomingEvents() =>
+      RustLib.instance.api.crateApiFocusHubFocusHubUpcomingEvents(that: this);
+}
+
+@sealed
+class PreparedBackgroundImpl extends RustOpaque implements PreparedBackground {
+  // Not to be used by end users
+  PreparedBackgroundImpl.frbInternalDcoDecode(List<dynamic> wire)
+    : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  PreparedBackgroundImpl.frbInternalSseDecode(
+    BigInt ptr,
+    int externalSizeOnNative,
+  ) : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        RustLib.instance.api.rust_arc_increment_strong_count_PreparedBackground,
+    rustArcDecrementStrongCount:
+        RustLib.instance.api.rust_arc_decrement_strong_count_PreparedBackground,
+    rustArcDecrementStrongCountPtr: RustLib
+        .instance
+        .api
+        .rust_arc_decrement_strong_count_PreparedBackgroundPtr,
+  );
+
+  /// What to tell the user once it's set.
+  String message() => RustLib.instance.api
+      .crateApiFocusHubPreparedBackgroundMessage(that: this);
 }

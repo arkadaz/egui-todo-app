@@ -40,7 +40,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.13.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1454161223;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1783799993;
 
 // Section: executor
 
@@ -154,6 +154,106 @@ fn wire__crate__api__focus_hub__FocusHub_add_todo_impl(
         },
     )
 }
+fn wire__crate__api__focus_hub__FocusHub_animate_background_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_animate_background",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::animate_background(
+                    &*api_that_guard,
+                ))?;
+                std::result::Result::Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__focus_hub__FocusHub_apply_preset_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_apply_preset",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            let api_index = <u32>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, true,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let mut api_that_guard = api_that_guard.unwrap();
+                    let output_ok = crate::api::focus_hub::FocusHub::apply_preset(
+                        &mut *api_that_guard,
+                        api_index,
+                    )?;
+                    std::result::Result::Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
 fn wire__crate__api__focus_hub__FocusHub_background_path_impl(
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
@@ -197,6 +297,53 @@ fn wire__crate__api__focus_hub__FocusHub_background_path_impl(
                 let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::background_path(
                     &*api_that_guard,
                 ))?;
+                std::result::Result::Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__focus_hub__FocusHub_backups_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_backups",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok =
+                    Ok::<_, ()>(crate::api::focus_hub::FocusHub::backups(&*api_that_guard))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -250,6 +397,58 @@ fn wire__crate__api__focus_hub__FocusHub_calendar_month_impl(
                         &*api_that_guard,
                         api_year,
                         api_month,
+                        api_selected_date,
+                    )?;
+                    std::result::Result::Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__crate__api__focus_hub__FocusHub_calendar_week_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_calendar_week",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            let api_selected_date = <String>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = crate::api::focus_hub::FocusHub::calendar_week(
+                        &*api_that_guard,
                         api_selected_date,
                     )?;
                     std::result::Result::Ok(output_ok)
@@ -508,6 +707,116 @@ fn wire__crate__api__focus_hub__FocusHub_delete_todo_impl(
         },
     )
 }
+fn wire__crate__api__focus_hub__FocusHub_edit_reward_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_edit_reward",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            let api_index = <u32>::sse_decode(&mut deserializer);
+            let api_name = <String>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, true,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let mut api_that_guard = api_that_guard.unwrap();
+                    let output_ok = crate::api::focus_hub::FocusHub::edit_reward(
+                        &mut *api_that_guard,
+                        api_index,
+                        api_name,
+                    )?;
+                    std::result::Result::Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__crate__api__focus_hub__FocusHub_edit_todo_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_edit_todo",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            let api_date = <String>::sse_decode(&mut deserializer);
+            let api_index = <u32>::sse_decode(&mut deserializer);
+            let api_text = <String>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, true,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let mut api_that_guard = api_that_guard.unwrap();
+                    let output_ok = crate::api::focus_hub::FocusHub::edit_todo(
+                        &mut *api_that_guard,
+                        api_date,
+                        api_index,
+                        api_text,
+                    )?;
+                    std::result::Result::Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
 fn wire__crate__api__focus_hub__FocusHub_export_json_impl(
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
@@ -557,14 +866,14 @@ fn wire__crate__api__focus_hub__FocusHub_export_json_impl(
         },
     )
 }
-fn wire__crate__api__focus_hub__FocusHub_history_before_impl(
+fn wire__crate__api__focus_hub__FocusHub_history_impl(
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
     data_len_: i32,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "FocusHub_history_before",
+            debug_name: "FocusHub_history",
             port: None,
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
@@ -581,7 +890,9 @@ fn wire__crate__api__focus_hub__FocusHub_history_before_impl(
             let api_that = <RustOpaqueMoi<
                 flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
             >>::sse_decode(&mut deserializer);
-            let api_date = <String>::sse_decode(&mut deserializer);
+            let api_before = <String>::sse_decode(&mut deserializer);
+            let api_filter = <crate::api::focus_hub::HistoryFilter>::sse_decode(&mut deserializer);
+            let api_search = <String>::sse_decode(&mut deserializer);
             deserializer.end();
             transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
                 (move || {
@@ -599,13 +910,63 @@ fn wire__crate__api__focus_hub__FocusHub_history_before_impl(
                         }
                     }
                     let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::history_before(
+                    let output_ok = crate::api::focus_hub::FocusHub::history(
                         &*api_that_guard,
-                        api_date,
+                        api_before,
+                        api_filter,
+                        api_search,
                     )?;
                     std::result::Result::Ok(output_ok)
                 })(),
             )
+        },
+    )
+}
+fn wire__crate__api__focus_hub__FocusHub_home_icon_offered_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_home_icon_offered",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::home_icon_offered(
+                    &*api_that_guard,
+                ))?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -709,6 +1070,166 @@ fn wire__crate__api__focus_hub__FocusHub_load_warning_impl(
         },
     )
 }
+fn wire__crate__api__focus_hub__FocusHub_merge_json_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_merge_json",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            let api_json = <String>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, true,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let mut api_that_guard = api_that_guard.unwrap();
+                    let output_ok = crate::api::focus_hub::FocusHub::merge_json(
+                        &mut *api_that_guard,
+                        api_json,
+                    )?;
+                    std::result::Result::Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__crate__api__focus_hub__FocusHub_move_todo_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_move_todo",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            let api_date = <String>::sse_decode(&mut deserializer);
+            let api_from = <u32>::sse_decode(&mut deserializer);
+            let api_to = <u32>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, true,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let mut api_that_guard = api_that_guard.unwrap();
+                    let output_ok = crate::api::focus_hub::FocusHub::move_todo(
+                        &mut *api_that_guard,
+                        api_date,
+                        api_from,
+                        api_to,
+                    )?;
+                    std::result::Result::Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__crate__api__focus_hub__FocusHub_move_unfinished_to_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_move_unfinished_to",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            let api_date = <String>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, true,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let mut api_that_guard = api_that_guard.unwrap();
+                    let output_ok = crate::api::focus_hub::FocusHub::move_unfinished_to(
+                        &mut *api_that_guard,
+                        api_date,
+                    )?;
+                    std::result::Result::Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
 fn wire__crate__api__focus_hub__FocusHub_open_impl(
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
@@ -735,6 +1256,55 @@ fn wire__crate__api__focus_hub__FocusHub_open_impl(
             transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
                 (move || {
                     let output_ok = crate::api::focus_hub::FocusHub::open(api_data_dir)?;
+                    std::result::Result::Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__crate__api__focus_hub__FocusHub_reload_if_changed_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_reload_if_changed",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, true,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let mut api_that_guard = api_that_guard.unwrap();
+                    let output_ok =
+                        crate::api::focus_hub::FocusHub::reload_if_changed(&mut *api_that_guard)?;
                     std::result::Result::Ok(output_ok)
                 })(),
             )
@@ -784,6 +1354,172 @@ fn wire__crate__api__focus_hub__FocusHub_reset_timer_impl(
                     let mut api_that_guard = api_that_guard.unwrap();
                     let output_ok =
                         crate::api::focus_hub::FocusHub::reset_timer(&mut *api_that_guard)?;
+                    std::result::Result::Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__crate__api__focus_hub__FocusHub_restore_backup_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_restore_backup",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            let api_date = <String>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, true,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let mut api_that_guard = api_that_guard.unwrap();
+                    let output_ok = crate::api::focus_hub::FocusHub::restore_backup(
+                        &mut *api_that_guard,
+                        api_date,
+                    )?;
+                    std::result::Result::Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__crate__api__focus_hub__FocusHub_restore_reward_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_restore_reward",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            let api_index = <u32>::sse_decode(&mut deserializer);
+            let api_name = <String>::sse_decode(&mut deserializer);
+            let api_completed = <bool>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, true,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let mut api_that_guard = api_that_guard.unwrap();
+                    let output_ok = crate::api::focus_hub::FocusHub::restore_reward(
+                        &mut *api_that_guard,
+                        api_index,
+                        api_name,
+                        api_completed,
+                    )?;
+                    std::result::Result::Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__crate__api__focus_hub__FocusHub_restore_todo_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_restore_todo",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            let api_date = <String>::sse_decode(&mut deserializer);
+            let api_index = <u32>::sse_decode(&mut deserializer);
+            let api_text = <String>::sse_decode(&mut deserializer);
+            let api_completed = <bool>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, true,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let mut api_that_guard = api_that_guard.unwrap();
+                    let output_ok = crate::api::focus_hub::FocusHub::restore_todo(
+                        &mut *api_that_guard,
+                        api_date,
+                        api_index,
+                        api_text,
+                        api_completed,
+                    )?;
                     std::result::Result::Ok(output_ok)
                 })(),
             )
@@ -885,6 +1621,58 @@ fn wire__crate__api__focus_hub__FocusHub_save_impl(
         },
     )
 }
+fn wire__crate__api__focus_hub__FocusHub_set_animate_background_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_set_animate_background",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            let api_animate = <bool>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, true,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let mut api_that_guard = api_that_guard.unwrap();
+                    let output_ok = crate::api::focus_hub::FocusHub::set_animate_background(
+                        &mut *api_that_guard,
+                        api_animate,
+                    )?;
+                    std::result::Result::Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
 fn wire__crate__api__focus_hub__FocusHub_set_background_impl(
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
@@ -909,8 +1697,7 @@ fn wire__crate__api__focus_hub__FocusHub_set_background_impl(
             let api_that = <RustOpaqueMoi<
                 flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
             >>::sse_decode(&mut deserializer);
-            let api_file_name = <String>::sse_decode(&mut deserializer);
-            let api_bytes = <Vec<u8>>::sse_decode(&mut deserializer);
+            let api_image = <PreparedBackground>::sse_decode(&mut deserializer);
             deserializer.end();
             transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
                 (move || {
@@ -930,8 +1717,57 @@ fn wire__crate__api__focus_hub__FocusHub_set_background_impl(
                     let mut api_that_guard = api_that_guard.unwrap();
                     let output_ok = crate::api::focus_hub::FocusHub::set_background(
                         &mut *api_that_guard,
-                        api_file_name,
-                        api_bytes,
+                        api_image,
+                    )?;
+                    std::result::Result::Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__crate__api__focus_hub__FocusHub_set_home_icon_offered_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_set_home_icon_offered",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, true,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let mut api_that_guard = api_that_guard.unwrap();
+                    let output_ok = crate::api::focus_hub::FocusHub::set_home_icon_offered(
+                        &mut *api_that_guard,
                     )?;
                     std::result::Result::Ok(output_ok)
                 })(),
@@ -1071,7 +1907,10 @@ fn wire__crate__api__focus_hub__FocusHub_set_timer_settings_impl(
             >>::sse_decode(&mut deserializer);
             let api_work_secs = <u32>::sse_decode(&mut deserializer);
             let api_break_secs = <u32>::sse_decode(&mut deserializer);
+            let api_long_break_secs = <u32>::sse_decode(&mut deserializer);
             let api_loops = <u32>::sse_decode(&mut deserializer);
+            let api_long_break_every = <u32>::sse_decode(&mut deserializer);
+            let api_auto_start = <bool>::sse_decode(&mut deserializer);
             deserializer.end();
             transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
                 (move || {
@@ -1093,7 +1932,10 @@ fn wire__crate__api__focus_hub__FocusHub_set_timer_settings_impl(
                         &mut *api_that_guard,
                         api_work_secs,
                         api_break_secs,
+                        api_long_break_secs,
                         api_loops,
+                        api_long_break_every,
+                        api_auto_start,
                     )?;
                     std::result::Result::Ok(output_ok)
                 })(),
@@ -1157,6 +1999,55 @@ fn wire__crate__api__focus_hub__FocusHub_set_todo_completed_impl(
         },
     )
 }
+fn wire__crate__api__focus_hub__FocusHub_skip_session_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_skip_session",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, true,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let mut api_that_guard = api_that_guard.unwrap();
+                    let output_ok =
+                        crate::api::focus_hub::FocusHub::skip_session(&mut *api_that_guard)?;
+                    std::result::Result::Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
 fn wire__crate__api__focus_hub__FocusHub_stats_impl(
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
@@ -1199,6 +2090,104 @@ fn wire__crate__api__focus_hub__FocusHub_stats_impl(
                 let api_that_guard = api_that_guard.unwrap();
                 let output_ok =
                     Ok::<_, ()>(crate::api::focus_hub::FocusHub::stats(&*api_that_guard))?;
+                std::result::Result::Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__focus_hub__FocusHub_status_now_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_status_now",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::status_now(
+                    &*api_that_guard,
+                ))?;
+                std::result::Result::Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__focus_hub__FocusHub_study_chart_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_study_chart",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            let api_days = <u32>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::study_chart(
+                    &*api_that_guard,
+                    api_days,
+                ))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -1446,14 +2435,66 @@ fn wire__crate__api__focus_hub__FocusHub_toggle_timer_impl(
         },
     )
 }
-fn wire__crate__api__focus_hub__FocusHub_upcoming_alerts_impl(
+fn wire__crate__api__focus_hub__FocusHub_unfinished_before_impl(
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
     data_len_: i32,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "FocusHub_upcoming_alerts",
+            debug_name: "FocusHub_unfinished_before",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
+            >>::sse_decode(&mut deserializer);
+            let api_date = <String>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = crate::api::focus_hub::FocusHub::unfinished_before(
+                        &*api_that_guard,
+                        api_date,
+                    )?;
+                    std::result::Result::Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__crate__api__focus_hub__FocusHub_upcoming_events_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "FocusHub_upcoming_events",
             port: None,
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
@@ -1486,11 +2527,92 @@ fn wire__crate__api__focus_hub__FocusHub_upcoming_alerts_impl(
                     }
                 }
                 let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::upcoming_alerts(
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::upcoming_events(
                     &*api_that_guard,
                 ))?;
                 std::result::Result::Ok(output_ok)
             })())
+        },
+    )
+}
+fn wire__crate__api__focus_hub__PreparedBackground_message_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "PreparedBackground_message",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::PreparedBackground::message(
+                    &*api_that_guard,
+                ))?;
+                std::result::Result::Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__crate__api__focus_hub__add_days_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "add_days",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_date = <String>::sse_decode(&mut deserializer);
+            let api_days = <i32>::sse_decode(&mut deserializer);
+            deserializer.end();
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let output_ok = crate::api::focus_hub::add_days(api_date, api_days)?;
+                    std::result::Result::Ok(output_ok)
+                })(),
+            )
         },
     )
 }
@@ -1592,6 +2714,72 @@ fn wire__crate__api__focus_hub__month_of_impl(
         },
     )
 }
+fn wire__crate__api__focus_hub__prepare_background_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "prepare_background",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_path = <String>::sse_decode(&mut deserializer);
+            let api_screen_side = <u32>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| {
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || {
+                        let output_ok =
+                            crate::api::focus_hub::prepare_background(api_path, api_screen_side)?;
+                        std::result::Result::Ok(output_ok)
+                    })(),
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__focus_hub__presets_impl(
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "presets",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            deserializer.end();
+            transform_result_sse::<_, ()>((move || {
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::presets())?;
+                std::result::Result::Ok(output_ok)
+            })())
+        },
+    )
+}
 fn wire__crate__api__focus_hub__shift_month_impl(
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
@@ -1661,6 +2849,9 @@ fn wire__crate__api__focus_hub__today_date_impl(
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>
 );
+flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
+    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>
+);
 
 // Section: dart2rust
 
@@ -1682,8 +2873,28 @@ impl SseDecode for FocusHub {
     }
 }
 
+impl SseDecode for PreparedBackground {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueMoi<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>,
+        >>::sse_decode(deserializer);
+        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
+    }
+}
+
 impl SseDecode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return decode_rust_opaque_moi(inner);
+    }
+}
+
+impl SseDecode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -1697,6 +2908,18 @@ impl SseDecode for String {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <Vec<u8>>::sse_decode(deserializer);
         return String::from_utf8(inner).unwrap();
+    }
+}
+
+impl SseDecode for crate::api::focus_hub::BackupView {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_date = <String>::sse_decode(deserializer);
+        let mut var_label = <String>::sse_decode(deserializer);
+        return crate::api::focus_hub::BackupView {
+            date: var_date,
+            label: var_label,
+        };
     }
 }
 
@@ -1715,12 +2938,14 @@ impl SseDecode for crate::api::focus_hub::CalendarDay {
         let mut var_isToday = <bool>::sse_decode(deserializer);
         let mut var_isSelected = <bool>::sse_decode(deserializer);
         let mut var_hasTodos = <bool>::sse_decode(deserializer);
+        let mut var_hasUnfinished = <bool>::sse_decode(deserializer);
         return crate::api::focus_hub::CalendarDay {
             day: var_day,
             date: var_date,
             is_today: var_isToday,
             is_selected: var_isSelected,
             has_todos: var_hasTodos,
+            has_unfinished: var_hasUnfinished,
         };
     }
 }
@@ -1743,16 +2968,60 @@ impl SseDecode for crate::api::focus_hub::CalendarMonth {
     }
 }
 
+impl SseDecode for crate::api::focus_hub::CalendarWeek {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_title = <String>::sse_decode(deserializer);
+        let mut var_days = <Vec<crate::api::focus_hub::CalendarDay>>::sse_decode(deserializer);
+        return crate::api::focus_hub::CalendarWeek {
+            title: var_title,
+            days: var_days,
+        };
+    }
+}
+
+impl SseDecode for crate::api::focus_hub::ChartDay {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_date = <String>::sse_decode(deserializer);
+        let mut var_label = <String>::sse_decode(deserializer);
+        let mut var_minutes = <f64>::sse_decode(deserializer);
+        let mut var_isToday = <bool>::sse_decode(deserializer);
+        return crate::api::focus_hub::ChartDay {
+            date: var_date,
+            label: var_label,
+            minutes: var_minutes,
+            is_today: var_isToday,
+        };
+    }
+}
+
 impl SseDecode for crate::api::focus_hub::DayTodos {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_date = <String>::sse_decode(deserializer);
         let mut var_title = <String>::sse_decode(deserializer);
+        let mut var_summary = <String>::sse_decode(deserializer);
+        let mut var_allDone = <bool>::sse_decode(deserializer);
         let mut var_todos = <Vec<crate::api::focus_hub::TodoView>>::sse_decode(deserializer);
         return crate::api::focus_hub::DayTodos {
             date: var_date,
             title: var_title,
+            summary: var_summary,
+            all_done: var_allDone,
             todos: var_todos,
+        };
+    }
+}
+
+impl SseDecode for crate::api::focus_hub::Deleted {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_text = <String>::sse_decode(deserializer);
+        let mut var_completed = <bool>::sse_decode(deserializer);
+        return crate::api::focus_hub::Deleted {
+            text: var_text,
+            completed: var_completed,
         };
     }
 }
@@ -1764,10 +3033,46 @@ impl SseDecode for f64 {
     }
 }
 
+impl SseDecode for crate::api::focus_hub::HistoryFilter {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => crate::api::focus_hub::HistoryFilter::All,
+            1 => crate::api::focus_hub::HistoryFilter::Unfinished,
+            2 => crate::api::focus_hub::HistoryFilter::Done,
+            _ => unreachable!("Invalid variant for HistoryFilter: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for crate::api::focus_hub::HistoryMonth {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_key = <String>::sse_decode(deserializer);
+        let mut var_title = <String>::sse_decode(deserializer);
+        let mut var_summary = <String>::sse_decode(deserializer);
+        let mut var_days = <Vec<crate::api::focus_hub::DayTodos>>::sse_decode(deserializer);
+        return crate::api::focus_hub::HistoryMonth {
+            key: var_key,
+            title: var_title,
+            summary: var_summary,
+            days: var_days,
+        };
+    }
+}
+
 impl SseDecode for i32 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         deserializer.cursor.read_i32::<NativeEndian>().unwrap()
+    }
+}
+
+impl SseDecode for i64 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        deserializer.cursor.read_i64::<NativeEndian>().unwrap()
     }
 }
 
@@ -1785,6 +3090,20 @@ impl SseDecode for crate::api::focus_hub::ImportSummary {
     }
 }
 
+impl SseDecode for Vec<crate::api::focus_hub::BackupView> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = Vec::with_capacity(len_ as usize);
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::focus_hub::BackupView>::sse_decode(
+                deserializer,
+            ));
+        }
+        return ans_;
+    }
+}
+
 impl SseDecode for Vec<crate::api::focus_hub::CalendarDay> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -1799,6 +3118,18 @@ impl SseDecode for Vec<crate::api::focus_hub::CalendarDay> {
     }
 }
 
+impl SseDecode for Vec<crate::api::focus_hub::ChartDay> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = Vec::with_capacity(len_ as usize);
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::focus_hub::ChartDay>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
 impl SseDecode for Vec<crate::api::focus_hub::DayTodos> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -1806,6 +3137,34 @@ impl SseDecode for Vec<crate::api::focus_hub::DayTodos> {
         let mut ans_ = Vec::with_capacity(len_ as usize);
         for idx_ in 0..len_ {
             ans_.push(<crate::api::focus_hub::DayTodos>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<crate::api::focus_hub::HistoryMonth> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = Vec::with_capacity(len_ as usize);
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::focus_hub::HistoryMonth>::sse_decode(
+                deserializer,
+            ));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<crate::api::focus_hub::PresetView> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = Vec::with_capacity(len_ as usize);
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::focus_hub::PresetView>::sse_decode(
+                deserializer,
+            ));
         }
         return ans_;
     }
@@ -1830,20 +3189,6 @@ impl SseDecode for Vec<crate::api::focus_hub::RewardView> {
         let mut ans_ = Vec::with_capacity(len_ as usize);
         for idx_ in 0..len_ {
             ans_.push(<crate::api::focus_hub::RewardView>::sse_decode(
-                deserializer,
-            ));
-        }
-        return ans_;
-    }
-}
-
-impl SseDecode for Vec<crate::api::focus_hub::ScheduledAlert> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut len_ = <i32>::sse_decode(deserializer);
-        let mut ans_ = Vec::with_capacity(len_ as usize);
-        for idx_ in 0..len_ {
-            ans_.push(<crate::api::focus_hub::ScheduledAlert>::sse_decode(
                 deserializer,
             ));
         }
@@ -1877,6 +3222,34 @@ impl SseDecode for Vec<crate::api::focus_hub::TodoView> {
     }
 }
 
+impl SseDecode for Vec<crate::api::focus_hub::UpcomingEvent> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = Vec::with_capacity(len_ as usize);
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::focus_hub::UpcomingEvent>::sse_decode(
+                deserializer,
+            ));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for crate::api::focus_hub::MergeSummary {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_tasksAdded = <u32>::sse_decode(deserializer);
+        let mut var_studyDaysUpdated = <u32>::sse_decode(deserializer);
+        let mut var_rewardsAdded = <u32>::sse_decode(deserializer);
+        return crate::api::focus_hub::MergeSummary {
+            tasks_added: var_tasksAdded,
+            study_days_updated: var_studyDaysUpdated,
+            rewards_added: var_rewardsAdded,
+        };
+    }
+}
+
 impl SseDecode for Option<String> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -1899,6 +3272,42 @@ impl SseDecode for Option<i32> {
     }
 }
 
+impl SseDecode for Option<crate::api::focus_hub::TimerStatus> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<crate::api::focus_hub::TimerStatus>::sse_decode(
+                deserializer,
+            ));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<u32> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<u32>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for crate::api::focus_hub::PresetView {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_index = <u32>::sse_decode(deserializer);
+        let mut var_name = <String>::sse_decode(deserializer);
+        return crate::api::focus_hub::PresetView {
+            index: var_index,
+            name: var_name,
+        };
+    }
+}
+
 impl SseDecode for crate::api::focus_hub::RewardView {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -1909,20 +3318,6 @@ impl SseDecode for crate::api::focus_hub::RewardView {
             index: var_index,
             name: var_name,
             completed: var_completed,
-        };
-    }
-}
-
-impl SseDecode for crate::api::focus_hub::ScheduledAlert {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_delayMs = <u32>::sse_decode(deserializer);
-        let mut var_title = <String>::sse_decode(deserializer);
-        let mut var_body = <String>::sse_decode(deserializer);
-        return crate::api::focus_hub::ScheduledAlert {
-            delay_ms: var_delayMs,
-            title: var_title,
-            body: var_body,
         };
     }
 }
@@ -1947,12 +3342,36 @@ impl SseDecode for crate::api::focus_hub::StatsView {
         let mut var_todayTime = <String>::sse_decode(deserializer);
         let mut var_monthSessions = <u32>::sse_decode(deserializer);
         let mut var_monthName = <String>::sse_decode(deserializer);
+        let mut var_streakDays = <u32>::sse_decode(deserializer);
+        let mut var_bestStreakDays = <u32>::sse_decode(deserializer);
+        let mut var_bestDay = <Option<String>>::sse_decode(deserializer);
+        let mut var_last7DaysTime = <String>::sse_decode(deserializer);
         return crate::api::focus_hub::StatsView {
             total_time: var_totalTime,
             today_sessions: var_todaySessions,
             today_time: var_todayTime,
             month_sessions: var_monthSessions,
             month_name: var_monthName,
+            streak_days: var_streakDays,
+            best_streak_days: var_bestStreakDays,
+            best_day: var_bestDay,
+            last_7_days_time: var_last7DaysTime,
+        };
+    }
+}
+
+impl SseDecode for crate::api::focus_hub::TickReport {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_ended = <Vec<crate::api::focus_hub::SessionAlert>>::sse_decode(deserializer);
+        let mut var_redraw = <bool>::sse_decode(deserializer);
+        let mut var_reloaded = <bool>::sse_decode(deserializer);
+        let mut var_nextTickMs = <u32>::sse_decode(deserializer);
+        return crate::api::focus_hub::TickReport {
+            ended: var_ended,
+            redraw: var_redraw,
+            reloaded: var_reloaded,
+            next_tick_ms: var_nextTickMs,
         };
     }
 }
@@ -1971,28 +3390,56 @@ impl SseDecode for crate::api::focus_hub::TimeZoneView {
     }
 }
 
+impl SseDecode for crate::api::focus_hub::TimerStatus {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_title = <String>::sse_decode(deserializer);
+        let mut var_body = <String>::sse_decode(deserializer);
+        let mut var_running = <bool>::sse_decode(deserializer);
+        let mut var_endsAtMs = <i64>::sse_decode(deserializer);
+        return crate::api::focus_hub::TimerStatus {
+            title: var_title,
+            body: var_body,
+            running: var_running,
+            ends_at_ms: var_endsAtMs,
+        };
+    }
+}
+
 impl SseDecode for crate::api::focus_hub::TimerView {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_isWork = <bool>::sse_decode(deserializer);
+        let mut var_isLongBreak = <bool>::sse_decode(deserializer);
         let mut var_isRunning = <bool>::sse_decode(deserializer);
+        let mut var_isAtStart = <bool>::sse_decode(deserializer);
         let mut var_modeLabel = <String>::sse_decode(deserializer);
         let mut var_loopLabel = <String>::sse_decode(deserializer);
         let mut var_remaining = <String>::sse_decode(deserializer);
         let mut var_progress = <f64>::sse_decode(deserializer);
         let mut var_workSecs = <u32>::sse_decode(deserializer);
         let mut var_breakSecs = <u32>::sse_decode(deserializer);
+        let mut var_longBreakSecs = <u32>::sse_decode(deserializer);
         let mut var_loops = <u32>::sse_decode(deserializer);
+        let mut var_longBreakEvery = <u32>::sse_decode(deserializer);
+        let mut var_autoStart = <bool>::sse_decode(deserializer);
+        let mut var_preset = <Option<u32>>::sse_decode(deserializer);
         return crate::api::focus_hub::TimerView {
             is_work: var_isWork,
+            is_long_break: var_isLongBreak,
             is_running: var_isRunning,
+            is_at_start: var_isAtStart,
             mode_label: var_modeLabel,
             loop_label: var_loopLabel,
             remaining: var_remaining,
             progress: var_progress,
             work_secs: var_workSecs,
             break_secs: var_breakSecs,
+            long_break_secs: var_longBreakSecs,
             loops: var_loops,
+            long_break_every: var_longBreakEvery,
+            auto_start: var_autoStart,
+            preset: var_preset,
         };
     }
 }
@@ -2030,6 +3477,23 @@ impl SseDecode for () {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {}
 }
 
+impl SseDecode for crate::api::focus_hub::UpcomingEvent {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_delayMs = <u32>::sse_decode(deserializer);
+        let mut var_alertTitle = <String>::sse_decode(deserializer);
+        let mut var_alertBody = <String>::sse_decode(deserializer);
+        let mut var_nextStatus =
+            <Option<crate::api::focus_hub::TimerStatus>>::sse_decode(deserializer);
+        return crate::api::focus_hub::UpcomingEvent {
+            delay_ms: var_delayMs,
+            alert_title: var_alertTitle,
+            alert_body: var_alertBody,
+            next_status: var_nextStatus,
+        };
+    }
+}
+
 impl SseDecode for usize {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2058,7 +3522,10 @@ fn pde_ffi_dispatcher_primary_impl(
 ) {
     // Codec=Pde (Serialization + dispatch), see doc to use other codecs
     match func_id {
-        30 => wire__crate__api__simple__init_app_impl(port, ptr, rust_vec_len, data_len),
+        52 => wire__crate__api__simple__init_app_impl(port, ptr, rust_vec_len, data_len),
+        55 => {
+            wire__crate__api__focus_hub__prepare_background_impl(port, ptr, rust_vec_len, data_len)
+        }
         _ => unreachable!(),
     }
 }
@@ -2073,59 +3540,116 @@ fn pde_ffi_dispatcher_sync_impl(
     match func_id {
         1 => wire__crate__api__focus_hub__FocusHub_add_reward_impl(ptr, rust_vec_len, data_len),
         2 => wire__crate__api__focus_hub__FocusHub_add_todo_impl(ptr, rust_vec_len, data_len),
-        3 => {
+        3 => wire__crate__api__focus_hub__FocusHub_animate_background_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        4 => wire__crate__api__focus_hub__FocusHub_apply_preset_impl(ptr, rust_vec_len, data_len),
+        5 => {
             wire__crate__api__focus_hub__FocusHub_background_path_impl(ptr, rust_vec_len, data_len)
         }
-        4 => wire__crate__api__focus_hub__FocusHub_calendar_month_impl(ptr, rust_vec_len, data_len),
-        5 => {
+        6 => wire__crate__api__focus_hub__FocusHub_backups_impl(ptr, rust_vec_len, data_len),
+        7 => wire__crate__api__focus_hub__FocusHub_calendar_month_impl(ptr, rust_vec_len, data_len),
+        8 => wire__crate__api__focus_hub__FocusHub_calendar_week_impl(ptr, rust_vec_len, data_len),
+        9 => {
             wire__crate__api__focus_hub__FocusHub_clear_background_impl(ptr, rust_vec_len, data_len)
         }
-        6 => wire__crate__api__focus_hub__FocusHub_clock_text_impl(ptr, rust_vec_len, data_len),
-        7 => wire__crate__api__focus_hub__FocusHub_data_file_impl(ptr, rust_vec_len, data_len),
-        8 => wire__crate__api__focus_hub__FocusHub_delete_reward_impl(ptr, rust_vec_len, data_len),
-        9 => wire__crate__api__focus_hub__FocusHub_delete_todo_impl(ptr, rust_vec_len, data_len),
-        10 => wire__crate__api__focus_hub__FocusHub_export_json_impl(ptr, rust_vec_len, data_len),
-        11 => {
-            wire__crate__api__focus_hub__FocusHub_history_before_impl(ptr, rust_vec_len, data_len)
+        10 => wire__crate__api__focus_hub__FocusHub_clock_text_impl(ptr, rust_vec_len, data_len),
+        11 => wire__crate__api__focus_hub__FocusHub_data_file_impl(ptr, rust_vec_len, data_len),
+        12 => wire__crate__api__focus_hub__FocusHub_delete_reward_impl(ptr, rust_vec_len, data_len),
+        13 => wire__crate__api__focus_hub__FocusHub_delete_todo_impl(ptr, rust_vec_len, data_len),
+        14 => wire__crate__api__focus_hub__FocusHub_edit_reward_impl(ptr, rust_vec_len, data_len),
+        15 => wire__crate__api__focus_hub__FocusHub_edit_todo_impl(ptr, rust_vec_len, data_len),
+        16 => wire__crate__api__focus_hub__FocusHub_export_json_impl(ptr, rust_vec_len, data_len),
+        17 => wire__crate__api__focus_hub__FocusHub_history_impl(ptr, rust_vec_len, data_len),
+        18 => wire__crate__api__focus_hub__FocusHub_home_icon_offered_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        19 => wire__crate__api__focus_hub__FocusHub_import_json_impl(ptr, rust_vec_len, data_len),
+        20 => wire__crate__api__focus_hub__FocusHub_load_warning_impl(ptr, rust_vec_len, data_len),
+        21 => wire__crate__api__focus_hub__FocusHub_merge_json_impl(ptr, rust_vec_len, data_len),
+        22 => wire__crate__api__focus_hub__FocusHub_move_todo_impl(ptr, rust_vec_len, data_len),
+        23 => wire__crate__api__focus_hub__FocusHub_move_unfinished_to_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        24 => wire__crate__api__focus_hub__FocusHub_open_impl(ptr, rust_vec_len, data_len),
+        25 => wire__crate__api__focus_hub__FocusHub_reload_if_changed_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        26 => wire__crate__api__focus_hub__FocusHub_reset_timer_impl(ptr, rust_vec_len, data_len),
+        27 => {
+            wire__crate__api__focus_hub__FocusHub_restore_backup_impl(ptr, rust_vec_len, data_len)
         }
-        12 => wire__crate__api__focus_hub__FocusHub_import_json_impl(ptr, rust_vec_len, data_len),
-        13 => wire__crate__api__focus_hub__FocusHub_load_warning_impl(ptr, rust_vec_len, data_len),
-        14 => wire__crate__api__focus_hub__FocusHub_open_impl(ptr, rust_vec_len, data_len),
-        15 => wire__crate__api__focus_hub__FocusHub_reset_timer_impl(ptr, rust_vec_len, data_len),
-        16 => wire__crate__api__focus_hub__FocusHub_rewards_impl(ptr, rust_vec_len, data_len),
-        17 => wire__crate__api__focus_hub__FocusHub_save_impl(ptr, rust_vec_len, data_len),
-        18 => {
+        28 => {
+            wire__crate__api__focus_hub__FocusHub_restore_reward_impl(ptr, rust_vec_len, data_len)
+        }
+        29 => wire__crate__api__focus_hub__FocusHub_restore_todo_impl(ptr, rust_vec_len, data_len),
+        30 => wire__crate__api__focus_hub__FocusHub_rewards_impl(ptr, rust_vec_len, data_len),
+        31 => wire__crate__api__focus_hub__FocusHub_save_impl(ptr, rust_vec_len, data_len),
+        32 => wire__crate__api__focus_hub__FocusHub_set_animate_background_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        33 => {
             wire__crate__api__focus_hub__FocusHub_set_background_impl(ptr, rust_vec_len, data_len)
         }
-        19 => wire__crate__api__focus_hub__FocusHub_set_reward_completed_impl(
+        34 => wire__crate__api__focus_hub__FocusHub_set_home_icon_offered_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        20 => wire__crate__api__focus_hub__FocusHub_set_time_zone_impl(ptr, rust_vec_len, data_len),
-        21 => wire__crate__api__focus_hub__FocusHub_set_timer_settings_impl(
+        35 => wire__crate__api__focus_hub__FocusHub_set_reward_completed_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        22 => wire__crate__api__focus_hub__FocusHub_set_todo_completed_impl(
+        36 => wire__crate__api__focus_hub__FocusHub_set_time_zone_impl(ptr, rust_vec_len, data_len),
+        37 => wire__crate__api__focus_hub__FocusHub_set_timer_settings_impl(
             ptr,
             rust_vec_len,
             data_len,
         ),
-        23 => wire__crate__api__focus_hub__FocusHub_stats_impl(ptr, rust_vec_len, data_len),
-        24 => wire__crate__api__focus_hub__FocusHub_tick_impl(ptr, rust_vec_len, data_len),
-        25 => wire__crate__api__focus_hub__FocusHub_time_zone_impl(ptr, rust_vec_len, data_len),
-        26 => wire__crate__api__focus_hub__FocusHub_timer_view_impl(ptr, rust_vec_len, data_len),
-        27 => wire__crate__api__focus_hub__FocusHub_todos_for_impl(ptr, rust_vec_len, data_len),
-        28 => wire__crate__api__focus_hub__FocusHub_toggle_timer_impl(ptr, rust_vec_len, data_len),
-        29 => {
-            wire__crate__api__focus_hub__FocusHub_upcoming_alerts_impl(ptr, rust_vec_len, data_len)
+        38 => wire__crate__api__focus_hub__FocusHub_set_todo_completed_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        39 => wire__crate__api__focus_hub__FocusHub_skip_session_impl(ptr, rust_vec_len, data_len),
+        40 => wire__crate__api__focus_hub__FocusHub_stats_impl(ptr, rust_vec_len, data_len),
+        41 => wire__crate__api__focus_hub__FocusHub_status_now_impl(ptr, rust_vec_len, data_len),
+        42 => wire__crate__api__focus_hub__FocusHub_study_chart_impl(ptr, rust_vec_len, data_len),
+        43 => wire__crate__api__focus_hub__FocusHub_tick_impl(ptr, rust_vec_len, data_len),
+        44 => wire__crate__api__focus_hub__FocusHub_time_zone_impl(ptr, rust_vec_len, data_len),
+        45 => wire__crate__api__focus_hub__FocusHub_timer_view_impl(ptr, rust_vec_len, data_len),
+        46 => wire__crate__api__focus_hub__FocusHub_todos_for_impl(ptr, rust_vec_len, data_len),
+        47 => wire__crate__api__focus_hub__FocusHub_toggle_timer_impl(ptr, rust_vec_len, data_len),
+        48 => wire__crate__api__focus_hub__FocusHub_unfinished_before_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        49 => {
+            wire__crate__api__focus_hub__FocusHub_upcoming_events_impl(ptr, rust_vec_len, data_len)
         }
-        31 => wire__crate__api__focus_hub__long_date_impl(ptr, rust_vec_len, data_len),
-        32 => wire__crate__api__focus_hub__month_of_impl(ptr, rust_vec_len, data_len),
-        33 => wire__crate__api__focus_hub__shift_month_impl(ptr, rust_vec_len, data_len),
-        34 => wire__crate__api__focus_hub__today_date_impl(ptr, rust_vec_len, data_len),
+        50 => wire__crate__api__focus_hub__PreparedBackground_message_impl(
+            ptr,
+            rust_vec_len,
+            data_len,
+        ),
+        51 => wire__crate__api__focus_hub__add_days_impl(ptr, rust_vec_len, data_len),
+        53 => wire__crate__api__focus_hub__long_date_impl(ptr, rust_vec_len, data_len),
+        54 => wire__crate__api__focus_hub__month_of_impl(ptr, rust_vec_len, data_len),
+        56 => wire__crate__api__focus_hub__presets_impl(ptr, rust_vec_len, data_len),
+        57 => wire__crate__api__focus_hub__shift_month_impl(ptr, rust_vec_len, data_len),
+        58 => wire__crate__api__focus_hub__today_date_impl(ptr, rust_vec_len, data_len),
         _ => unreachable!(),
     }
 }
@@ -2148,6 +3672,45 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<FocusHub>> for FocusHub {
 }
 
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<PreparedBackground> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<PreparedBackground>
+{
+}
+
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<PreparedBackground>> for PreparedBackground {
+    fn into_into_dart(self) -> FrbWrapper<PreparedBackground> {
+        self.into()
+    }
+}
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::BackupView {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.date.into_into_dart().into_dart(),
+            self.label.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::focus_hub::BackupView
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::BackupView>
+    for crate::api::focus_hub::BackupView
+{
+    fn into_into_dart(self) -> crate::api::focus_hub::BackupView {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::CalendarDay {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
@@ -2156,6 +3719,7 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::CalendarDay {
             self.is_today.into_into_dart().into_dart(),
             self.is_selected.into_into_dart().into_dart(),
             self.has_todos.into_into_dart().into_dart(),
+            self.has_unfinished.into_into_dart().into_dart(),
         ]
         .into_dart()
     }
@@ -2196,11 +3760,57 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::CalendarMonth>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::CalendarWeek {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.title.into_into_dart().into_dart(),
+            self.days.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::focus_hub::CalendarWeek
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::CalendarWeek>
+    for crate::api::focus_hub::CalendarWeek
+{
+    fn into_into_dart(self) -> crate::api::focus_hub::CalendarWeek {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::ChartDay {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.date.into_into_dart().into_dart(),
+            self.label.into_into_dart().into_dart(),
+            self.minutes.into_into_dart().into_dart(),
+            self.is_today.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::focus_hub::ChartDay
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::ChartDay>
+    for crate::api::focus_hub::ChartDay
+{
+    fn into_into_dart(self) -> crate::api::focus_hub::ChartDay {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::DayTodos {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
             self.date.into_into_dart().into_dart(),
             self.title.into_into_dart().into_dart(),
+            self.summary.into_into_dart().into_dart(),
+            self.all_done.into_into_dart().into_dart(),
             self.todos.into_into_dart().into_dart(),
         ]
         .into_dart()
@@ -2214,6 +3824,72 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::DayTodos>
     for crate::api::focus_hub::DayTodos
 {
     fn into_into_dart(self) -> crate::api::focus_hub::DayTodos {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::Deleted {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.text.into_into_dart().into_dart(),
+            self.completed.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::focus_hub::Deleted
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::Deleted>
+    for crate::api::focus_hub::Deleted
+{
+    fn into_into_dart(self) -> crate::api::focus_hub::Deleted {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::HistoryFilter {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            Self::All => 0.into_dart(),
+            Self::Unfinished => 1.into_dart(),
+            Self::Done => 2.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::focus_hub::HistoryFilter
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::HistoryFilter>
+    for crate::api::focus_hub::HistoryFilter
+{
+    fn into_into_dart(self) -> crate::api::focus_hub::HistoryFilter {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::HistoryMonth {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.key.into_into_dart().into_dart(),
+            self.title.into_into_dart().into_dart(),
+            self.summary.into_into_dart().into_dart(),
+            self.days.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::focus_hub::HistoryMonth
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::HistoryMonth>
+    for crate::api::focus_hub::HistoryMonth
+{
+    fn into_into_dart(self) -> crate::api::focus_hub::HistoryMonth {
         self
     }
 }
@@ -2240,6 +3916,49 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::ImportSummary>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::MergeSummary {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.tasks_added.into_into_dart().into_dart(),
+            self.study_days_updated.into_into_dart().into_dart(),
+            self.rewards_added.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::focus_hub::MergeSummary
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::MergeSummary>
+    for crate::api::focus_hub::MergeSummary
+{
+    fn into_into_dart(self) -> crate::api::focus_hub::MergeSummary {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::PresetView {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.index.into_into_dart().into_dart(),
+            self.name.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::focus_hub::PresetView
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::PresetView>
+    for crate::api::focus_hub::PresetView
+{
+    fn into_into_dart(self) -> crate::api::focus_hub::PresetView {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::RewardView {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
@@ -2258,28 +3977,6 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::RewardView>
     for crate::api::focus_hub::RewardView
 {
     fn into_into_dart(self) -> crate::api::focus_hub::RewardView {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::ScheduledAlert {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.delay_ms.into_into_dart().into_dart(),
-            self.title.into_into_dart().into_dart(),
-            self.body.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::ScheduledAlert
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::ScheduledAlert>
-    for crate::api::focus_hub::ScheduledAlert
-{
-    fn into_into_dart(self) -> crate::api::focus_hub::ScheduledAlert {
         self
     }
 }
@@ -2313,6 +4010,10 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::StatsView {
             self.today_time.into_into_dart().into_dart(),
             self.month_sessions.into_into_dart().into_dart(),
             self.month_name.into_into_dart().into_dart(),
+            self.streak_days.into_into_dart().into_dart(),
+            self.best_streak_days.into_into_dart().into_dart(),
+            self.best_day.into_into_dart().into_dart(),
+            self.last_7_days_time.into_into_dart().into_dart(),
         ]
         .into_dart()
     }
@@ -2325,6 +4026,29 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::StatsView>
     for crate::api::focus_hub::StatsView
 {
     fn into_into_dart(self) -> crate::api::focus_hub::StatsView {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::TickReport {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.ended.into_into_dart().into_dart(),
+            self.redraw.into_into_dart().into_dart(),
+            self.reloaded.into_into_dart().into_dart(),
+            self.next_tick_ms.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::focus_hub::TickReport
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::TickReport>
+    for crate::api::focus_hub::TickReport
+{
+    fn into_into_dart(self) -> crate::api::focus_hub::TickReport {
         self
     }
 }
@@ -2351,18 +4075,47 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::TimeZoneView>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::TimerStatus {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.title.into_into_dart().into_dart(),
+            self.body.into_into_dart().into_dart(),
+            self.running.into_into_dart().into_dart(),
+            self.ends_at_ms.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::focus_hub::TimerStatus
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::TimerStatus>
+    for crate::api::focus_hub::TimerStatus
+{
+    fn into_into_dart(self) -> crate::api::focus_hub::TimerStatus {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::TimerView {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
             self.is_work.into_into_dart().into_dart(),
+            self.is_long_break.into_into_dart().into_dart(),
             self.is_running.into_into_dart().into_dart(),
+            self.is_at_start.into_into_dart().into_dart(),
             self.mode_label.into_into_dart().into_dart(),
             self.loop_label.into_into_dart().into_dart(),
             self.remaining.into_into_dart().into_dart(),
             self.progress.into_into_dart().into_dart(),
             self.work_secs.into_into_dart().into_dart(),
             self.break_secs.into_into_dart().into_dart(),
+            self.long_break_secs.into_into_dart().into_dart(),
             self.loops.into_into_dart().into_dart(),
+            self.long_break_every.into_into_dart().into_dart(),
+            self.auto_start.into_into_dart().into_dart(),
+            self.preset.into_into_dart().into_dart(),
         ]
         .into_dart()
     }
@@ -2397,6 +4150,29 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::TodoView>
     for crate::api::focus_hub::TodoView
 {
     fn into_into_dart(self) -> crate::api::focus_hub::TodoView {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::UpcomingEvent {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.delay_ms.into_into_dart().into_dart(),
+            self.alert_title.into_into_dart().into_dart(),
+            self.alert_body.into_into_dart().into_dart(),
+            self.next_status.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::focus_hub::UpcomingEvent
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::UpcomingEvent>
+    for crate::api::focus_hub::UpcomingEvent
+{
+    fn into_into_dart(self) -> crate::api::focus_hub::UpcomingEvent {
         self
     }
 }
@@ -2436,8 +4212,26 @@ impl SseEncode for FocusHub {
     }
 }
 
+impl SseEncode for PreparedBackground {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
+    }
+}
+
 impl SseEncode
     for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -2451,6 +4245,14 @@ impl SseEncode for String {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <Vec<u8>>::sse_encode(self.into_bytes(), serializer);
+    }
+}
+
+impl SseEncode for crate::api::focus_hub::BackupView {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.date, serializer);
+        <String>::sse_encode(self.label, serializer);
     }
 }
 
@@ -2469,6 +4271,7 @@ impl SseEncode for crate::api::focus_hub::CalendarDay {
         <bool>::sse_encode(self.is_today, serializer);
         <bool>::sse_encode(self.is_selected, serializer);
         <bool>::sse_encode(self.has_todos, serializer);
+        <bool>::sse_encode(self.has_unfinished, serializer);
     }
 }
 
@@ -2483,12 +4286,40 @@ impl SseEncode for crate::api::focus_hub::CalendarMonth {
     }
 }
 
+impl SseEncode for crate::api::focus_hub::CalendarWeek {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.title, serializer);
+        <Vec<crate::api::focus_hub::CalendarDay>>::sse_encode(self.days, serializer);
+    }
+}
+
+impl SseEncode for crate::api::focus_hub::ChartDay {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.date, serializer);
+        <String>::sse_encode(self.label, serializer);
+        <f64>::sse_encode(self.minutes, serializer);
+        <bool>::sse_encode(self.is_today, serializer);
+    }
+}
+
 impl SseEncode for crate::api::focus_hub::DayTodos {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <String>::sse_encode(self.date, serializer);
         <String>::sse_encode(self.title, serializer);
+        <String>::sse_encode(self.summary, serializer);
+        <bool>::sse_encode(self.all_done, serializer);
         <Vec<crate::api::focus_hub::TodoView>>::sse_encode(self.todos, serializer);
+    }
+}
+
+impl SseEncode for crate::api::focus_hub::Deleted {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.text, serializer);
+        <bool>::sse_encode(self.completed, serializer);
     }
 }
 
@@ -2499,10 +4330,44 @@ impl SseEncode for f64 {
     }
 }
 
+impl SseEncode for crate::api::focus_hub::HistoryFilter {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                crate::api::focus_hub::HistoryFilter::All => 0,
+                crate::api::focus_hub::HistoryFilter::Unfinished => 1,
+                crate::api::focus_hub::HistoryFilter::Done => 2,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for crate::api::focus_hub::HistoryMonth {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.key, serializer);
+        <String>::sse_encode(self.title, serializer);
+        <String>::sse_encode(self.summary, serializer);
+        <Vec<crate::api::focus_hub::DayTodos>>::sse_encode(self.days, serializer);
+    }
+}
+
 impl SseEncode for i32 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         serializer.cursor.write_i32::<NativeEndian>(self).unwrap();
+    }
+}
+
+impl SseEncode for i64 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        serializer.cursor.write_i64::<NativeEndian>(self).unwrap();
     }
 }
 
@@ -2512,6 +4377,16 @@ impl SseEncode for crate::api::focus_hub::ImportSummary {
         <u32>::sse_encode(self.days, serializer);
         <u32>::sse_encode(self.tasks, serializer);
         <u32>::sse_encode(self.rewards, serializer);
+    }
+}
+
+impl SseEncode for Vec<crate::api::focus_hub::BackupView> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::focus_hub::BackupView>::sse_encode(item, serializer);
+        }
     }
 }
 
@@ -2525,12 +4400,42 @@ impl SseEncode for Vec<crate::api::focus_hub::CalendarDay> {
     }
 }
 
+impl SseEncode for Vec<crate::api::focus_hub::ChartDay> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::focus_hub::ChartDay>::sse_encode(item, serializer);
+        }
+    }
+}
+
 impl SseEncode for Vec<crate::api::focus_hub::DayTodos> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <i32>::sse_encode(self.len() as _, serializer);
         for item in self {
             <crate::api::focus_hub::DayTodos>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<crate::api::focus_hub::HistoryMonth> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::focus_hub::HistoryMonth>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<crate::api::focus_hub::PresetView> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::focus_hub::PresetView>::sse_encode(item, serializer);
         }
     }
 }
@@ -2555,16 +4460,6 @@ impl SseEncode for Vec<crate::api::focus_hub::RewardView> {
     }
 }
 
-impl SseEncode for Vec<crate::api::focus_hub::ScheduledAlert> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <i32>::sse_encode(self.len() as _, serializer);
-        for item in self {
-            <crate::api::focus_hub::ScheduledAlert>::sse_encode(item, serializer);
-        }
-    }
-}
-
 impl SseEncode for Vec<crate::api::focus_hub::SessionAlert> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -2582,6 +4477,25 @@ impl SseEncode for Vec<crate::api::focus_hub::TodoView> {
         for item in self {
             <crate::api::focus_hub::TodoView>::sse_encode(item, serializer);
         }
+    }
+}
+
+impl SseEncode for Vec<crate::api::focus_hub::UpcomingEvent> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::focus_hub::UpcomingEvent>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for crate::api::focus_hub::MergeSummary {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <u32>::sse_encode(self.tasks_added, serializer);
+        <u32>::sse_encode(self.study_days_updated, serializer);
+        <u32>::sse_encode(self.rewards_added, serializer);
     }
 }
 
@@ -2605,21 +4519,40 @@ impl SseEncode for Option<i32> {
     }
 }
 
+impl SseEncode for Option<crate::api::focus_hub::TimerStatus> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <crate::api::focus_hub::TimerStatus>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<u32> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <u32>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for crate::api::focus_hub::PresetView {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <u32>::sse_encode(self.index, serializer);
+        <String>::sse_encode(self.name, serializer);
+    }
+}
+
 impl SseEncode for crate::api::focus_hub::RewardView {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <u32>::sse_encode(self.index, serializer);
         <String>::sse_encode(self.name, serializer);
         <bool>::sse_encode(self.completed, serializer);
-    }
-}
-
-impl SseEncode for crate::api::focus_hub::ScheduledAlert {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <u32>::sse_encode(self.delay_ms, serializer);
-        <String>::sse_encode(self.title, serializer);
-        <String>::sse_encode(self.body, serializer);
     }
 }
 
@@ -2639,6 +4572,20 @@ impl SseEncode for crate::api::focus_hub::StatsView {
         <String>::sse_encode(self.today_time, serializer);
         <u32>::sse_encode(self.month_sessions, serializer);
         <String>::sse_encode(self.month_name, serializer);
+        <u32>::sse_encode(self.streak_days, serializer);
+        <u32>::sse_encode(self.best_streak_days, serializer);
+        <Option<String>>::sse_encode(self.best_day, serializer);
+        <String>::sse_encode(self.last_7_days_time, serializer);
+    }
+}
+
+impl SseEncode for crate::api::focus_hub::TickReport {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Vec<crate::api::focus_hub::SessionAlert>>::sse_encode(self.ended, serializer);
+        <bool>::sse_encode(self.redraw, serializer);
+        <bool>::sse_encode(self.reloaded, serializer);
+        <u32>::sse_encode(self.next_tick_ms, serializer);
     }
 }
 
@@ -2651,18 +4598,34 @@ impl SseEncode for crate::api::focus_hub::TimeZoneView {
     }
 }
 
+impl SseEncode for crate::api::focus_hub::TimerStatus {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.title, serializer);
+        <String>::sse_encode(self.body, serializer);
+        <bool>::sse_encode(self.running, serializer);
+        <i64>::sse_encode(self.ends_at_ms, serializer);
+    }
+}
+
 impl SseEncode for crate::api::focus_hub::TimerView {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <bool>::sse_encode(self.is_work, serializer);
+        <bool>::sse_encode(self.is_long_break, serializer);
         <bool>::sse_encode(self.is_running, serializer);
+        <bool>::sse_encode(self.is_at_start, serializer);
         <String>::sse_encode(self.mode_label, serializer);
         <String>::sse_encode(self.loop_label, serializer);
         <String>::sse_encode(self.remaining, serializer);
         <f64>::sse_encode(self.progress, serializer);
         <u32>::sse_encode(self.work_secs, serializer);
         <u32>::sse_encode(self.break_secs, serializer);
+        <u32>::sse_encode(self.long_break_secs, serializer);
         <u32>::sse_encode(self.loops, serializer);
+        <u32>::sse_encode(self.long_break_every, serializer);
+        <bool>::sse_encode(self.auto_start, serializer);
+        <Option<u32>>::sse_encode(self.preset, serializer);
     }
 }
 
@@ -2692,6 +4655,16 @@ impl SseEncode for u8 {
 impl SseEncode for () {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {}
+}
+
+impl SseEncode for crate::api::focus_hub::UpcomingEvent {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <u32>::sse_encode(self.delay_ms, serializer);
+        <String>::sse_encode(self.alert_title, serializer);
+        <String>::sse_encode(self.alert_body, serializer);
+        <Option<crate::api::focus_hub::TimerStatus>>::sse_encode(self.next_status, serializer);
+    }
 }
 
 impl SseEncode for usize {
@@ -2744,6 +4717,20 @@ mod io {
     ) {
         MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>::decrement_strong_count(ptr as _);
     }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_focus_hub_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>::increment_strong_count(ptr as _);
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_focus_hub_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>::decrement_strong_count(ptr as _);
+    }
 }
 #[cfg(not(target_family = "wasm"))]
 pub use io::*;
@@ -2782,6 +4769,20 @@ mod web {
         ptr: *const std::ffi::c_void,
     ) {
         MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>::decrement_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>::increment_strong_count(ptr as _);
+    }
+
+    #[wasm_bindgen]
+    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+        ptr: *const std::ffi::c_void,
+    ) {
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>::decrement_strong_count(ptr as _);
     }
 }
 #[cfg(target_family = "wasm")]

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import '../controller.dart';
 import '../src/rust/api/focus_hub.dart';
 
-/// A month calendar (Rust works out the layout). Tap a day to edit its tasks.
-/// A dot marks days that have tasks.
+/// The calendar (Rust works out the layout): the selected day's week, or the whole month.
+/// Tap a day to edit its tasks. A dot marks days with tasks: colored if some are unfinished,
+/// grey if they're all done.
 class CalendarCard extends StatelessWidget {
   const CalendarCard({super.key, required this.controller});
 
@@ -14,32 +15,43 @@ class CalendarCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final month = controller.calendar;
-    final labelStyle = Theme.of(context).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.bold);
+    final theme = Theme.of(context);
+    final expanded = controller.calendarExpanded;
+    final String title;
+    final List<CalendarDay> days;
+    var leadingBlanks = 0;
+    if (expanded) {
+      final month = controller.calendar;
+      (title, days, leadingBlanks) = (month.title, month.days, month.leadingBlanks);
+    } else {
+      final week = controller.calendarWeek;
+      (title, days) = (week.title, week.days);
+    }
+    final labelStyle = theme.textTheme.labelSmall?.copyWith(fontWeight: FontWeight.bold);
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
         child: Column(
           children: [
             Row(
               children: [
                 IconButton(
-                  tooltip: 'Previous month',
+                  tooltip: expanded ? 'Previous month' : 'Previous week',
                   icon: const Icon(Icons.chevron_left),
-                  onPressed: () => controller.showMonth(-1),
+                  onPressed: () => expanded ? controller.showMonth(-1) : controller.shiftWeek(-1),
                 ),
                 Expanded(
                   child: Text(
-                    month.title,
+                    title,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: theme.textTheme.titleMedium,
                   ),
                 ),
                 TextButton(onPressed: controller.goToToday, child: const Text('Today')),
                 IconButton(
-                  tooltip: 'Next month',
+                  tooltip: expanded ? 'Next month' : 'Next week',
                   icon: const Icon(Icons.chevron_right),
-                  onPressed: () => controller.showMonth(1),
+                  onPressed: () => expanded ? controller.showMonth(1) : controller.shiftWeek(1),
                 ),
               ],
             ),
@@ -50,10 +62,15 @@ class CalendarCard extends StatelessWidget {
               childAspectRatio: 1.15,
               children: [
                 for (final name in _weekdays) Center(child: Text(name, style: labelStyle)),
-                for (var i = 0; i < month.leadingBlanks; i++) const SizedBox.shrink(),
-                for (final day in month.days)
-                  _DayCell(day: day, onTap: () => controller.selectDate(day.date)),
+                for (var i = 0; i < leadingBlanks; i++) const SizedBox.shrink(),
+                for (final day in days) _DayCell(day: day, onTap: () => controller.selectDate(day.date)),
               ],
+            ),
+            IconButton(
+              tooltip: expanded ? 'Show one week' : 'Show the whole month',
+              visualDensity: VisualDensity.compact,
+              icon: Icon(expanded ? Icons.expand_less : Icons.expand_more),
+              onPressed: controller.toggleCalendar,
             ),
           ],
         ),
@@ -71,10 +88,11 @@ class _DayCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final status = day.hasUnfinished ? ', unfinished tasks' : (day.hasTodos ? ', has tasks, all done' : '');
     return Semantics(
       button: true,
       selected: day.isSelected,
-      label: '${day.date}${day.isToday ? ', today' : ''}${day.hasTodos ? ', has tasks' : ''}',
+      label: '${day.date}${day.isToday ? ', today' : ''}${day.hasTodos ? ', has tasks' : ''}$status',
       excludeSemantics: true,
       child: InkWell(
         onTap: onTap,
@@ -100,11 +118,13 @@ class _DayCell extends StatelessWidget {
                 Positioned(
                   bottom: 4,
                   child: Container(
-                    width: 4,
-                    height: 4,
+                    width: 5,
+                    height: 5,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: day.isToday ? colors.onPrimaryContainer : colors.onSurface,
+                      color: day.hasUnfinished
+                          ? (day.isToday ? colors.onPrimaryContainer : colors.primary)
+                          : colors.outline,
                     ),
                   ),
                 ),

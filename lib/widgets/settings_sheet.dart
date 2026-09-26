@@ -35,7 +35,9 @@ class SettingsSheet extends StatefulWidget {
 
 class _SettingsSheetState extends State<SettingsSheet> {
   late Future<AlertStatus> _status;
+  late final Future<bool> _canAddIcon = _controller.homeScreen.canAdd();
   late final AppLifecycleListener _lifecycle;
+  bool _settingBackground = false;
 
   FocusController get _controller => widget.controller;
 
@@ -105,38 +107,98 @@ class _SettingsSheetState extends State<SettingsSheet> {
       type: FileType.custom,
       allowedExtensions: const ['gif', 'png', 'jpg', 'jpeg', 'webp'],
     );
-    if (file == null) return;
-    final error = _controller.setBackground(file.name, await file.readAsBytes());
+    if (file == null || !mounted) return;
+    final path = file.path;
+    if (path == null) {
+      _say("Couldn't open that file.");
+      return;
+    }
+    // Rust reads the file and shrinks it to the screen's longest side in real pixels,
+    // so it fits whichever way up the phone is held.
+    final screenSide = View.of(context).physicalSize.longestSide.round();
+    setState(() => _settingBackground = true);
+    final message = await _controller.setBackground(path, screenSide);
+    await FilePicker.clearTemporaryFiles(); // the picker's copy of the file
     if (!mounted) return;
-    _say(error ?? 'Background changed.');
+    setState(() => _settingBackground = false);
+    _say(message);
   }
 
   Future<void> _import() async {
     final file = await FilePicker.pickFile(dialogTitle: 'Choose focushub_data.json');
     if (file == null || !mounted) return;
+    final choice = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Add or replace?'),
+        content: Text(
+          '"${file.name}"\n\n'
+          'Merge: add its tasks, study time and rewards to yours. Nothing is counted twice, '
+          "so it's safe for using the desktop app and the phone together.\n\n"
+          "Replace: use only the file's tasks, stats and rewards.\n\n"
+          'Your timer settings stay the same either way.',
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+          TextButton(onPressed: () => Navigator.pop(context, 'replace'), child: const Text('Replace')),
+          FilledButton(onPressed: () => Navigator.pop(context, 'merge'), child: const Text('Merge')),
+        ],
+      ),
+    );
+    if (choice == null) return;
+    final text = utf8.decode(await file.readAsBytes(), allowMalformed: true);
+    try {
+      if (choice == 'merge') {
+        final merged = _controller.mergeJson(text);
+        _say('Added ${_count(merged.tasksAdded, 'task')} and ${_count(merged.rewardsAdded, 'reward')}; '
+            'updated study time on ${_count(merged.studyDaysUpdated, 'day')}.');
+      } else {
+        final summary = _controller.importJson(text);
+        _say('Imported ${_count(summary.tasks, 'task')} on ${_count(summary.days, 'day')}, '
+            'and ${_count(summary.rewards, 'reward')}.');
+      }
+    } on AnyhowException catch (e) {
+      _say(e.message);
+    }
+  }
+
+  Future<void> _restoreBackup() async {
+    final backups = _controller.backups;
+    if (backups.isEmpty) {
+      _say('No backups yet. One is made each day you open the app.');
+      return;
+    }
+    final date = await showDialog<String>(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: const Text('Restore a daily backup'),
+        children: [
+          for (final backup in backups)
+            SimpleDialogOption(
+              onPressed: () => Navigator.pop(context, backup.date),
+              child: Text('Start of ${backup.label}'),
+            ),
+        ],
+      ),
+    );
+    if (date == null || !mounted) return;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Replace your data?'),
-        content: Text(
-          'Your tasks, stats and rewards will be replaced by the ones in "${file.name}". '
-          'Your timer settings stay the same.\n\nExport a backup first if you want to keep the current data.',
+        title: const Text('Restore this backup?'),
+        content: const Text(
+          'Everything (tasks, stats, rewards and settings) goes back to how it was then. '
+          'Changes since then are lost, so export a backup first if you might want them.',
         ),
         actions: [
           TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
-          FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text('Replace')),
+          FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text('Restore')),
         ],
       ),
     );
     if (confirmed != true) return;
-    final text = utf8.decode(await file.readAsBytes(), allowMalformed: true);
-    try {
-      final summary = _controller.importJson(text);
-      _say('Imported ${_count(summary.tasks, 'task')} on ${_count(summary.days, 'day')}, '
-          'and ${_count(summary.rewards, 'reward')}.');
-    } on AnyhowException catch (e) {
-      _say(e.message);
-    }
+    await _controller.restoreBackup(date);
+    _say('Backup restored.');
   }
 
   Future<void> _export() async {
@@ -173,7 +235,18 @@ class _SettingsSheetState extends State<SettingsSheet> {
             ListTile(
               leading: const Icon(Icons.image_outlined),
               title: const Text('Choose an image or GIF…'),
-              onTap: _chooseBackground,
+              subtitle: _settingBackground ? const Text('Resizing it for this screen…') : null,
+              trailing: _settingBackground
+                  ? const SizedBox.square(dimension: 24, child: CircularProgressIndicator(strokeWidth: 3))
+                  : null,
+              onTap: _settingBackground ? null : _chooseBackground,
+            ),
+            SwitchListTile(
+              secondary: const Icon(Icons.animation),
+              title: const Text('Animated background'),
+              subtitle: const Text('Turn off to save battery. It also stops by itself in Battery Saver.'),
+              value: _controller.animateBackground,
+              onChanged: _controller.setAnimateBackground,
             ),
             if (_controller.backgroundPath != null)
               ListTile(
@@ -227,11 +300,31 @@ class _SettingsSheetState extends State<SettingsSheet> {
                 onTap: alerts.showTest,
               ),
             ],
+            FutureBuilder<bool>(
+              future: _canAddIcon,
+              builder: (context, snapshot) => snapshot.data != true
+                  ? const SizedBox.shrink()
+                  : Column(
+                      children: [
+                        const _Header('Home screen'),
+                        ListTile(
+                          leading: const Icon(Icons.add_to_home_screen),
+                          title: const Text('Add the icon to the Home screen'),
+                          subtitle: const Text('Android asks you to confirm.'),
+                          onTap: () async {
+                            if (!await _controller.homeScreen.add() && mounted) {
+                              _say("This phone's Home screen doesn't allow that. Add it from the app list.");
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+            ),
             const _Header('Your data'),
             ListTile(
               leading: const Icon(Icons.download_outlined),
               title: const Text('Import from the desktop app…'),
-              subtitle: const Text('Use the tasks, stats and rewards from a focushub_data.json file.'),
+              subtitle: const Text('Merge or replace with a focushub_data.json file.'),
               onTap: _import,
             ),
             ListTile(
@@ -239,6 +332,12 @@ class _SettingsSheetState extends State<SettingsSheet> {
               title: const Text('Export a backup…'),
               subtitle: const Text('Save focushub_data.json. The desktop app can open it too.'),
               onTap: _export,
+            ),
+            ListTile(
+              leading: const Icon(Icons.history),
+              title: const Text('Restore a daily backup…'),
+              subtitle: const Text('The app keeps a copy from each of the last 7 days you used it.'),
+              onTap: _restoreBackup,
             ),
             ListTile(
               leading: const Icon(Icons.folder_outlined),

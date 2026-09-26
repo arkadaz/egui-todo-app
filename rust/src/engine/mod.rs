@@ -4,5 +4,6 @@
 pub mod dates;
 pub mod domain;
 pub mod hub;
+pub mod images;
 pub mod persistence;
 pub mod timer;

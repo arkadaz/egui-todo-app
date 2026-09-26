@@ -32,25 +32,41 @@ pub struct Reward {
 }
 
 /// Timer and clock preferences. New in the mobile app: older files don't have this
-/// section, so every field falls back to its default.
+/// section (or some of its fields), so every missing field falls back to its default.
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 #[serde(default)]
 pub struct Settings {
     pub work_secs: u64,
+    /// The short break between work sessions.
     pub break_secs: u64,
     pub loops: u32,
     /// Hours east of GMT for the clock. `None` means "use the device's time zone".
     pub gmt_offset_hours: Option<i32>,
+    pub long_break_secs: u64,
+    /// A long break after every this many loops. 0 = never (the desktop app's behavior).
+    pub long_break_every: u32,
+    /// Start the next session automatically when one ends (the desktop app's behavior).
+    pub auto_start: bool,
+    /// Play the background GIF. Off saves battery.
+    pub animate_background: bool,
+    /// The app has offered to put its icon on the Home screen (it asks only once).
+    pub home_icon_offered: bool,
 }
 
 impl Default for Settings {
-    /// The desktop app's defaults: 60 minutes of work, a 5 minute break, 1 loop.
+    /// The desktop app's defaults: 60 minutes of work, a 5 minute break, 1 loop,
+    /// no long breaks, sessions start by themselves.
     fn default() -> Self {
         Self {
             work_secs: 60 * 60,
             break_secs: 5 * 60,
             loops: 1,
             gmt_offset_hours: None,
+            long_break_secs: 15 * 60,
+            long_break_every: 0,
+            auto_start: true,
+            animate_background: true,
+            home_icon_offered: false,
         }
     }
 }

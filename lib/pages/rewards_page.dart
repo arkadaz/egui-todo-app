@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../controller.dart';
+import '../widgets/edit_helpers.dart';
 
 /// The desktop app's Rewards window. Unfinished rewards are listed first.
+/// Tap a reward to rename it; deleting can be undone.
 class RewardsPage extends StatefulWidget {
   const RewardsPage({super.key, required this.controller});
 
@@ -104,10 +106,26 @@ class _RewardsPageState extends State<RewardsPage> {
                                   )
                                 : null,
                           ),
-                          secondary: IconButton(
-                            tooltip: 'Remove reward',
-                            icon: const Icon(Icons.close),
-                            onPressed: () => _controller.deleteReward(reward.index),
+                          secondary: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                tooltip: 'Rename reward',
+                                icon: const Icon(Icons.edit_outlined),
+                                onPressed: () => showEditDialog(
+                                  context,
+                                  title: 'Rename reward',
+                                  initial: reward.name,
+                                  save: (name) => _controller.editReward(reward.index, name),
+                                ),
+                              ),
+                              IconButton(
+                                tooltip: 'Remove reward',
+                                icon: const Icon(Icons.close),
+                                onPressed: () =>
+                                    showUndo(context, 'Reward deleted', _controller.deleteReward(reward.index)),
+                              ),
+                            ],
                           ),
                         ),
                     ],

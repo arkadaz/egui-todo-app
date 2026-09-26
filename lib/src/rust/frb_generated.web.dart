@@ -27,12 +27,22 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   get rust_arc_decrement_strong_count_FocusHubPtr => wire
       .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub;
 
+  CrossPlatformFinalizerArg
+  get rust_arc_decrement_strong_count_PreparedBackgroundPtr => wire
+      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground;
+
   @protected
   AnyhowException dco_decode_AnyhowException(dynamic raw);
 
   @protected
   FocusHub
   dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+    dynamic raw,
+  );
+
+  @protected
+  PreparedBackground
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
     dynamic raw,
   );
 
@@ -49,13 +59,28 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  PreparedBackground
+  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    dynamic raw,
+  );
+
+  @protected
   FocusHub
   dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
     dynamic raw,
   );
 
   @protected
+  PreparedBackground
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    dynamic raw,
+  );
+
+  @protected
   String dco_decode_String(dynamic raw);
+
+  @protected
+  BackupView dco_decode_backup_view(dynamic raw);
 
   @protected
   bool dco_decode_bool(dynamic raw);
@@ -64,31 +89,64 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   int dco_decode_box_autoadd_i_32(dynamic raw);
 
   @protected
+  TimerStatus dco_decode_box_autoadd_timer_status(dynamic raw);
+
+  @protected
+  int dco_decode_box_autoadd_u_32(dynamic raw);
+
+  @protected
   CalendarDay dco_decode_calendar_day(dynamic raw);
 
   @protected
   CalendarMonth dco_decode_calendar_month(dynamic raw);
 
   @protected
+  CalendarWeek dco_decode_calendar_week(dynamic raw);
+
+  @protected
+  ChartDay dco_decode_chart_day(dynamic raw);
+
+  @protected
   DayTodos dco_decode_day_todos(dynamic raw);
+
+  @protected
+  Deleted dco_decode_deleted(dynamic raw);
 
   @protected
   double dco_decode_f_64(dynamic raw);
 
   @protected
+  HistoryFilter dco_decode_history_filter(dynamic raw);
+
+  @protected
+  HistoryMonth dco_decode_history_month(dynamic raw);
+
+  @protected
   int dco_decode_i_32(dynamic raw);
+
+  @protected
+  PlatformInt64 dco_decode_i_64(dynamic raw);
 
   @protected
   ImportSummary dco_decode_import_summary(dynamic raw);
 
   @protected
+  List<BackupView> dco_decode_list_backup_view(dynamic raw);
+
+  @protected
   List<CalendarDay> dco_decode_list_calendar_day(dynamic raw);
+
+  @protected
+  List<ChartDay> dco_decode_list_chart_day(dynamic raw);
 
   @protected
   List<DayTodos> dco_decode_list_day_todos(dynamic raw);
 
   @protected
-  List<int> dco_decode_list_prim_u_8_loose(dynamic raw);
+  List<HistoryMonth> dco_decode_list_history_month(dynamic raw);
+
+  @protected
+  List<PresetView> dco_decode_list_preset_view(dynamic raw);
 
   @protected
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw);
@@ -97,13 +155,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   List<RewardView> dco_decode_list_reward_view(dynamic raw);
 
   @protected
-  List<ScheduledAlert> dco_decode_list_scheduled_alert(dynamic raw);
-
-  @protected
   List<SessionAlert> dco_decode_list_session_alert(dynamic raw);
 
   @protected
   List<TodoView> dco_decode_list_todo_view(dynamic raw);
+
+  @protected
+  List<UpcomingEvent> dco_decode_list_upcoming_event(dynamic raw);
+
+  @protected
+  MergeSummary dco_decode_merge_summary(dynamic raw);
 
   @protected
   String? dco_decode_opt_String(dynamic raw);
@@ -112,10 +173,16 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   int? dco_decode_opt_box_autoadd_i_32(dynamic raw);
 
   @protected
-  RewardView dco_decode_reward_view(dynamic raw);
+  TimerStatus? dco_decode_opt_box_autoadd_timer_status(dynamic raw);
 
   @protected
-  ScheduledAlert dco_decode_scheduled_alert(dynamic raw);
+  int? dco_decode_opt_box_autoadd_u_32(dynamic raw);
+
+  @protected
+  PresetView dco_decode_preset_view(dynamic raw);
+
+  @protected
+  RewardView dco_decode_reward_view(dynamic raw);
 
   @protected
   SessionAlert dco_decode_session_alert(dynamic raw);
@@ -124,7 +191,13 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   StatsView dco_decode_stats_view(dynamic raw);
 
   @protected
+  TickReport dco_decode_tick_report(dynamic raw);
+
+  @protected
   TimeZoneView dco_decode_time_zone_view(dynamic raw);
+
+  @protected
+  TimerStatus dco_decode_timer_status(dynamic raw);
 
   @protected
   TimerView dco_decode_timer_view(dynamic raw);
@@ -142,6 +215,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void dco_decode_unit(dynamic raw);
 
   @protected
+  UpcomingEvent dco_decode_upcoming_event(dynamic raw);
+
+  @protected
   BigInt dco_decode_usize(dynamic raw);
 
   @protected
@@ -153,6 +229,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   FocusHub
   sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  PreparedBackground
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
     SseDeserializer deserializer,
   );
 
@@ -169,13 +251,28 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  PreparedBackground
+  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   FocusHub
   sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
     SseDeserializer deserializer,
   );
 
   @protected
+  PreparedBackground
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   String sse_decode_String(SseDeserializer deserializer);
+
+  @protected
+  BackupView sse_decode_backup_view(SseDeserializer deserializer);
 
   @protected
   bool sse_decode_bool(SseDeserializer deserializer);
@@ -184,42 +281,72 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   int sse_decode_box_autoadd_i_32(SseDeserializer deserializer);
 
   @protected
+  TimerStatus sse_decode_box_autoadd_timer_status(SseDeserializer deserializer);
+
+  @protected
+  int sse_decode_box_autoadd_u_32(SseDeserializer deserializer);
+
+  @protected
   CalendarDay sse_decode_calendar_day(SseDeserializer deserializer);
 
   @protected
   CalendarMonth sse_decode_calendar_month(SseDeserializer deserializer);
 
   @protected
+  CalendarWeek sse_decode_calendar_week(SseDeserializer deserializer);
+
+  @protected
+  ChartDay sse_decode_chart_day(SseDeserializer deserializer);
+
+  @protected
   DayTodos sse_decode_day_todos(SseDeserializer deserializer);
+
+  @protected
+  Deleted sse_decode_deleted(SseDeserializer deserializer);
 
   @protected
   double sse_decode_f_64(SseDeserializer deserializer);
 
   @protected
+  HistoryFilter sse_decode_history_filter(SseDeserializer deserializer);
+
+  @protected
+  HistoryMonth sse_decode_history_month(SseDeserializer deserializer);
+
+  @protected
   int sse_decode_i_32(SseDeserializer deserializer);
+
+  @protected
+  PlatformInt64 sse_decode_i_64(SseDeserializer deserializer);
 
   @protected
   ImportSummary sse_decode_import_summary(SseDeserializer deserializer);
 
   @protected
+  List<BackupView> sse_decode_list_backup_view(SseDeserializer deserializer);
+
+  @protected
   List<CalendarDay> sse_decode_list_calendar_day(SseDeserializer deserializer);
+
+  @protected
+  List<ChartDay> sse_decode_list_chart_day(SseDeserializer deserializer);
 
   @protected
   List<DayTodos> sse_decode_list_day_todos(SseDeserializer deserializer);
 
   @protected
-  List<int> sse_decode_list_prim_u_8_loose(SseDeserializer deserializer);
+  List<HistoryMonth> sse_decode_list_history_month(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  List<PresetView> sse_decode_list_preset_view(SseDeserializer deserializer);
 
   @protected
   Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer);
 
   @protected
   List<RewardView> sse_decode_list_reward_view(SseDeserializer deserializer);
-
-  @protected
-  List<ScheduledAlert> sse_decode_list_scheduled_alert(
-    SseDeserializer deserializer,
-  );
 
   @protected
   List<SessionAlert> sse_decode_list_session_alert(
@@ -230,16 +357,32 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   List<TodoView> sse_decode_list_todo_view(SseDeserializer deserializer);
 
   @protected
+  List<UpcomingEvent> sse_decode_list_upcoming_event(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  MergeSummary sse_decode_merge_summary(SseDeserializer deserializer);
+
+  @protected
   String? sse_decode_opt_String(SseDeserializer deserializer);
 
   @protected
   int? sse_decode_opt_box_autoadd_i_32(SseDeserializer deserializer);
 
   @protected
-  RewardView sse_decode_reward_view(SseDeserializer deserializer);
+  TimerStatus? sse_decode_opt_box_autoadd_timer_status(
+    SseDeserializer deserializer,
+  );
 
   @protected
-  ScheduledAlert sse_decode_scheduled_alert(SseDeserializer deserializer);
+  int? sse_decode_opt_box_autoadd_u_32(SseDeserializer deserializer);
+
+  @protected
+  PresetView sse_decode_preset_view(SseDeserializer deserializer);
+
+  @protected
+  RewardView sse_decode_reward_view(SseDeserializer deserializer);
 
   @protected
   SessionAlert sse_decode_session_alert(SseDeserializer deserializer);
@@ -248,7 +391,13 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   StatsView sse_decode_stats_view(SseDeserializer deserializer);
 
   @protected
+  TickReport sse_decode_tick_report(SseDeserializer deserializer);
+
+  @protected
   TimeZoneView sse_decode_time_zone_view(SseDeserializer deserializer);
+
+  @protected
+  TimerStatus sse_decode_timer_status(SseDeserializer deserializer);
 
   @protected
   TimerView sse_decode_timer_view(SseDeserializer deserializer);
@@ -264,6 +413,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_decode_unit(SseDeserializer deserializer);
+
+  @protected
+  UpcomingEvent sse_decode_upcoming_event(SseDeserializer deserializer);
 
   @protected
   BigInt sse_decode_usize(SseDeserializer deserializer);
@@ -286,6 +438,13 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    PreparedBackground self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void
   sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
     FocusHub self,
     SseSerializer serializer,
@@ -300,13 +459,30 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void
+  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    PreparedBackground self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void
   sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
     FocusHub self,
     SseSerializer serializer,
   );
 
   @protected
+  void
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    PreparedBackground self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_String(String self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_backup_view(BackupView self, SseSerializer serializer);
 
   @protected
   void sse_encode_bool(bool self, SseSerializer serializer);
@@ -315,22 +491,55 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_box_autoadd_i_32(int self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_timer_status(
+    TimerStatus self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_box_autoadd_u_32(int self, SseSerializer serializer);
+
+  @protected
   void sse_encode_calendar_day(CalendarDay self, SseSerializer serializer);
 
   @protected
   void sse_encode_calendar_month(CalendarMonth self, SseSerializer serializer);
 
   @protected
+  void sse_encode_calendar_week(CalendarWeek self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_chart_day(ChartDay self, SseSerializer serializer);
+
+  @protected
   void sse_encode_day_todos(DayTodos self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_deleted(Deleted self, SseSerializer serializer);
 
   @protected
   void sse_encode_f_64(double self, SseSerializer serializer);
 
   @protected
+  void sse_encode_history_filter(HistoryFilter self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_history_month(HistoryMonth self, SseSerializer serializer);
+
+  @protected
   void sse_encode_i_32(int self, SseSerializer serializer);
 
   @protected
+  void sse_encode_i_64(PlatformInt64 self, SseSerializer serializer);
+
+  @protected
   void sse_encode_import_summary(ImportSummary self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_backup_view(
+    List<BackupView> self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_list_calendar_day(
@@ -339,10 +548,22 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  void sse_encode_list_chart_day(List<ChartDay> self, SseSerializer serializer);
+
+  @protected
   void sse_encode_list_day_todos(List<DayTodos> self, SseSerializer serializer);
 
   @protected
-  void sse_encode_list_prim_u_8_loose(List<int> self, SseSerializer serializer);
+  void sse_encode_list_history_month(
+    List<HistoryMonth> self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_list_preset_view(
+    List<PresetView> self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_list_prim_u_8_strict(
@@ -357,12 +578,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  void sse_encode_list_scheduled_alert(
-    List<ScheduledAlert> self,
-    SseSerializer serializer,
-  );
-
-  @protected
   void sse_encode_list_session_alert(
     List<SessionAlert> self,
     SseSerializer serializer,
@@ -372,19 +587,34 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_list_todo_view(List<TodoView> self, SseSerializer serializer);
 
   @protected
+  void sse_encode_list_upcoming_event(
+    List<UpcomingEvent> self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_merge_summary(MergeSummary self, SseSerializer serializer);
+
+  @protected
   void sse_encode_opt_String(String? self, SseSerializer serializer);
 
   @protected
   void sse_encode_opt_box_autoadd_i_32(int? self, SseSerializer serializer);
 
   @protected
-  void sse_encode_reward_view(RewardView self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_scheduled_alert(
-    ScheduledAlert self,
+  void sse_encode_opt_box_autoadd_timer_status(
+    TimerStatus? self,
     SseSerializer serializer,
   );
+
+  @protected
+  void sse_encode_opt_box_autoadd_u_32(int? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_preset_view(PresetView self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_reward_view(RewardView self, SseSerializer serializer);
 
   @protected
   void sse_encode_session_alert(SessionAlert self, SseSerializer serializer);
@@ -393,7 +623,13 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_stats_view(StatsView self, SseSerializer serializer);
 
   @protected
+  void sse_encode_tick_report(TickReport self, SseSerializer serializer);
+
+  @protected
   void sse_encode_time_zone_view(TimeZoneView self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_timer_status(TimerStatus self, SseSerializer serializer);
 
   @protected
   void sse_encode_timer_view(TimerView self, SseSerializer serializer);
@@ -409,6 +645,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_unit(void self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_upcoming_event(UpcomingEvent self, SseSerializer serializer);
 
   @protected
   void sse_encode_usize(BigInt self, SseSerializer serializer);
@@ -437,6 +676,22 @@ class RustLibWire implements BaseWire {
       .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
         ptr,
       );
+
+  void
+  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    int ptr,
+  ) => wasmModule
+      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+        ptr,
+      );
+
+  void
+  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    int ptr,
+  ) => wasmModule
+      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+        ptr,
+      );
 }
 
 @JS('wasm_bindgen')
@@ -452,6 +707,16 @@ extension type RustLibWasmModule._(JSObject _) implements JSObject {
 
   external void
   rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerFocusHub(
+    int ptr,
+  );
+
+  external void
+  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
+    int ptr,
+  );
+
+  external void
+  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
     int ptr,
   );
 }

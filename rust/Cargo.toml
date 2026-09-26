@@ -12,9 +12,19 @@ anyhow = "1"
 chrono = { version = "0.4", features = ["serde"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+image = { version = "0.25.10", default-features = false, features = ["gif", "jpeg", "png", "webp"] }
+gif = "0.14"
 
 [dev-dependencies]
 tempfile = "3"
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }
+
+# `flutter run` builds the Rust library in debug mode. Optimize it anyway: unoptimized
+# image decoding and JSON are many times slower, and would make debug builds feel laggy.
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3

@@ -1,47 +1,33 @@
 import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:focus_hub/app.dart';
-import 'package:focus_hub/controller.dart';
-import 'package:focus_hub/services/alerts.dart';
 import 'package:focus_hub/src/rust/api/focus_hub.dart';
 import 'package:focus_hub/src/rust/frb_generated.dart';
 import 'package:integration_test/integration_test.dart';
 
-/// Alerts that do nothing, so tests never open permission popups.
-class SilentAlerts extends Alerts {
-  @override
-  bool get supported => false;
+import 'helpers.dart';
+
+/// A [width] x [height] PNG, drawn by Flutter.
+Future<Uint8List> pngOf(int width, int height) async {
+  final recorder = ui.PictureRecorder();
+  Canvas(recorder).drawRect(
+    Rect.fromLTWH(0, 0, width.toDouble(), height.toDouble()),
+    Paint()..color = Colors.orange,
+  );
+  final image = await recorder.endRecording().toImage(width, height);
+  final data = await image.toByteData(format: ui.ImageByteFormat.png);
+  return data!.buffer.asUint8List();
 }
 
-/// Opens the app on a fresh, empty data folder.
-Future<FocusController> startApp(WidgetTester tester) async {
-  final dir = Directory.systemTemp.createTempSync('focus_hub_test');
-  final controller = FocusController(hub: FocusHub.open(dataDir: dir.path), alerts: SilentAlerts());
-  await tester.pumpWidget(FocusHubApp(controller: controller));
-  await tester.pumpAndSettle();
-  return controller;
-}
-
-/// Lets real time pass (the timer uses the real clock), then redraws.
-Future<void> wait(WidgetTester tester, Duration duration) async {
-  await tester.runAsync(() => Future<void>.delayed(duration));
-  await tester.pump();
-}
-
-/// Closes the on-screen keyboard and waits until the layout has stopped moving.
-Future<void> closeKeyboard(WidgetTester tester) async {
-  FocusManager.instance.primaryFocus?.unfocus();
-  await wait(tester, const Duration(milliseconds: 800));
-  await tester.pumpAndSettle();
-}
-
-Future<void> openTab(WidgetTester tester, String label) async {
-  await tester.tap(find.descendant(of: find.byType(NavigationBar), matching: find.text(label)));
-  await tester.pumpAndSettle();
+/// Width and height of an image file.
+Future<(int, int)> sizeOf(File file) async {
+  final codec = await ui.instantiateImageCodec(file.readAsBytesSync());
+  final frame = (await codec.getNextFrame()).image;
+  return (frame.width, frame.height);
 }
 
 void main() {
@@ -122,7 +108,7 @@ void main() {
     expect(find.bySemanticsLabel(RegExp(r'today, has tasks')), findsOneWidget);
     await closeKeyboard(tester);
 
-    await tester.tap(find.text('Write tests'));
+    await tester.tap(find.byType(Checkbox).first);
     await tester.pump();
     expect(controller.todos.first.completed, isTrue);
 
@@ -202,24 +188,40 @@ void main() {
     expect(controller.timeZone.followsDevice, isTrue);
   });
 
-  testWidgets('settings: a custom background is copied, shown, and removed', (tester) async {
+  testWidgets('settings: a background is resized by Rust, shown, and removed', (tester) async {
     final controller = await startApp(tester);
     expect(controller.backgroundPath, isNull);
-    final gif = await rootBundle.load('assets/background.gif');
-    expect(controller.setBackground('duck.GIF', gif.buffer.asUint8List()), isNull);
-    expect(controller.setBackground('notes.txt', Uint8List.fromList([1, 2, 3])),
-        'Please choose a GIF, PNG, JPG or WebP image.');
-    final path = controller.backgroundPath!;
-    expect(File(path).existsSync(), isTrue);
+    final dir = Directory.systemTemp.createTempSync('focus_hub_images');
+    final notes = File('${dir.path}/notes.txt')..writeAsStringSync('not an image');
+    final photo = File('${dir.path}/photo.png')..writeAsBytesSync((await tester.runAsync(() => pngOf(3000, 2000)))!);
+    final duck = File('${dir.path}/duck.GIF')
+      ..writeAsBytesSync((await rootBundle.load('assets/background.gif')).buffer.asUint8List());
+    Future<String?> choose(File file, int screenSide) =>
+        tester.runAsync(() => controller.setBackground(file.path, screenSide));
+
+    expect(await choose(notes, 1080), 'Please choose a GIF, PNG, JPG or WebP image.');
+    expect(controller.backgroundPath, isNull);
+
+    // A photo bigger than the screen is shrunk to it.
+    expect(await choose(photo, 1080), 'Background changed (resized from 3000 × 2000 to 1080 × 720 for this screen).');
+    final photoCopy = controller.backgroundPath!;
+    expect(await tester.runAsync(() => sizeOf(File(photoCopy))), (1080, 720));
     await tester.pump();
     expect(find.byWidgetPredicate((w) => w is Image && w.image is FileImage), findsOneWidget);
+
+    // The duck GIF (383 × 480) already fits, so it's kept as it is.
+    expect(await choose(duck, 2400), 'Background changed.');
+    final duckCopy = controller.backgroundPath!;
+    expect(duckCopy, endsWith('.gif'));
+    expect(File(duckCopy).readAsBytesSync(), duck.readAsBytesSync());
+    expect(File(photoCopy).existsSync(), isFalse, reason: 'the old copy is deleted');
 
     await tester.tap(find.byTooltip('Settings'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Use the default background'));
     await tester.pumpAndSettle();
     expect(controller.backgroundPath, isNull);
-    expect(File(path).existsSync(), isFalse, reason: 'our copy is deleted');
+    expect(File(duckCopy).existsSync(), isFalse, reason: 'our copy is deleted');
   });
 
   testWidgets('settings: import desktop data and export it again', (tester) async {
@@ -247,9 +249,11 @@ void main() {
 
     // The imported task shows up in the history of later days.
     await openTab(tester, 'Tasks');
-    await tester.scrollUntilVisible(find.text('Study Rust'), 200, scrollable: find.byType(Scrollable).first);
+    await tester.scrollUntilVisible(find.text('Friday, July 25'), 200, scrollable: find.byType(Scrollable).first);
     expect(find.text('Saturday, July 25'), findsNothing, reason: 'July 25, 2025 was a Friday');
-    expect(find.text('Friday, July 25'), findsOneWidget);
+    await tester.tap(find.text('All 1 done')); // finished days are folded to one line
+    await tester.pumpAndSettle();
+    expect(find.text('Study Rust'), findsOneWidget);
   });
 
   testWidgets('data survives closing and reopening', (tester) async {
@@ -257,13 +261,23 @@ void main() {
     final first = FocusHub.open(dataDir: dir.path);
     first.addTodo(date: todayDate(), text: 'Keep me');
     first.addReward(name: 'Prize');
-    first.setTimerSettings(workSecs: 25 * 60, breakSecs: 5 * 60, loops: 4);
+    first.setTimerSettings(
+      workSecs: 25 * 60,
+      breakSecs: 5 * 60,
+      longBreakSecs: 20 * 60,
+      loops: 4,
+      longBreakEvery: 2,
+      autoStart: false,
+    );
 
     final reopened = FocusHub.open(dataDir: dir.path);
     expect(reopened.todosFor(date: todayDate()).single.text, 'Keep me');
     expect(reopened.rewards().single.name, 'Prize');
     final timer = reopened.timerView();
-    expect((timer.workSecs, timer.breakSecs, timer.loops), (1500, 300, 4));
+    expect(
+      (timer.workSecs, timer.breakSecs, timer.longBreakSecs, timer.loops, timer.longBreakEvery, timer.autoStart),
+      (1500, 300, 1200, 4, 2, false),
+    );
     expect(timer.remaining, '25:00');
     expect(File('${dir.path}/focushub_data.json').existsSync(), isTrue);
   });

@@ -9,10 +9,16 @@
         android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
 
+    <!-- No cloud backup: uninstalling removes all of the app's data (it's all in the app's
+         private folder), and a reinstall starts fresh. allowBackup covers Android 11 and
+         older; dataExtractionRules covers Android 12 and up. -->
     <application
         android:label="Focus Hub"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:dataExtractionRules="@xml/data_extraction_rules">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -35,6 +41,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!-- The Pause / Skip / Resume / Reset buttons on the countdown notification. -->
+        <receiver
+            android:exported="false"
+            android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver" />
         <!-- Show scheduled timer alerts, and bring them back after a restart or an update. -->
         <receiver
             android:exported="false"

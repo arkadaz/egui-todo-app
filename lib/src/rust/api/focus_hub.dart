@@ -7,7 +7,7 @@ import '../frb_generated.dart';
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-// These functions are ignored because they are not marked as `pub`: `alert`, `now_ms`, `today`, `todo_views`
+// These functions are ignored because they are not marked as `pub`: `alert`, `calendar_days`, `format_time`, `mode_label`, `month_summary`, `next_change_ms`, `now_ms`, `offset`, `status_of`, `today`, `todo_views`
 
 /// Today's date on this device.
 String todayDate() => RustLib.instance.api.crateApiFocusHubTodayDate();
@@ -30,20 +30,49 @@ YearMonth shiftMonth({
   delta: delta,
 );
 
+/// The date `days` days after (or before, if negative) `date`.
+String addDays({required String date, required int days}) =>
+    RustLib.instance.api.crateApiFocusHubAddDays(date: date, days: days);
+
+/// The ready-made timer setups.
+List<PresetView> presets() => RustLib.instance.api.crateApiFocusHubPresets();
+
+/// Reads the image at `path` (GIF, PNG, JPG or WebP) and shrinks it to fit a screen whose
+/// longest side is `screen_side` pixels, keeping animations. Runs on a background thread,
+/// since a big photo or a long GIF takes a moment; then pass it to `FocusHub::set_background`.
+Future<PreparedBackground> prepareBackground({
+  required String path,
+  required int screenSide,
+}) => RustLib.instance.api.crateApiFocusHubPrepareBackground(
+  path: path,
+  screenSide: screenSide,
+);
+
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>
 abstract class FocusHub implements RustOpaqueInterface {
   void addReward({required String name});
 
   void addTodo({required String date, required String text});
 
+  /// Whether the background GIF plays (off saves battery).
+  bool animateBackground();
+
+  void applyPreset({required int index});
+
   /// The custom background image's path, or `null` for the built-in one.
   String? backgroundPath();
+
+  /// The daily backups, newest first.
+  List<BackupView> backups();
 
   CalendarMonth calendarMonth({
     required int year,
     required int month,
     required String selectedDate,
   });
+
+  /// The Monday-to-Sunday week around `selected_date`.
+  CalendarWeek calendarWeek({required String selectedDate});
 
   void clearBackground();
 
@@ -52,15 +81,33 @@ abstract class FocusHub implements RustOpaqueInterface {
 
   String dataFile();
 
-  void deleteReward({required int index});
+  /// Deletes a reward. Returns it, so "Undo" can put it back with `restore_reward`.
+  Deleted deleteReward({required int index});
 
-  void deleteTodo({required String date, required int index});
+  /// Deletes a task. Returns it, so "Undo" can put it back with `restore_todo`.
+  Deleted deleteTodo({required String date, required int index});
+
+  void editReward({required int index, required String name});
+
+  void editTodo({
+    required String date,
+    required int index,
+    required String text,
+  });
 
   /// All data as JSON (the desktop app's `focushub_data.json` format).
   String exportJson();
 
-  /// Days before `date` with tasks, newest first.
-  List<DayTodos> historyBefore({required String date});
+  /// Days before `date` with tasks that pass `filter` and contain `search` (ignoring
+  /// case), grouped by month, newest first.
+  List<HistoryMonth> history({
+    required String before,
+    required HistoryFilter filter,
+    required String search,
+  });
+
+  /// Whether the app already offered to put its icon on the Home screen (once is enough).
+  bool homeIconOffered();
 
   /// Replaces tasks, stats and rewards with those in a `focushub_data.json` file.
   ImportSummary importJson({required String json});
@@ -68,30 +115,69 @@ abstract class FocusHub implements RustOpaqueInterface {
   /// A message to show once if the saved data was damaged, otherwise `null`.
   String? loadWarning();
 
+  /// Adds the tasks, stats and rewards from a `focushub_data.json` file to what's here,
+  /// without counting anything twice.
+  MergeSummary mergeJson({required String json});
+
+  /// Moves a task to position `to` within its day.
+  void moveTodo({required String date, required int from, required int to});
+
+  /// Moves every unfinished task from earlier days onto `date`. Returns how many moved.
+  int moveUnfinishedTo({required String date});
+
   /// Opens the saved data in `data_dir` (the app's private folder).
   static FocusHub open({required String dataDir}) =>
       RustLib.instance.api.crateApiFocusHubFocusHubOpen(dataDir: dataDir);
 
+  /// Picks up changes made by a notification button while the app was in the background.
+  /// Returns true if anything changed.
+  bool reloadIfChanged();
+
   void resetTimer();
+
+  /// Replaces everything with a daily backup.
+  void restoreBackup({required String date});
+
+  void restoreReward({
+    required int index,
+    required String name,
+    required bool completed,
+  });
+
+  void restoreTodo({
+    required String date,
+    required int index,
+    required String text,
+    required bool completed,
+  });
 
   List<RewardView> rewards();
 
-  void save();
+  /// Saves (call it when the app is hidden). If a notification button changed the data
+  /// meanwhile, loads that instead of overwriting it, and returns true.
+  bool save();
 
-  /// Saves a copy of a chosen image (GIF, PNG, JPG or WebP) as the background.
-  void setBackground({required String fileName, required List<int> bytes});
+  void setAnimateBackground({required bool animate});
+
+  /// Saves an image from [`prepare_background`] as the background.
+  void setBackground({required PreparedBackground image});
+
+  void setHomeIconOffered();
 
   void setRewardCompleted({required int index, required bool completed});
 
   /// `null` follows the device's time zone; otherwise hours from GMT (-12 to 14).
   void setTimeZone({int? offsetHours});
 
-  /// Changes the session lengths and loops (this resets the timer). Values are limited
-  /// like the desktop app: work up to 120m 59s, break up to 60m 59s, 1 to 20 loops.
+  /// Changes the timer setup (this resets the timer). Values are limited like the desktop
+  /// app: work up to 120m 59s, breaks up to 60m 59s, 1 to 20 loops.
   void setTimerSettings({
     required int workSecs,
     required int breakSecs,
+    required int longBreakSecs,
     required int loops,
+    required int longBreakEvery,
+    required bool autoStart,
   });
 
   void setTodoCompleted({
@@ -100,10 +186,19 @@ abstract class FocusHub implements RustOpaqueInterface {
     required bool completed,
   });
 
+  /// Ends the current session now and moves on to the next one.
+  List<SessionAlert> skipSession();
+
   StatsView stats();
 
-  /// Call often (a few times a second). Returns the sessions that just ended.
-  List<SessionAlert> tick();
+  /// What the ongoing notification should show now (`null` if the timer hasn't started).
+  TimerStatus? statusNow();
+
+  /// Study minutes for each of the last `days` days, oldest first.
+  List<ChartDay> studyChart({required int days});
+
+  /// Call often (a few times a second).
+  TickReport tick();
 
   TimeZoneView timeZone();
 
@@ -114,8 +209,37 @@ abstract class FocusHub implements RustOpaqueInterface {
   /// Start or pause. Returns any sessions that ended right before pausing.
   List<SessionAlert> toggleTimer();
 
-  /// Every session end still to come, if the timer keeps running.
-  List<ScheduledAlert> upcomingAlerts();
+  /// How many unfinished tasks there are on days before `date`.
+  int unfinishedBefore({required String date});
+
+  /// Every session end still to come if the timer keeps running.
+  List<UpcomingEvent> upcomingEvents();
+}
+
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>
+abstract class PreparedBackground implements RustOpaqueInterface {
+  /// What to tell the user once it's set.
+  String message();
+}
+
+class BackupView {
+  final String date;
+
+  /// "Saturday, September 26, 2026"
+  final String label;
+
+  const BackupView({required this.date, required this.label});
+
+  @override
+  int get hashCode => date.hashCode ^ label.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BackupView &&
+          runtimeType == other.runtimeType &&
+          date == other.date &&
+          label == other.label;
 }
 
 class CalendarDay {
@@ -125,12 +249,16 @@ class CalendarDay {
   final bool isSelected;
   final bool hasTodos;
 
+  /// Some of its tasks aren't done yet.
+  final bool hasUnfinished;
+
   const CalendarDay({
     required this.day,
     required this.date,
     required this.isToday,
     required this.isSelected,
     required this.hasTodos,
+    required this.hasUnfinished,
   });
 
   @override
@@ -139,7 +267,8 @@ class CalendarDay {
       date.hashCode ^
       isToday.hashCode ^
       isSelected.hashCode ^
-      hasTodos.hashCode;
+      hasTodos.hashCode ^
+      hasUnfinished.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -150,7 +279,8 @@ class CalendarDay {
           date == other.date &&
           isToday == other.isToday &&
           isSelected == other.isSelected &&
-          hasTodos == other.hasTodos;
+          hasTodos == other.hasTodos &&
+          hasUnfinished == other.hasUnfinished;
 }
 
 class CalendarMonth {
@@ -191,21 +321,85 @@ class CalendarMonth {
           days == other.days;
 }
 
+/// One Monday-to-Sunday week, for the folded calendar.
+class CalendarWeek {
+  /// "Sep 21 – 27, 2026"
+  final String title;
+  final List<CalendarDay> days;
+
+  const CalendarWeek({required this.title, required this.days});
+
+  @override
+  int get hashCode => title.hashCode ^ days.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CalendarWeek &&
+          runtimeType == other.runtimeType &&
+          title == other.title &&
+          days == other.days;
+}
+
+/// One bar of the study chart.
+class ChartDay {
+  final String date;
+
+  /// "Mon" (7-day chart) or "26" (longer charts)
+  final String label;
+  final double minutes;
+  final bool isToday;
+
+  const ChartDay({
+    required this.date,
+    required this.label,
+    required this.minutes,
+    required this.isToday,
+  });
+
+  @override
+  int get hashCode =>
+      date.hashCode ^ label.hashCode ^ minutes.hashCode ^ isToday.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ChartDay &&
+          runtimeType == other.runtimeType &&
+          date == other.date &&
+          label == other.label &&
+          minutes == other.minutes &&
+          isToday == other.isToday;
+}
+
 class DayTodos {
   final String date;
 
   /// "Friday, September 25"
   final String title;
+
+  /// "2 of 6 done" or "All 6 done"
+  final String summary;
+  final bool allDone;
+
+  /// The tasks that matched the filter and search.
   final List<TodoView> todos;
 
   const DayTodos({
     required this.date,
     required this.title,
+    required this.summary,
+    required this.allDone,
     required this.todos,
   });
 
   @override
-  int get hashCode => date.hashCode ^ title.hashCode ^ todos.hashCode;
+  int get hashCode =>
+      date.hashCode ^
+      title.hashCode ^
+      summary.hashCode ^
+      allDone.hashCode ^
+      todos.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -214,7 +408,67 @@ class DayTodos {
           runtimeType == other.runtimeType &&
           date == other.date &&
           title == other.title &&
+          summary == other.summary &&
+          allDone == other.allDone &&
           todos == other.todos;
+}
+
+/// A deleted task or reward, kept by the UI for "Undo".
+class Deleted {
+  final String text;
+  final bool completed;
+
+  const Deleted({required this.text, required this.completed});
+
+  @override
+  int get hashCode => text.hashCode ^ completed.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Deleted &&
+          runtimeType == other.runtimeType &&
+          text == other.text &&
+          completed == other.completed;
+}
+
+/// Which of the history's tasks to show.
+enum HistoryFilter { all, unfinished, done }
+
+/// A month of the task history.
+class HistoryMonth {
+  /// "2026-09": the same for as long as the month is in the history.
+  final String key;
+
+  /// "September 2026"
+  final String title;
+
+  /// "12 days · 5 unfinished" or "3 days · all done"
+  final String summary;
+
+  /// Newest first.
+  final List<DayTodos> days;
+
+  const HistoryMonth({
+    required this.key,
+    required this.title,
+    required this.summary,
+    required this.days,
+  });
+
+  @override
+  int get hashCode =>
+      key.hashCode ^ title.hashCode ^ summary.hashCode ^ days.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is HistoryMonth &&
+          runtimeType == other.runtimeType &&
+          key == other.key &&
+          title == other.title &&
+          summary == other.summary &&
+          days == other.days;
 }
 
 class ImportSummary {
@@ -241,6 +495,49 @@ class ImportSummary {
           rewards == other.rewards;
 }
 
+class MergeSummary {
+  final int tasksAdded;
+  final int studyDaysUpdated;
+  final int rewardsAdded;
+
+  const MergeSummary({
+    required this.tasksAdded,
+    required this.studyDaysUpdated,
+    required this.rewardsAdded,
+  });
+
+  @override
+  int get hashCode =>
+      tasksAdded.hashCode ^ studyDaysUpdated.hashCode ^ rewardsAdded.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MergeSummary &&
+          runtimeType == other.runtimeType &&
+          tasksAdded == other.tasksAdded &&
+          studyDaysUpdated == other.studyDaysUpdated &&
+          rewardsAdded == other.rewardsAdded;
+}
+
+class PresetView {
+  final int index;
+  final String name;
+
+  const PresetView({required this.index, required this.name});
+
+  @override
+  int get hashCode => index.hashCode ^ name.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PresetView &&
+          runtimeType == other.runtimeType &&
+          index == other.index &&
+          name == other.name;
+}
+
 class RewardView {
   final int index;
   final String name;
@@ -263,31 +560,6 @@ class RewardView {
           index == other.index &&
           name == other.name &&
           completed == other.completed;
-}
-
-/// A session end still to come, for scheduling a notification.
-class ScheduledAlert {
-  final int delayMs;
-  final String title;
-  final String body;
-
-  const ScheduledAlert({
-    required this.delayMs,
-    required this.title,
-    required this.body,
-  });
-
-  @override
-  int get hashCode => delayMs.hashCode ^ title.hashCode ^ body.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ScheduledAlert &&
-          runtimeType == other.runtimeType &&
-          delayMs == other.delayMs &&
-          title == other.title &&
-          body == other.body;
 }
 
 /// A session just ended.
@@ -321,12 +593,26 @@ class StatsView {
   /// "September"
   final String monthName;
 
+  /// Days in a row with at least a minute of study.
+  final int streakDays;
+  final int bestStreakDays;
+
+  /// "Tue, Sep 22 · 1h 20m", or `null` before any study.
+  final String? bestDay;
+
+  /// Study time in the last 7 days: "3h 5m"
+  final String last7DaysTime;
+
   const StatsView({
     required this.totalTime,
     required this.todaySessions,
     required this.todayTime,
     required this.monthSessions,
     required this.monthName,
+    required this.streakDays,
+    required this.bestStreakDays,
+    this.bestDay,
+    required this.last7DaysTime,
   });
 
   @override
@@ -335,7 +621,11 @@ class StatsView {
       todaySessions.hashCode ^
       todayTime.hashCode ^
       monthSessions.hashCode ^
-      monthName.hashCode;
+      monthName.hashCode ^
+      streakDays.hashCode ^
+      bestStreakDays.hashCode ^
+      bestDay.hashCode ^
+      last7DaysTime.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -346,7 +636,52 @@ class StatsView {
           todaySessions == other.todaySessions &&
           todayTime == other.todayTime &&
           monthSessions == other.monthSessions &&
-          monthName == other.monthName;
+          monthName == other.monthName &&
+          streakDays == other.streakDays &&
+          bestStreakDays == other.bestStreakDays &&
+          bestDay == other.bestDay &&
+          last7DaysTime == other.last7DaysTime;
+}
+
+/// What happened since the last tick.
+class TickReport {
+  /// Sessions that just ended.
+  final List<SessionAlert> ended;
+
+  /// The clock or the countdown now shows a different number, so the timer should be
+  /// redrawn. (Ticks come 4 times a second; the numbers change about once a second.)
+  final bool redraw;
+
+  /// A notification button changed the data, so every screen should be redrawn.
+  final bool reloaded;
+
+  /// When to tick next: right after the next number on screen changes. Ticking only
+  /// then (instead of on a fixed beat) keeps the phone asleep as much as possible.
+  final int nextTickMs;
+
+  const TickReport({
+    required this.ended,
+    required this.redraw,
+    required this.reloaded,
+    required this.nextTickMs,
+  });
+
+  @override
+  int get hashCode =>
+      ended.hashCode ^
+      redraw.hashCode ^
+      reloaded.hashCode ^
+      nextTickMs.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TickReport &&
+          runtimeType == other.runtimeType &&
+          ended == other.ended &&
+          redraw == other.redraw &&
+          reloaded == other.reloaded &&
+          nextTickMs == other.nextTickMs;
 }
 
 class TimeZoneView {
@@ -378,11 +713,49 @@ class TimeZoneView {
           label == other.label;
 }
 
+/// What the ongoing "timer" notification should show.
+class TimerStatus {
+  /// "Study Time · 1/4"
+  final String title;
+
+  /// "Ends at 14:35" or "Paused · 23:41 left"
+  final String body;
+  final bool running;
+
+  /// When the current session ends (Unix milliseconds), for the live countdown.
+  final PlatformInt64 endsAtMs;
+
+  const TimerStatus({
+    required this.title,
+    required this.body,
+    required this.running,
+    required this.endsAtMs,
+  });
+
+  @override
+  int get hashCode =>
+      title.hashCode ^ body.hashCode ^ running.hashCode ^ endsAtMs.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TimerStatus &&
+          runtimeType == other.runtimeType &&
+          title == other.title &&
+          body == other.body &&
+          running == other.running &&
+          endsAtMs == other.endsAtMs;
+}
+
 class TimerView {
   final bool isWork;
+  final bool isLongBreak;
   final bool isRunning;
 
-  /// "Study Time" or "Break Time"
+  /// Nothing started yet (nothing to pause, skip or reset).
+  final bool isAtStart;
+
+  /// "Study Time", "Break Time" or "Long Break"
   final String modeLabel;
 
   /// "(1/4)"
@@ -395,31 +768,51 @@ class TimerView {
   final double progress;
   final int workSecs;
   final int breakSecs;
+  final int longBreakSecs;
   final int loops;
+
+  /// 0 = no long breaks
+  final int longBreakEvery;
+  final bool autoStart;
+
+  /// The preset the settings match, if any.
+  final int? preset;
 
   const TimerView({
     required this.isWork,
+    required this.isLongBreak,
     required this.isRunning,
+    required this.isAtStart,
     required this.modeLabel,
     required this.loopLabel,
     required this.remaining,
     required this.progress,
     required this.workSecs,
     required this.breakSecs,
+    required this.longBreakSecs,
     required this.loops,
+    required this.longBreakEvery,
+    required this.autoStart,
+    this.preset,
   });
 
   @override
   int get hashCode =>
       isWork.hashCode ^
+      isLongBreak.hashCode ^
       isRunning.hashCode ^
+      isAtStart.hashCode ^
       modeLabel.hashCode ^
       loopLabel.hashCode ^
       remaining.hashCode ^
       progress.hashCode ^
       workSecs.hashCode ^
       breakSecs.hashCode ^
-      loops.hashCode;
+      longBreakSecs.hashCode ^
+      loops.hashCode ^
+      longBreakEvery.hashCode ^
+      autoStart.hashCode ^
+      preset.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -427,18 +820,24 @@ class TimerView {
       other is TimerView &&
           runtimeType == other.runtimeType &&
           isWork == other.isWork &&
+          isLongBreak == other.isLongBreak &&
           isRunning == other.isRunning &&
+          isAtStart == other.isAtStart &&
           modeLabel == other.modeLabel &&
           loopLabel == other.loopLabel &&
           remaining == other.remaining &&
           progress == other.progress &&
           workSecs == other.workSecs &&
           breakSecs == other.breakSecs &&
-          loops == other.loops;
+          longBreakSecs == other.longBreakSecs &&
+          loops == other.loops &&
+          longBreakEvery == other.longBreakEvery &&
+          autoStart == other.autoStart &&
+          preset == other.preset;
 }
 
 class TodoView {
-  /// Position in that day's list (use it to change or delete the task).
+  /// Position in that day's list (use it to change, move or delete the task).
   final int index;
   final String text;
   final bool completed;
@@ -460,6 +859,40 @@ class TodoView {
           index == other.index &&
           text == other.text &&
           completed == other.completed;
+}
+
+/// A session end still to come, for scheduling notifications ahead of time.
+class UpcomingEvent {
+  final int delayMs;
+  final String alertTitle;
+  final String alertBody;
+
+  /// The ongoing notification right after it (`null` once every loop is done).
+  final TimerStatus? nextStatus;
+
+  const UpcomingEvent({
+    required this.delayMs,
+    required this.alertTitle,
+    required this.alertBody,
+    this.nextStatus,
+  });
+
+  @override
+  int get hashCode =>
+      delayMs.hashCode ^
+      alertTitle.hashCode ^
+      alertBody.hashCode ^
+      nextStatus.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UpcomingEvent &&
+          runtimeType == other.runtimeType &&
+          delayMs == other.delayMs &&
+          alertTitle == other.alertTitle &&
+          alertBody == other.alertBody &&
+          nextStatus == other.nextStatus;
 }
 
 class YearMonth {
