@@ -1,0 +1,8 @@
+# Keep line endings stable across Windows and Linux/macOS checkouts.
+* text=auto
+# Shell scripts (Gradle wrapper, cargokit) must keep LF to run on Linux/macOS.
+*.sh text eol=lf
+gradlew text eol=lf
+# Windows scripts keep CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
