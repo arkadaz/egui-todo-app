@@ -40,8 +40,9 @@ class FocusPage extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             // A layer of its own: each GIF frame repaints only the picture. The GIF is the
-            // app's only animation, so it stops when it's turned off in Settings, in Battery
-            // Saver, or with Android's "Remove animations" (Image checks that itself).
+            // app's only animation, so it stops when it's turned off in Settings, when the
+            // phone saves battery, or when the system asks for less motion (Image checks
+            // that itself).
             RepaintBoundary(
               child: ListenableBuilder(
                 listenable: Listenable.merge([controller, batterySaver]),

@@ -58,7 +58,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
 
   @override
   Future<void> executeRustInitializers() async {
-    await api.crateApiSimpleInitApp();
+    await api.crateApiFocusHubInitApp();
   }
 
   @override
@@ -69,7 +69,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.13.0';
 
   @override
-  int get rustContentHash => -1783799993;
+  int get rustContentHash => 1401198869;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -293,7 +293,7 @@ abstract class RustLibApi extends BaseApi {
 
   String crateApiFocusHubAddDays({required String date, required int days});
 
-  Future<void> crateApiSimpleInitApp();
+  Future<void> crateApiFocusHubInitApp();
 
   String crateApiFocusHubLongDate({required String date});
 
@@ -1959,7 +1959,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       const TaskConstMeta(debugName: "add_days", argNames: ["date", "days"]);
 
   @override
-  Future<void> crateApiSimpleInitApp() {
+  Future<void> crateApiFocusHubInitApp() {
     return handler.executeNormal(
       NormalTask(
         callFfi: (port_) {
@@ -1975,14 +1975,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           decodeSuccessData: sse_decode_unit,
           decodeErrorData: null,
         ),
-        constMeta: kCrateApiSimpleInitAppConstMeta,
+        constMeta: kCrateApiFocusHubInitAppConstMeta,
         argValues: [],
         apiImpl: this,
       ),
     );
   }
 
-  TaskConstMeta get kCrateApiSimpleInitAppConstMeta =>
+  TaskConstMeta get kCrateApiFocusHubInitAppConstMeta =>
       const TaskConstMeta(debugName: "init_app", argNames: []);
 
   @override

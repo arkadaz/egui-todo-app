@@ -15,14 +15,15 @@ typedef AlertStatus = ({bool notifications, bool onTime});
 
 /// Everything about notifications:
 ///
-/// * **Session-end alerts** with the desktop app's 440 Hz beep.
-/// * A **live countdown** in the notification bar while the timer runs, with Pause/Skip
-///   buttons (Resume/Reset when paused). Android draws the countdown itself.
+/// * **Session-end alerts** (Android: with the desktop app's 440 Hz beep; iOS: the
+///   system sound).
+/// * On Android, a **live countdown** in the notification bar while the timer runs, with
+///   Pause/Skip buttons (Resume/Reset when paused). Android draws the countdown itself.
+///   iOS has no ongoing notifications, so there it's just the alerts.
 ///
-/// When the timer starts, every future alert, and the countdown for every next session,
-/// is scheduled with Android's alarm system. So they appear on time even if the phone is
-/// asleep or the app has been closed. Only Android is set up; on other platforms these
-/// methods do nothing.
+/// When the timer starts, every future alert (and on Android the countdown for every next
+/// session) is scheduled with the system. So they appear on time even if the phone is
+/// asleep or the app has been closed.
 class Alerts {
   final _plugin = FlutterLocalNotificationsPlugin();
 
@@ -57,6 +58,7 @@ class Alerts {
       category: AndroidNotificationCategory.alarm,
       visibility: NotificationVisibility.public,
     ),
+    iOS: const DarwinNotificationDetails(presentAlert: true, presentBanner: true, presentSound: true),
   );
 
   /// The live countdown (or "paused") notification.
@@ -69,10 +71,17 @@ class Alerts {
   static const _firstScheduledAlertId = 100;
   static const _testId = 1;
 
-  bool get supported => !kIsWeb && Platform.isAndroid;
+  bool get supported => !kIsWeb && (Platform.isAndroid || Platform.isIOS);
 
   AndroidFlutterLocalNotificationsPlugin? get _android =>
       _plugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+
+  IOSFlutterLocalNotificationsPlugin? get _ios =>
+      _plugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
+
+  /// Android shows a live countdown while the timer runs. iOS can't (it would need a Live
+  /// Activity), so there only the alerts are scheduled.
+  bool get _hasCountdown => !kIsWeb && Platform.isAndroid;
 
   /// Sets up notifications. Never blocks the app for long: if the system doesn't answer
   /// within a few seconds, the app starts anyway (without alerts until it does).
@@ -84,6 +93,12 @@ class Alerts {
           .initialize(
             settings: const InitializationSettings(
               android: AndroidInitializationSettings('@drawable/ic_stat_timer'),
+              // Ask for permission when the timer first starts, not at launch.
+              iOS: DarwinInitializationSettings(
+                requestAlertPermission: false,
+                requestBadgePermission: false,
+                requestSoundPermission: false,
+              ),
             ),
             onDidReceiveBackgroundNotificationResponse: onNotificationButton,
           )
@@ -98,11 +113,17 @@ class Alerts {
   /// Asks "Allow Focus Hub to send you notifications?" (only if not decided yet).
   Future<bool> askPermission() async {
     if (!supported) return false;
+    if (Platform.isIOS) return await _ios?.requestPermissions(alert: true, sound: true) ?? false;
     return await _android?.requestNotificationsPermission() ?? false;
   }
 
   Future<AlertStatus> status() async {
     if (!supported) return (notifications: false, onTime: false);
+    if (Platform.isIOS) {
+      // iOS always delivers scheduled notifications on time.
+      final allowed = await _ios?.checkPermissions();
+      return (notifications: allowed?.isEnabled ?? false, onTime: true);
+    }
     final notifications = await _android?.areNotificationsEnabled() ?? false;
     final onTime = await _android?.canScheduleExactNotifications() ?? false;
     return (notifications: notifications, onTime: onTime);
@@ -156,7 +177,7 @@ class Alerts {
           androidScheduleMode: mode,
         );
         final next = event.nextStatus;
-        if (next != null) {
+        if (next != null && _hasCountdown) {
           await _plugin.zonedSchedule(
             id: _firstScheduledStatusId + i,
             title: next.title,
@@ -173,6 +194,7 @@ class Alerts {
   }
 
   Future<void> _showStatus(TimerStatus? status) async {
+    if (!_hasCountdown) return;
     // Remove the countdowns of earlier sessions (they may have been posted by alarms).
     await _plugin.cancel(id: statusId);
     for (var id = _firstScheduledStatusId; id < _firstScheduledAlertId; id++) {

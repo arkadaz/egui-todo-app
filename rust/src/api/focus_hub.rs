@@ -243,6 +243,12 @@ fn mode_label(timer: &StudyTimer) -> &'static str {
     }
 }
 
+/// Runs once when Dart loads the library: Rust panics and logs show up in the app's log.
+#[frb(init)]
+pub fn init_app() {
+    flutter_rust_bridge::setup_default_user_utils();
+}
+
 // ---- Free functions (date math) -----------------------------------------------------------
 
 /// Today's date on this device.

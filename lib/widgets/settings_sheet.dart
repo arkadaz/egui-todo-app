@@ -118,7 +118,9 @@ class _SettingsSheetState extends State<SettingsSheet> {
     final screenSide = View.of(context).physicalSize.longestSide.round();
     setState(() => _settingBackground = true);
     final message = await _controller.setBackground(path, screenSide);
-    await FilePicker.clearTemporaryFiles(); // the picker's copy of the file
+    try {
+      await FilePicker.clearTemporaryFiles(); // the picker's copy of the file
+    } catch (_) {} // not every platform keeps one
     if (!mounted) return;
     setState(() => _settingBackground = false);
     _say(message);
@@ -244,7 +246,7 @@ class _SettingsSheetState extends State<SettingsSheet> {
             SwitchListTile(
               secondary: const Icon(Icons.animation),
               title: const Text('Animated background'),
-              subtitle: const Text('Turn off to save battery. It also stops by itself in Battery Saver.'),
+              subtitle: const Text('Turn off to save battery. It also stops by itself when the phone saves battery.'),
               value: _controller.animateBackground,
               onChanged: _controller.setAnimateBackground,
             ),

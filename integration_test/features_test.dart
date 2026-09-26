@@ -164,12 +164,20 @@ void main() {
     await tapVisible(tester, find.text('All'));
     await tapVisible(tester, find.byTooltip('Search earlier tasks'));
     await tester.enterText(find.byType(TextField).last, 'REPORT');
-    await tester.pumpAndSettle();
+    await closeKeyboard(tester);
     expect(find.text('Write report'), findsOneWidget);
-    expect(find.text('Old report'), findsOneWidget, reason: 'searching opens every month');
     expect(find.text('Buy milk'), findsNothing);
-    await tester.enterText(find.byType(TextField).last, 'nothing like this');
+    // The history is built lazily, so scroll to the older month like a user would.
+    await tester.scrollUntilVisible(find.text('Old report'), 200, scrollable: find.byType(Scrollable).first);
+    expect(find.text('Old report'), findsOneWidget, reason: 'searching opens every month');
+    await tester.scrollUntilVisible(find.byTooltip('Stop searching'), -200, scrollable: find.byType(Scrollable).first);
+    final search = find.byType(TextField).last;
+    await tester.ensureVisible(search);
     await tester.pumpAndSettle();
+    await tester.tap(search); // focus it again (enterText won't refocus a field it used before)
+    await tester.pump();
+    await tester.enterText(search, 'nothing like this');
+    await closeKeyboard(tester);
     expect(find.text('No earlier tasks match "nothing like this".'), findsOneWidget);
 
     await tapVisible(tester, find.byTooltip('Stop searching'));
