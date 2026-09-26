@@ -1,5 +1,5 @@
-//! The bridge to Flutter. flutter_rust_bridge turns everything `pub` in this file into Dart
-//! (lib/src/rust/api/focus_hub.dart). It only translates: all the logic is in `crate::engine`.
+//! The bridge to Flutter. `flutter_rust_bridge` turns everything `pub` in this file into Dart
+//! (`lib/src/rust/api/focus_hub.dart`). It only translates: all the logic is in `crate::engine`.
 //!
 //! Dates cross the bridge as "YYYY-MM-DD" strings, and Rust does all the date math and
 //! writes all the text the UI shows.
@@ -230,9 +230,12 @@ pub struct BackupView {
     pub label: String,
 }
 
-fn alert(completion: &Completion) -> SessionAlert {
+fn alert(completion: Completion) -> SessionAlert {
     let (title, body) = completion.message();
-    SessionAlert { title: title.to_string(), body: body.to_string() }
+    SessionAlert {
+        title: title.to_string(),
+        body: body.to_string(),
+    }
 }
 
 fn mode_label(timer: &StudyTimer) -> &'static str {
@@ -266,7 +269,10 @@ pub fn long_date(date: String) -> Result<String> {
 #[frb(sync)]
 pub fn month_of(date: String) -> Result<YearMonth> {
     let date = dates::parse_date(&date)?;
-    Ok(YearMonth { year: date.year(), month: date.month() })
+    Ok(YearMonth {
+        year: date.year(),
+        month: date.month(),
+    })
 }
 
 /// `delta` months after (or before, if negative) the given month.
@@ -292,7 +298,10 @@ pub fn presets() -> Vec<PresetView> {
     PRESETS
         .iter()
         .enumerate()
-        .map(|(i, p)| PresetView { index: i as u32, name: p.name.to_string() })
+        .map(|(i, p)| PresetView {
+            index: i as u32,
+            name: p.name.to_string(),
+        })
         .collect()
 }
 
@@ -327,9 +336,12 @@ impl PreparedBackground {
 /// Reads the image at `path` (GIF, PNG, JPG or WebP) and shrinks it to fit a screen whose
 /// longest side is `screen_side` pixels, keeping animations. Runs on a background thread,
 /// since a big photo or a long GIF takes a moment; then pass it to `FocusHub::set_background`.
+#[allow(clippy::needless_pass_by_value)] // Dart hands over an owned String
 pub fn prepare_background(path: String, screen_side: u32) -> Result<PreparedBackground> {
     let bytes = fs::read(&path).context("Couldn't open that file.")?;
-    Ok(PreparedBackground { image: images::prepare_background(&bytes, screen_side)? })
+    Ok(PreparedBackground {
+        image: images::prepare_background(&bytes, screen_side)?,
+    })
 }
 
 /// Dart gets a handle to this. The data stays in Rust.
@@ -344,7 +356,10 @@ impl FocusHub {
     /// Opens the saved data in `data_dir` (the app's private folder).
     #[frb(sync)]
     pub fn open(data_dir: String) -> Result<FocusHub> {
-        Ok(FocusHub { hub: Hub::open(Path::new(&data_dir), now_ms(), today())?, shown: None })
+        Ok(FocusHub {
+            hub: Hub::open(Path::new(&data_dir), now_ms(), today())?,
+            shown: None,
+        })
     }
 
     /// A message to show once if the saved data was damaged, otherwise `null`.
@@ -369,13 +384,15 @@ impl FocusHub {
     /// Returns true if anything changed.
     #[frb(sync)]
     pub fn reload_if_changed(&mut self) -> Result<bool> {
-        self.hub.reload_if_changed(now_ms())
+        self.hub.reload_if_changed()
     }
 
     // ---- Clock ----
 
     fn offset(&self) -> Option<FixedOffset> {
-        self.hub.gmt_offset_hours().and_then(|h| FixedOffset::east_opt(h * 3600))
+        self.hub
+            .gmt_offset_hours()
+            .and_then(|h| FixedOffset::east_opt(h * 3600))
     }
 
     /// Formats a moment with `format`, in the chosen time zone.
@@ -451,7 +468,7 @@ impl FocusHub {
         let redraw = shown != self.shown || !ticked.ended.is_empty() || ticked.reloaded;
         self.shown = shown;
         Ok(TickReport {
-            ended: ticked.ended.iter().map(alert).collect(),
+            ended: ticked.ended.iter().copied().map(alert).collect(),
             redraw,
             reloaded: ticked.reloaded,
             next_tick_ms: next_change_ms(now, self.hub.timer()),
@@ -461,13 +478,25 @@ impl FocusHub {
     /// Start or pause. Returns any sessions that ended right before pausing.
     #[frb(sync)]
     pub fn toggle_timer(&mut self) -> Result<Vec<SessionAlert>> {
-        Ok(self.hub.toggle_timer(now_ms(), today())?.iter().map(alert).collect())
+        Ok(self
+            .hub
+            .toggle_timer(now_ms(), today())?
+            .iter()
+            .copied()
+            .map(alert)
+            .collect())
     }
 
     /// Ends the current session now and moves on to the next one.
     #[frb(sync)]
     pub fn skip_session(&mut self) -> Result<Vec<SessionAlert>> {
-        Ok(self.hub.skip_session(now_ms(), today())?.iter().map(alert).collect())
+        Ok(self
+            .hub
+            .skip_session(now_ms(), today())?
+            .iter()
+            .copied()
+            .map(alert)
+            .collect())
     }
 
     #[frb(sync)]
@@ -488,9 +517,9 @@ impl FocusHub {
         auto_start: bool,
     ) -> Result<()> {
         let settings = TimerSettings {
-            work_secs: work_secs as u64,
-            break_secs: break_secs as u64,
-            long_break_secs: long_break_secs as u64,
+            work_secs: u64::from(work_secs),
+            break_secs: u64::from(break_secs),
+            long_break_secs: u64::from(long_break_secs),
             loops,
             long_break_every,
             auto_start,
@@ -519,7 +548,12 @@ impl FocusHub {
             format!("Paused · {} left", dates::mm_ss(timer.time_remaining))
         };
         TimerStatus {
-            title: format!("{} · {}/{}", mode_label(timer), timer.current_loop, timer.config.total_loops),
+            title: format!(
+                "{} · {}/{}",
+                mode_label(timer),
+                timer.current_loop,
+                timer.config.total_loops
+            ),
             body,
             running: timer.is_running(),
             ends_at_ms,
@@ -535,12 +569,12 @@ impl FocusHub {
             .iter()
             .map(|(delay, completion, after)| {
                 let (title, body) = completion.message();
-                let delay_ms = delay.as_millis().min(u32::MAX as u128) as u32;
+                let delay_ms = delay.as_millis().min(u128::from(u32::MAX)) as u32;
                 UpcomingEvent {
                     delay_ms,
                     alert_title: title.to_string(),
                     alert_body: body.to_string(),
-                    next_status: (!completion.all_done).then(|| self.status_of(after, now + delay_ms as i64)),
+                    next_status: (!completion.all_done).then(|| self.status_of(after, now + i64::from(delay_ms))),
                 }
             })
             .collect()
@@ -567,26 +601,34 @@ impl FocusHub {
 
     #[frb(sync)]
     pub fn edit_todo(&mut self, date: String, index: u32, text: String) -> Result<()> {
-        self.hub.edit_todo(dates::parse_date(&date)?, index as usize, &text, now_ms())
+        self.hub
+            .edit_todo(dates::parse_date(&date)?, index as usize, &text, now_ms())
     }
 
     /// Deletes a task. Returns it, so "Undo" can put it back with `restore_todo`.
     #[frb(sync)]
     pub fn delete_todo(&mut self, date: String, index: u32) -> Result<Deleted> {
-        let removed = self.hub.delete_todo(dates::parse_date(&date)?, index as usize, now_ms())?;
-        Ok(Deleted { text: removed.text, completed: removed.completed })
+        let removed = self
+            .hub
+            .delete_todo(dates::parse_date(&date)?, index as usize, now_ms())?;
+        Ok(Deleted {
+            text: removed.text,
+            completed: removed.completed,
+        })
     }
 
     #[frb(sync)]
     pub fn restore_todo(&mut self, date: String, index: u32, text: String, completed: bool) -> Result<()> {
         let todo = TodoItem { text, completed };
-        self.hub.restore_todo(dates::parse_date(&date)?, index as usize, todo, now_ms())
+        self.hub
+            .restore_todo(dates::parse_date(&date)?, index as usize, todo, now_ms())
     }
 
     /// Moves a task to position `to` within its day.
     #[frb(sync)]
     pub fn move_todo(&mut self, date: String, from: u32, to: u32) -> Result<()> {
-        self.hub.move_todo(dates::parse_date(&date)?, from as usize, to as usize, now_ms())
+        self.hub
+            .move_todo(dates::parse_date(&date)?, from as usize, to as usize, now_ms())
     }
 
     /// Days before `date` with tasks that pass `filter` and contain `search` (ignoring
@@ -628,7 +670,11 @@ impl FocusHub {
                 todos: day
                     .todos
                     .into_iter()
-                    .map(|(index, todo)| TodoView { index: index as u32, text: todo.text, completed: todo.completed })
+                    .map(|(index, todo)| TodoView {
+                        index: index as u32,
+                        text: todo.text,
+                        completed: todo.completed,
+                    })
                     .collect(),
             });
         }
@@ -671,7 +717,10 @@ impl FocusHub {
         let selected = dates::parse_date(&selected_date)?;
         let monday = selected - chrono::Days::new(selected.weekday().num_days_from_monday().into());
         let sunday = monday + chrono::Days::new(6);
-        Ok(CalendarWeek { title: dates::week_title(monday), days: self.calendar_days(monday, sunday, Some(selected)) })
+        Ok(CalendarWeek {
+            title: dates::week_title(monday),
+            days: self.calendar_days(monday, sunday, Some(selected)),
+        })
     }
 
     fn calendar_days(&self, first: NaiveDate, last: NaiveDate, selected: Option<NaiveDate>) -> Vec<CalendarDay> {
@@ -699,7 +748,11 @@ impl FocusHub {
             .rewards()
             .iter()
             .enumerate()
-            .map(|(i, r)| RewardView { index: i as u32, name: r.name.clone(), completed: r.completed })
+            .map(|(i, r)| RewardView {
+                index: i as u32,
+                name: r.name.clone(),
+                completed: r.completed,
+            })
             .collect()
     }
 
@@ -722,12 +775,16 @@ impl FocusHub {
     #[frb(sync)]
     pub fn delete_reward(&mut self, index: u32) -> Result<Deleted> {
         let removed = self.hub.delete_reward(index as usize, now_ms())?;
-        Ok(Deleted { text: removed.name, completed: removed.completed })
+        Ok(Deleted {
+            text: removed.name,
+            completed: removed.completed,
+        })
     }
 
     #[frb(sync)]
     pub fn restore_reward(&mut self, index: u32, name: String, completed: bool) -> Result<()> {
-        self.hub.restore_reward(index as usize, Reward { name, completed }, now_ms())
+        self.hub
+            .restore_reward(index as usize, Reward { name, completed }, now_ms())
     }
 
     // ---- Stats ----
@@ -761,7 +818,11 @@ impl FocusHub {
             .into_iter()
             .map(|(day, secs)| ChartDay {
                 date: dates::iso(day),
-                label: if days <= 7 { day.format("%a").to_string() } else { day.format("%-d").to_string() },
+                label: if days <= 7 {
+                    day.format("%a").to_string()
+                } else {
+                    day.format("%-d").to_string()
+                },
                 minutes: secs as f64 / 60.0,
                 is_today: day == today,
             })
@@ -816,14 +877,18 @@ impl FocusHub {
     /// All data as JSON (the desktop app's `focushub_data.json` format).
     #[frb(sync)]
     pub fn export_json(&mut self) -> Result<String> {
-        self.hub.export_json(now_ms())
+        self.hub.export_json()
     }
 
     /// Replaces tasks, stats and rewards with those in a `focushub_data.json` file.
     #[frb(sync)]
     pub fn import_json(&mut self, json: String) -> Result<ImportSummary> {
         let imported = self.hub.import_json(&json, now_ms())?;
-        Ok(ImportSummary { days: imported.days, tasks: imported.tasks, rewards: imported.rewards })
+        Ok(ImportSummary {
+            days: imported.days,
+            tasks: imported.tasks,
+            rewards: imported.rewards,
+        })
     }
 
     /// Adds the tasks, stats and rewards from a `focushub_data.json` file to what's here,
@@ -844,7 +909,10 @@ impl FocusHub {
         self.hub
             .backups()
             .into_iter()
-            .map(|day| BackupView { date: dates::iso(day), label: dates::long_date(day) })
+            .map(|day| BackupView {
+                date: dates::iso(day),
+                label: dates::long_date(day),
+            })
             .collect()
     }
 
@@ -857,7 +925,11 @@ impl FocusHub {
 
 /// "12 days · 5 unfinished", "1 day · all done"
 fn month_summary(days: usize, unfinished: usize) -> String {
-    let days = if days == 1 { "1 day".to_string() } else { format!("{days} days") };
+    let days = if days == 1 {
+        "1 day".to_string()
+    } else {
+        format!("{days} days")
+    };
     match unfinished {
         0 => format!("{days} · all done"),
         n => format!("{days} · {n} unfinished"),
@@ -883,7 +955,11 @@ fn todo_views(todos: Vec<TodoItem>) -> Vec<TodoView> {
     todos
         .into_iter()
         .enumerate()
-        .map(|(i, t)| TodoView { index: i as u32, text: t.text, completed: t.completed })
+        .map(|(i, t)| TodoView {
+            index: i as u32,
+            text: t.text,
+            completed: t.completed,
+        })
         .collect()
 }
 

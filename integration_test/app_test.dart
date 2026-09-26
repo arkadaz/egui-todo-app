@@ -14,10 +14,7 @@ import 'helpers.dart';
 /// A [width] x [height] PNG, drawn by Flutter.
 Future<Uint8List> pngOf(int width, int height) async {
   final recorder = ui.PictureRecorder();
-  Canvas(recorder).drawRect(
-    Rect.fromLTWH(0, 0, width.toDouble(), height.toDouble()),
-    Paint()..color = Colors.orange,
-  );
+  Canvas(recorder).drawRect(Rect.fromLTWH(0, 0, width.toDouble(), height.toDouble()), Paint()..color = Colors.orange);
   final image = await recorder.endRecording().toImage(width, height);
   final data = await image.toByteData(format: ui.ImageByteFormat.png);
   return data!.buffer.asUint8List();
@@ -32,7 +29,7 @@ Future<(int, int)> sizeOf(File file) async {
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  setUpAll(() async => await RustLib.init());
+  setUpAll(() async => RustLib.init());
 
   testWidgets('the Focus tab shows the Pomodoro timer', (tester) async {
     await startApp(tester);
@@ -279,6 +276,6 @@ void main() {
       (1500, 300, 1200, 4, 2, false),
     );
     expect(timer.remaining, '25:00');
-    expect(File('${dir.path}/focushub_data.json').existsSync(), isTrue);
+    expect(File('${dir.path}/focushub.db').existsSync(), isTrue);
   });
 }

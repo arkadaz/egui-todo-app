@@ -13,7 +13,7 @@ import 'src/rust/api/focus_hub.dart';
 /// `notifyListeners()`, which makes the screens that listen to it redraw.
 class FocusController extends ChangeNotifier {
   FocusController({required this.hub, required this.alerts, HomeScreen? homeScreen})
-      : homeScreen = homeScreen ?? HomeScreen() {
+    : homeScreen = homeScreen ?? HomeScreen() {
     _showDate(todayDate());
   }
 
@@ -122,14 +122,16 @@ class FocusController extends ChangeNotifier {
     bool? autoStart,
   }) async {
     final t = hub.timerView();
-    _run(() => hub.setTimerSettings(
-          workSecs: workSecs ?? t.workSecs,
-          breakSecs: breakSecs ?? t.breakSecs,
-          longBreakSecs: longBreakSecs ?? t.longBreakSecs,
-          loops: loops ?? t.loops,
-          longBreakEvery: longBreakEvery ?? t.longBreakEvery,
-          autoStart: autoStart ?? t.autoStart,
-        ));
+    _run(
+      () => hub.setTimerSettings(
+        workSecs: workSecs ?? t.workSecs,
+        breakSecs: breakSecs ?? t.breakSecs,
+        longBreakSecs: longBreakSecs ?? t.longBreakSecs,
+        loops: loops ?? t.loops,
+        longBreakEvery: longBreakEvery ?? t.longBreakEvery,
+        autoStart: autoStart ?? t.autoStart,
+      ),
+    );
     await _timerChanged();
   }
 
@@ -195,8 +197,7 @@ class FocusController extends ChangeNotifier {
   /// Moves the selected day [weeks] weeks later (or earlier, if negative).
   void shiftWeek(int weeks) => selectDate(addDays(date: selectedDate, days: 7 * weeks));
 
-  CalendarMonth get calendar =>
-      hub.calendarMonth(year: calendarYear, month: calendarMonth, selectedDate: selectedDate);
+  CalendarMonth get calendar => hub.calendarMonth(year: calendarYear, month: calendarMonth, selectedDate: selectedDate);
 
   CalendarWeek get calendarWeek => hub.calendarWeek(selectedDate: selectedDate);
 
@@ -223,8 +224,8 @@ class FocusController extends ChangeNotifier {
     final removed = _run(() => hub.deleteTodo(date: date, index: index));
     _changed();
     if (removed == null) return null;
-    return () => _change(() =>
-        hub.restoreTodo(date: date, index: index, text: removed.text, completed: removed.completed));
+    return () =>
+        _change(() => hub.restoreTodo(date: date, index: index, text: removed.text, completed: removed.completed));
   }
 
   /// For drag-to-reorder: moves the task at [from] to position [to].
@@ -261,8 +262,7 @@ class FocusController extends ChangeNotifier {
     final removed = _run(() => hub.deleteReward(index: index));
     _changed();
     if (removed == null) return null;
-    return () => _change(
-        () => hub.restoreReward(index: index, name: removed.text, completed: removed.completed));
+    return () => _change(() => hub.restoreReward(index: index, name: removed.text, completed: removed.completed));
   }
 
   // ---- Stats ----------------------------------------------------------------------------

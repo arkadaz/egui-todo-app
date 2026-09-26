@@ -66,18 +66,11 @@ class _StatsPageState extends State<StatsPage> {
                   ),
                 ),
               ),
-              _StatCard(
-                icon: Icons.insights,
-                title: 'Lifetime Summary',
-                rows: [('Total study time', stats.totalTime)],
-              ),
+              _StatCard(icon: Icons.insights, title: 'Lifetime Summary', rows: [('Total study time', stats.totalTime)]),
               _StatCard(
                 icon: Icons.today,
                 title: "Today's Progress",
-                rows: [
-                  ('Sessions completed', '${stats.todaySessions}'),
-                  ('Time studied', stats.todayTime),
-                ],
+                rows: [('Sessions completed', '${stats.todaySessions}'), ('Time studied', stats.todayTime)],
               ),
               _StatCard(
                 icon: Icons.calendar_month,
@@ -198,9 +191,8 @@ class StudyChart extends StatelessWidget {
                   textAlign: TextAlign.center,
                   maxLines: 1,
                   overflow: TextOverflow.visible,
-                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        fontWeight: days[i].isToday ? FontWeight.bold : null,
-                      ),
+                  style: Theme.of(context).textTheme.labelSmall
+                      ?.copyWith(fontWeight: days[i].isToday ? FontWeight.bold : null),
                 ),
               ),
           ],
@@ -237,9 +229,8 @@ class _Row extends StatelessWidget {
           Expanded(child: Text(label)),
           Text(
             value,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontFeatures: const [FontFeature.tabularFigures()],
-                ),
+            style: Theme.of(context).textTheme.titleMedium
+                ?.copyWith(fontFeatures: const [FontFeature.tabularFigures()]),
           ),
         ],
       ),

@@ -76,7 +76,12 @@ pub fn days_hours_minutes_seconds(total_seconds: u64) -> String {
 
 /// "01:02:03"
 pub fn hh_mm_ss(total_seconds: u64) -> String {
-    format!("{:02}:{:02}:{:02}", total_seconds / 3600, (total_seconds % 3600) / 60, total_seconds % 60)
+    format!(
+        "{:02}:{:02}:{:02}",
+        total_seconds / 3600,
+        (total_seconds % 3600) / 60,
+        total_seconds % 60
+    )
 }
 
 /// "59:07", with minutes going past 59 for long sessions (like the desktop app).

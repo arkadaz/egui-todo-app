@@ -61,42 +61,30 @@ fn wire__crate__api__focus_hub__FocusHub_add_reward_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_name = <String>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::add_reward(
-                        &mut *api_that_guard,
-                        api_name,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::add_reward(&mut *api_that_guard, api_name)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -113,44 +101,31 @@ fn wire__crate__api__focus_hub__FocusHub_add_todo_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_date = <String>::sse_decode(&mut deserializer);
             let api_text = <String>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::add_todo(
-                        &mut *api_that_guard,
-                        api_date,
-                        api_text,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::add_todo(&mut *api_that_guard, api_date, api_text)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -167,26 +142,19 @@ fn wire__crate__api__focus_hub__FocusHub_animate_background_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
                 for i in decode_indices_ {
                     match i {
                         0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
@@ -194,9 +162,7 @@ fn wire__crate__api__focus_hub__FocusHub_animate_background_impl(
                     }
                 }
                 let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::animate_background(
-                    &*api_that_guard,
-                ))?;
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::animate_background(&*api_that_guard))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -215,42 +181,30 @@ fn wire__crate__api__focus_hub__FocusHub_apply_preset_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_index = <u32>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::apply_preset(
-                        &mut *api_that_guard,
-                        api_index,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::apply_preset(&mut *api_that_guard, api_index)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -267,26 +221,19 @@ fn wire__crate__api__focus_hub__FocusHub_background_path_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
                 for i in decode_indices_ {
                     match i {
                         0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
@@ -294,9 +241,7 @@ fn wire__crate__api__focus_hub__FocusHub_background_path_impl(
                     }
                 }
                 let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::background_path(
-                    &*api_that_guard,
-                ))?;
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::background_path(&*api_that_guard))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -315,26 +260,19 @@ fn wire__crate__api__focus_hub__FocusHub_backups_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
                 for i in decode_indices_ {
                     match i {
                         0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
@@ -342,8 +280,7 @@ fn wire__crate__api__focus_hub__FocusHub_backups_impl(
                     }
                 }
                 let api_that_guard = api_that_guard.unwrap();
-                let output_ok =
-                    Ok::<_, ()>(crate::api::focus_hub::FocusHub::backups(&*api_that_guard))?;
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::backups(&*api_that_guard))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -362,46 +299,37 @@ fn wire__crate__api__focus_hub__FocusHub_calendar_month_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_year = <i32>::sse_decode(&mut deserializer);
             let api_month = <u32>::sse_decode(&mut deserializer);
             let api_selected_date = <String>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
                     }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::calendar_month(
-                        &*api_that_guard,
-                        api_year,
-                        api_month,
-                        api_selected_date,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::calendar_month(
+                    &*api_that_guard,
+                    api_year,
+                    api_month,
+                    api_selected_date,
+                )?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -418,42 +346,30 @@ fn wire__crate__api__focus_hub__FocusHub_calendar_week_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_selected_date = <String>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
                     }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::calendar_week(
-                        &*api_that_guard,
-                        api_selected_date,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::calendar_week(&*api_that_guard, api_selected_date)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -470,39 +386,29 @@ fn wire__crate__api__focus_hub__FocusHub_clear_background_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok =
-                        crate::api::focus_hub::FocusHub::clear_background(&mut *api_that_guard)?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::clear_background(&mut *api_that_guard)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -519,26 +425,19 @@ fn wire__crate__api__focus_hub__FocusHub_clock_text_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
                 for i in decode_indices_ {
                     match i {
                         0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
@@ -546,9 +445,7 @@ fn wire__crate__api__focus_hub__FocusHub_clock_text_impl(
                     }
                 }
                 let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::clock_text(
-                    &*api_that_guard,
-                ))?;
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::clock_text(&*api_that_guard))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -567,26 +464,19 @@ fn wire__crate__api__focus_hub__FocusHub_data_file_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
                 for i in decode_indices_ {
                     match i {
                         0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
@@ -594,8 +484,7 @@ fn wire__crate__api__focus_hub__FocusHub_data_file_impl(
                     }
                 }
                 let api_that_guard = api_that_guard.unwrap();
-                let output_ok =
-                    Ok::<_, ()>(crate::api::focus_hub::FocusHub::data_file(&*api_that_guard))?;
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::data_file(&*api_that_guard))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -614,42 +503,30 @@ fn wire__crate__api__focus_hub__FocusHub_delete_reward_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_index = <u32>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::delete_reward(
-                        &mut *api_that_guard,
-                        api_index,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::delete_reward(&mut *api_that_guard, api_index)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -666,44 +543,32 @@ fn wire__crate__api__focus_hub__FocusHub_delete_todo_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_date = <String>::sse_decode(&mut deserializer);
             let api_index = <u32>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::delete_todo(
-                        &mut *api_that_guard,
-                        api_date,
-                        api_index,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok =
+                    crate::api::focus_hub::FocusHub::delete_todo(&mut *api_that_guard, api_date, api_index)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -720,44 +585,32 @@ fn wire__crate__api__focus_hub__FocusHub_edit_reward_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_index = <u32>::sse_decode(&mut deserializer);
             let api_name = <String>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::edit_reward(
-                        &mut *api_that_guard,
-                        api_index,
-                        api_name,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok =
+                    crate::api::focus_hub::FocusHub::edit_reward(&mut *api_that_guard, api_index, api_name)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -774,46 +627,33 @@ fn wire__crate__api__focus_hub__FocusHub_edit_todo_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_date = <String>::sse_decode(&mut deserializer);
             let api_index = <u32>::sse_decode(&mut deserializer);
             let api_text = <String>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::edit_todo(
-                        &mut *api_that_guard,
-                        api_date,
-                        api_index,
-                        api_text,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok =
+                    crate::api::focus_hub::FocusHub::edit_todo(&mut *api_that_guard, api_date, api_index, api_text)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -830,39 +670,29 @@ fn wire__crate__api__focus_hub__FocusHub_export_json_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok =
-                        crate::api::focus_hub::FocusHub::export_json(&mut *api_that_guard)?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::export_json(&mut *api_that_guard)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -879,46 +709,33 @@ fn wire__crate__api__focus_hub__FocusHub_history_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_before = <String>::sse_decode(&mut deserializer);
             let api_filter = <crate::api::focus_hub::HistoryFilter>::sse_decode(&mut deserializer);
             let api_search = <String>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
                     }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::history(
-                        &*api_that_guard,
-                        api_before,
-                        api_filter,
-                        api_search,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok =
+                    crate::api::focus_hub::FocusHub::history(&*api_that_guard, api_before, api_filter, api_search)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -935,26 +752,19 @@ fn wire__crate__api__focus_hub__FocusHub_home_icon_offered_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
                 for i in decode_indices_ {
                     match i {
                         0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
@@ -962,9 +772,7 @@ fn wire__crate__api__focus_hub__FocusHub_home_icon_offered_impl(
                     }
                 }
                 let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::home_icon_offered(
-                    &*api_that_guard,
-                ))?;
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::home_icon_offered(&*api_that_guard))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -983,42 +791,30 @@ fn wire__crate__api__focus_hub__FocusHub_import_json_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_json = <String>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::import_json(
-                        &mut *api_that_guard,
-                        api_json,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::import_json(&mut *api_that_guard, api_json)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1035,26 +831,19 @@ fn wire__crate__api__focus_hub__FocusHub_load_warning_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
                 for i in decode_indices_ {
                     match i {
                         0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
@@ -1062,9 +851,7 @@ fn wire__crate__api__focus_hub__FocusHub_load_warning_impl(
                     }
                 }
                 let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::load_warning(
-                    &*api_that_guard,
-                ))?;
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::load_warning(&*api_that_guard))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -1083,42 +870,30 @@ fn wire__crate__api__focus_hub__FocusHub_merge_json_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_json = <String>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::merge_json(
-                        &mut *api_that_guard,
-                        api_json,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::merge_json(&mut *api_that_guard, api_json)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1135,46 +910,33 @@ fn wire__crate__api__focus_hub__FocusHub_move_todo_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_date = <String>::sse_decode(&mut deserializer);
             let api_from = <u32>::sse_decode(&mut deserializer);
             let api_to = <u32>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::move_todo(
-                        &mut *api_that_guard,
-                        api_date,
-                        api_from,
-                        api_to,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok =
+                    crate::api::focus_hub::FocusHub::move_todo(&mut *api_that_guard, api_date, api_from, api_to)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1191,42 +953,30 @@ fn wire__crate__api__focus_hub__FocusHub_move_unfinished_to_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_date = <String>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::move_unfinished_to(
-                        &mut *api_that_guard,
-                        api_date,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::move_unfinished_to(&mut *api_that_guard, api_date)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1243,22 +993,15 @@ fn wire__crate__api__focus_hub__FocusHub_open_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_data_dir = <String>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let output_ok = crate::api::focus_hub::FocusHub::open(api_data_dir)?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let output_ok = crate::api::focus_hub::FocusHub::open(api_data_dir)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1275,39 +1018,29 @@ fn wire__crate__api__focus_hub__FocusHub_reload_if_changed_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok =
-                        crate::api::focus_hub::FocusHub::reload_if_changed(&mut *api_that_guard)?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::reload_if_changed(&mut *api_that_guard)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1324,39 +1057,29 @@ fn wire__crate__api__focus_hub__FocusHub_reset_timer_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok =
-                        crate::api::focus_hub::FocusHub::reset_timer(&mut *api_that_guard)?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::reset_timer(&mut *api_that_guard)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1373,42 +1096,30 @@ fn wire__crate__api__focus_hub__FocusHub_restore_backup_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_date = <String>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::restore_backup(
-                        &mut *api_that_guard,
-                        api_date,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::restore_backup(&mut *api_that_guard, api_date)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1425,46 +1136,37 @@ fn wire__crate__api__focus_hub__FocusHub_restore_reward_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_index = <u32>::sse_decode(&mut deserializer);
             let api_name = <String>::sse_decode(&mut deserializer);
             let api_completed = <bool>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::restore_reward(
-                        &mut *api_that_guard,
-                        api_index,
-                        api_name,
-                        api_completed,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::restore_reward(
+                    &mut *api_that_guard,
+                    api_index,
+                    api_name,
+                    api_completed,
+                )?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1481,48 +1183,39 @@ fn wire__crate__api__focus_hub__FocusHub_restore_todo_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_date = <String>::sse_decode(&mut deserializer);
             let api_index = <u32>::sse_decode(&mut deserializer);
             let api_text = <String>::sse_decode(&mut deserializer);
             let api_completed = <bool>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::restore_todo(
-                        &mut *api_that_guard,
-                        api_date,
-                        api_index,
-                        api_text,
-                        api_completed,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::restore_todo(
+                    &mut *api_that_guard,
+                    api_date,
+                    api_index,
+                    api_text,
+                    api_completed,
+                )?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1539,26 +1232,19 @@ fn wire__crate__api__focus_hub__FocusHub_rewards_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
                 for i in decode_indices_ {
                     match i {
                         0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
@@ -1566,8 +1252,7 @@ fn wire__crate__api__focus_hub__FocusHub_rewards_impl(
                     }
                 }
                 let api_that_guard = api_that_guard.unwrap();
-                let output_ok =
-                    Ok::<_, ()>(crate::api::focus_hub::FocusHub::rewards(&*api_that_guard))?;
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::rewards(&*api_that_guard))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -1586,38 +1271,29 @@ fn wire__crate__api__focus_hub__FocusHub_save_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::save(&mut *api_that_guard)?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::save(&mut *api_that_guard)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1634,42 +1310,31 @@ fn wire__crate__api__focus_hub__FocusHub_set_animate_background_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_animate = <bool>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::set_animate_background(
-                        &mut *api_that_guard,
-                        api_animate,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok =
+                    crate::api::focus_hub::FocusHub::set_animate_background(&mut *api_that_guard, api_animate)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1686,42 +1351,30 @@ fn wire__crate__api__focus_hub__FocusHub_set_background_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_image = <PreparedBackground>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::set_background(
-                        &mut *api_that_guard,
-                        api_image,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::set_background(&mut *api_that_guard, api_image)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1738,40 +1391,29 @@ fn wire__crate__api__focus_hub__FocusHub_set_home_icon_offered_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::set_home_icon_offered(
-                        &mut *api_that_guard,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::set_home_icon_offered(&mut *api_that_guard)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1788,44 +1430,35 @@ fn wire__crate__api__focus_hub__FocusHub_set_reward_completed_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_index = <u32>::sse_decode(&mut deserializer);
             let api_completed = <bool>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::set_reward_completed(
-                        &mut *api_that_guard,
-                        api_index,
-                        api_completed,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::set_reward_completed(
+                    &mut *api_that_guard,
+                    api_index,
+                    api_completed,
+                )?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1842,42 +1475,30 @@ fn wire__crate__api__focus_hub__FocusHub_set_time_zone_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_offset_hours = <Option<i32>>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::set_time_zone(
-                        &mut *api_that_guard,
-                        api_offset_hours,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::set_time_zone(&mut *api_that_guard, api_offset_hours)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1894,17 +1515,13 @@ fn wire__crate__api__focus_hub__FocusHub_set_timer_settings_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_work_secs = <u32>::sse_decode(&mut deserializer);
             let api_break_secs = <u32>::sse_decode(&mut deserializer);
             let api_long_break_secs = <u32>::sse_decode(&mut deserializer);
@@ -1912,34 +1529,29 @@ fn wire__crate__api__focus_hub__FocusHub_set_timer_settings_impl(
             let api_long_break_every = <u32>::sse_decode(&mut deserializer);
             let api_auto_start = <bool>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::set_timer_settings(
-                        &mut *api_that_guard,
-                        api_work_secs,
-                        api_break_secs,
-                        api_long_break_secs,
-                        api_loops,
-                        api_long_break_every,
-                        api_auto_start,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::set_timer_settings(
+                    &mut *api_that_guard,
+                    api_work_secs,
+                    api_break_secs,
+                    api_long_break_secs,
+                    api_loops,
+                    api_long_break_every,
+                    api_auto_start,
+                )?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -1956,46 +1568,37 @@ fn wire__crate__api__focus_hub__FocusHub_set_todo_completed_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_date = <String>::sse_decode(&mut deserializer);
             let api_index = <u32>::sse_decode(&mut deserializer);
             let api_completed = <bool>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::set_todo_completed(
-                        &mut *api_that_guard,
-                        api_date,
-                        api_index,
-                        api_completed,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::set_todo_completed(
+                    &mut *api_that_guard,
+                    api_date,
+                    api_index,
+                    api_completed,
+                )?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -2012,39 +1615,29 @@ fn wire__crate__api__focus_hub__FocusHub_skip_session_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok =
-                        crate::api::focus_hub::FocusHub::skip_session(&mut *api_that_guard)?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::skip_session(&mut *api_that_guard)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -2061,26 +1654,19 @@ fn wire__crate__api__focus_hub__FocusHub_stats_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
                 for i in decode_indices_ {
                     match i {
                         0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
@@ -2088,8 +1674,7 @@ fn wire__crate__api__focus_hub__FocusHub_stats_impl(
                     }
                 }
                 let api_that_guard = api_that_guard.unwrap();
-                let output_ok =
-                    Ok::<_, ()>(crate::api::focus_hub::FocusHub::stats(&*api_that_guard))?;
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::stats(&*api_that_guard))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -2108,26 +1693,19 @@ fn wire__crate__api__focus_hub__FocusHub_status_now_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
                 for i in decode_indices_ {
                     match i {
                         0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
@@ -2135,9 +1713,7 @@ fn wire__crate__api__focus_hub__FocusHub_status_now_impl(
                     }
                 }
                 let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::status_now(
-                    &*api_that_guard,
-                ))?;
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::status_now(&*api_that_guard))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -2156,27 +1732,20 @@ fn wire__crate__api__focus_hub__FocusHub_study_chart_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_days = <u32>::sse_decode(&mut deserializer);
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
                 for i in decode_indices_ {
                     match i {
                         0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
@@ -2184,10 +1753,7 @@ fn wire__crate__api__focus_hub__FocusHub_study_chart_impl(
                     }
                 }
                 let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::study_chart(
-                    &*api_that_guard,
-                    api_days,
-                ))?;
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::study_chart(&*api_that_guard, api_days))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -2206,38 +1772,29 @@ fn wire__crate__api__focus_hub__FocusHub_tick_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::tick(&mut *api_that_guard)?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::tick(&mut *api_that_guard)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -2254,26 +1811,19 @@ fn wire__crate__api__focus_hub__FocusHub_time_zone_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
                 for i in decode_indices_ {
                     match i {
                         0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
@@ -2281,8 +1831,7 @@ fn wire__crate__api__focus_hub__FocusHub_time_zone_impl(
                     }
                 }
                 let api_that_guard = api_that_guard.unwrap();
-                let output_ok =
-                    Ok::<_, ()>(crate::api::focus_hub::FocusHub::time_zone(&*api_that_guard))?;
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::time_zone(&*api_that_guard))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -2301,26 +1850,19 @@ fn wire__crate__api__focus_hub__FocusHub_timer_view_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
                 for i in decode_indices_ {
                     match i {
                         0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
@@ -2328,9 +1870,7 @@ fn wire__crate__api__focus_hub__FocusHub_timer_view_impl(
                     }
                 }
                 let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::timer_view(
-                    &*api_that_guard,
-                ))?;
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::timer_view(&*api_that_guard))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -2349,40 +1889,30 @@ fn wire__crate__api__focus_hub__FocusHub_todos_for_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_date = <String>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
                     }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok =
-                        crate::api::focus_hub::FocusHub::todos_for(&*api_that_guard, api_date)?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::todos_for(&*api_that_guard, api_date)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -2399,39 +1929,29 @@ fn wire__crate__api__focus_hub__FocusHub_toggle_timer_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, true,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, true),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref_mut()),
+                        _ => unreachable!(),
                     }
-                    let mut api_that_guard = api_that_guard.unwrap();
-                    let output_ok =
-                        crate::api::focus_hub::FocusHub::toggle_timer(&mut *api_that_guard)?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let mut api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::toggle_timer(&mut *api_that_guard)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -2448,42 +1968,30 @@ fn wire__crate__api__focus_hub__FocusHub_unfinished_before_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             let api_date = <String>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
-                        }
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
                     }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = crate::api::focus_hub::FocusHub::unfinished_before(
-                        &*api_that_guard,
-                        api_date,
-                    )?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = crate::api::focus_hub::FocusHub::unfinished_before(&*api_that_guard, api_date)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -2500,26 +2008,19 @@ fn wire__crate__api__focus_hub__FocusHub_upcoming_events_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-            >>::sse_decode(&mut deserializer);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that =
+                <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+                    &mut deserializer,
+                );
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
+                let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                    flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false),
+                ]);
                 for i in decode_indices_ {
                     match i {
                         0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
@@ -2527,9 +2028,7 @@ fn wire__crate__api__focus_hub__FocusHub_upcoming_events_impl(
                     }
                 }
                 let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::upcoming_events(
-                    &*api_that_guard,
-                ))?;
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::FocusHub::upcoming_events(&*api_that_guard))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -2540,48 +2039,22 @@ fn wire__crate__api__focus_hub__PreparedBackground_message_impl(
     rust_vec_len_: i32,
     data_len_: i32,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "PreparedBackground_message",
-            port: None,
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
-        },
-        move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_that = <RustOpaqueMoi<
-                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>,
-            >>::sse_decode(&mut deserializer);
-            deserializer.end();
-            transform_result_sse::<_, ()>((move || {
-                let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
-                for i in decode_indices_ {
-                    match i {
-                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                        _ => unreachable!(),
-                    }
-                }
-                let api_that_guard = api_that_guard.unwrap();
-                let output_ok = Ok::<_, ()>(crate::api::focus_hub::PreparedBackground::message(
-                    &*api_that_guard,
-                ))?;
-                std::result::Result::Ok(output_ok)
-            })())
-        },
-    )
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "PreparedBackground_message", port: None, mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync }, move || {
+            let message = unsafe { flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_) };
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_that = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>>::sse_decode(&mut deserializer);deserializer.end();
+                transform_result_sse::<_, ()>((move || {
+                    let mut api_that_guard = None;
+let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false)]);
+        for i in decode_indices_ {
+            match i {
+                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                _ => unreachable!(),
+            }
+        }
+        let api_that_guard = api_that_guard.unwrap();
+ let output_ok = Ok::<_, ()>(crate::api::focus_hub::PreparedBackground::message(&*api_that_guard))?;   std::result::Result::Ok(output_ok)
+                })()) })
 }
 fn wire__crate__api__focus_hub__add_days_impl(
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
@@ -2596,23 +2069,16 @@ fn wire__crate__api__focus_hub__add_days_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_date = <String>::sse_decode(&mut deserializer);
             let api_days = <i32>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let output_ok = crate::api::focus_hub::add_days(api_date, api_days)?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let output_ok = crate::api::focus_hub::add_days(api_date, api_days)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -2630,14 +2096,9 @@ fn wire__crate__api__focus_hub__init_app_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             deserializer.end();
             move |context| {
                 transform_result_sse::<_, ()>((move || {
@@ -2663,22 +2124,15 @@ fn wire__crate__api__focus_hub__long_date_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_date = <String>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let output_ok = crate::api::focus_hub::long_date(api_date)?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let output_ok = crate::api::focus_hub::long_date(api_date)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -2695,22 +2149,15 @@ fn wire__crate__api__focus_hub__month_of_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_date = <String>::sse_decode(&mut deserializer);
             deserializer.end();
-            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                (move || {
-                    let output_ok = crate::api::focus_hub::month_of(api_date)?;
-                    std::result::Result::Ok(output_ok)
-                })(),
-            )
+            transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                let output_ok = crate::api::focus_hub::month_of(api_date)?;
+                std::result::Result::Ok(output_ok)
+            })())
         },
     )
 }
@@ -2728,25 +2175,17 @@ fn wire__crate__api__focus_hub__prepare_background_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_path = <String>::sse_decode(&mut deserializer);
             let api_screen_side = <u32>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| {
-                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
-                    (move || {
-                        let output_ok =
-                            crate::api::focus_hub::prepare_background(api_path, api_screen_side)?;
-                        std::result::Result::Ok(output_ok)
-                    })(),
-                )
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>((move || {
+                    let output_ok = crate::api::focus_hub::prepare_background(api_path, api_screen_side)?;
+                    std::result::Result::Ok(output_ok)
+                })())
             }
         },
     )
@@ -2764,14 +2203,9 @@ fn wire__crate__api__focus_hub__presets_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let output_ok = Ok::<_, ()>(crate::api::focus_hub::presets())?;
@@ -2793,22 +2227,15 @@ fn wire__crate__api__focus_hub__shift_month_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             let api_year = <i32>::sse_decode(&mut deserializer);
             let api_month = <u32>::sse_decode(&mut deserializer);
             let api_delta = <i32>::sse_decode(&mut deserializer);
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
-                let output_ok = Ok::<_, ()>(crate::api::focus_hub::shift_month(
-                    api_year, api_month, api_delta,
-                ))?;
+                let output_ok = Ok::<_, ()>(crate::api::focus_hub::shift_month(api_year, api_month, api_delta))?;
                 std::result::Result::Ok(output_ok)
             })())
         },
@@ -2827,14 +2254,9 @@ fn wire__crate__api__focus_hub__today_date_impl(
         },
         move || {
             let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(ptr_, rust_vec_len_, data_len_)
             };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let mut deserializer = flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
                 let output_ok = Ok::<_, ()>(crate::api::focus_hub::today_date())?;
@@ -2866,9 +2288,9 @@ impl SseDecode for flutter_rust_bridge::for_generated::anyhow::Error {
 impl SseDecode for FocusHub {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <RustOpaqueMoi<
-            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>,
-        >>::sse_decode(deserializer);
+        let mut inner = <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_decode(
+            deserializer,
+        );
         return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
     }
 }
@@ -2876,16 +2298,15 @@ impl SseDecode for FocusHub {
 impl SseDecode for PreparedBackground {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <RustOpaqueMoi<
-            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>,
-        >>::sse_decode(deserializer);
+        let mut inner =
+            <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>>::sse_decode(
+                deserializer,
+            );
         return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
     }
 }
 
-impl SseDecode
-    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>
-{
+impl SseDecode for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <usize>::sse_decode(deserializer);
@@ -2893,9 +2314,7 @@ impl SseDecode
     }
 }
 
-impl SseDecode
-    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>
-{
+impl SseDecode for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <usize>::sse_decode(deserializer);
@@ -3096,9 +2515,7 @@ impl SseDecode for Vec<crate::api::focus_hub::BackupView> {
         let mut len_ = <i32>::sse_decode(deserializer);
         let mut ans_ = Vec::with_capacity(len_ as usize);
         for idx_ in 0..len_ {
-            ans_.push(<crate::api::focus_hub::BackupView>::sse_decode(
-                deserializer,
-            ));
+            ans_.push(<crate::api::focus_hub::BackupView>::sse_decode(deserializer));
         }
         return ans_;
     }
@@ -3110,9 +2527,7 @@ impl SseDecode for Vec<crate::api::focus_hub::CalendarDay> {
         let mut len_ = <i32>::sse_decode(deserializer);
         let mut ans_ = Vec::with_capacity(len_ as usize);
         for idx_ in 0..len_ {
-            ans_.push(<crate::api::focus_hub::CalendarDay>::sse_decode(
-                deserializer,
-            ));
+            ans_.push(<crate::api::focus_hub::CalendarDay>::sse_decode(deserializer));
         }
         return ans_;
     }
@@ -3148,9 +2563,7 @@ impl SseDecode for Vec<crate::api::focus_hub::HistoryMonth> {
         let mut len_ = <i32>::sse_decode(deserializer);
         let mut ans_ = Vec::with_capacity(len_ as usize);
         for idx_ in 0..len_ {
-            ans_.push(<crate::api::focus_hub::HistoryMonth>::sse_decode(
-                deserializer,
-            ));
+            ans_.push(<crate::api::focus_hub::HistoryMonth>::sse_decode(deserializer));
         }
         return ans_;
     }
@@ -3162,9 +2575,7 @@ impl SseDecode for Vec<crate::api::focus_hub::PresetView> {
         let mut len_ = <i32>::sse_decode(deserializer);
         let mut ans_ = Vec::with_capacity(len_ as usize);
         for idx_ in 0..len_ {
-            ans_.push(<crate::api::focus_hub::PresetView>::sse_decode(
-                deserializer,
-            ));
+            ans_.push(<crate::api::focus_hub::PresetView>::sse_decode(deserializer));
         }
         return ans_;
     }
@@ -3188,9 +2599,7 @@ impl SseDecode for Vec<crate::api::focus_hub::RewardView> {
         let mut len_ = <i32>::sse_decode(deserializer);
         let mut ans_ = Vec::with_capacity(len_ as usize);
         for idx_ in 0..len_ {
-            ans_.push(<crate::api::focus_hub::RewardView>::sse_decode(
-                deserializer,
-            ));
+            ans_.push(<crate::api::focus_hub::RewardView>::sse_decode(deserializer));
         }
         return ans_;
     }
@@ -3202,9 +2611,7 @@ impl SseDecode for Vec<crate::api::focus_hub::SessionAlert> {
         let mut len_ = <i32>::sse_decode(deserializer);
         let mut ans_ = Vec::with_capacity(len_ as usize);
         for idx_ in 0..len_ {
-            ans_.push(<crate::api::focus_hub::SessionAlert>::sse_decode(
-                deserializer,
-            ));
+            ans_.push(<crate::api::focus_hub::SessionAlert>::sse_decode(deserializer));
         }
         return ans_;
     }
@@ -3228,9 +2635,7 @@ impl SseDecode for Vec<crate::api::focus_hub::UpcomingEvent> {
         let mut len_ = <i32>::sse_decode(deserializer);
         let mut ans_ = Vec::with_capacity(len_ as usize);
         for idx_ in 0..len_ {
-            ans_.push(<crate::api::focus_hub::UpcomingEvent>::sse_decode(
-                deserializer,
-            ));
+            ans_.push(<crate::api::focus_hub::UpcomingEvent>::sse_decode(deserializer));
         }
         return ans_;
     }
@@ -3276,9 +2681,7 @@ impl SseDecode for Option<crate::api::focus_hub::TimerStatus> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         if (<bool>::sse_decode(deserializer)) {
-            return Some(<crate::api::focus_hub::TimerStatus>::sse_decode(
-                deserializer,
-            ));
+            return Some(<crate::api::focus_hub::TimerStatus>::sse_decode(deserializer));
         } else {
             return None;
         }
@@ -3483,8 +2886,7 @@ impl SseDecode for crate::api::focus_hub::UpcomingEvent {
         let mut var_delayMs = <u32>::sse_decode(deserializer);
         let mut var_alertTitle = <String>::sse_decode(deserializer);
         let mut var_alertBody = <String>::sse_decode(deserializer);
-        let mut var_nextStatus =
-            <Option<crate::api::focus_hub::TimerStatus>>::sse_decode(deserializer);
+        let mut var_nextStatus = <Option<crate::api::focus_hub::TimerStatus>>::sse_decode(deserializer);
         return crate::api::focus_hub::UpcomingEvent {
             delay_ms: var_delayMs,
             alert_title: var_alertTitle,
@@ -3523,9 +2925,7 @@ fn pde_ffi_dispatcher_primary_impl(
     // Codec=Pde (Serialization + dispatch), see doc to use other codecs
     match func_id {
         52 => wire__crate__api__focus_hub__init_app_impl(port, ptr, rust_vec_len, data_len),
-        55 => {
-            wire__crate__api__focus_hub__prepare_background_impl(port, ptr, rust_vec_len, data_len)
-        }
+        55 => wire__crate__api__focus_hub__prepare_background_impl(port, ptr, rust_vec_len, data_len),
         _ => unreachable!(),
     }
 }
@@ -3540,21 +2940,13 @@ fn pde_ffi_dispatcher_sync_impl(
     match func_id {
         1 => wire__crate__api__focus_hub__FocusHub_add_reward_impl(ptr, rust_vec_len, data_len),
         2 => wire__crate__api__focus_hub__FocusHub_add_todo_impl(ptr, rust_vec_len, data_len),
-        3 => wire__crate__api__focus_hub__FocusHub_animate_background_impl(
-            ptr,
-            rust_vec_len,
-            data_len,
-        ),
+        3 => wire__crate__api__focus_hub__FocusHub_animate_background_impl(ptr, rust_vec_len, data_len),
         4 => wire__crate__api__focus_hub__FocusHub_apply_preset_impl(ptr, rust_vec_len, data_len),
-        5 => {
-            wire__crate__api__focus_hub__FocusHub_background_path_impl(ptr, rust_vec_len, data_len)
-        }
+        5 => wire__crate__api__focus_hub__FocusHub_background_path_impl(ptr, rust_vec_len, data_len),
         6 => wire__crate__api__focus_hub__FocusHub_backups_impl(ptr, rust_vec_len, data_len),
         7 => wire__crate__api__focus_hub__FocusHub_calendar_month_impl(ptr, rust_vec_len, data_len),
         8 => wire__crate__api__focus_hub__FocusHub_calendar_week_impl(ptr, rust_vec_len, data_len),
-        9 => {
-            wire__crate__api__focus_hub__FocusHub_clear_background_impl(ptr, rust_vec_len, data_len)
-        }
+        9 => wire__crate__api__focus_hub__FocusHub_clear_background_impl(ptr, rust_vec_len, data_len),
         10 => wire__crate__api__focus_hub__FocusHub_clock_text_impl(ptr, rust_vec_len, data_len),
         11 => wire__crate__api__focus_hub__FocusHub_data_file_impl(ptr, rust_vec_len, data_len),
         12 => wire__crate__api__focus_hub__FocusHub_delete_reward_impl(ptr, rust_vec_len, data_len),
@@ -3563,65 +2955,27 @@ fn pde_ffi_dispatcher_sync_impl(
         15 => wire__crate__api__focus_hub__FocusHub_edit_todo_impl(ptr, rust_vec_len, data_len),
         16 => wire__crate__api__focus_hub__FocusHub_export_json_impl(ptr, rust_vec_len, data_len),
         17 => wire__crate__api__focus_hub__FocusHub_history_impl(ptr, rust_vec_len, data_len),
-        18 => wire__crate__api__focus_hub__FocusHub_home_icon_offered_impl(
-            ptr,
-            rust_vec_len,
-            data_len,
-        ),
+        18 => wire__crate__api__focus_hub__FocusHub_home_icon_offered_impl(ptr, rust_vec_len, data_len),
         19 => wire__crate__api__focus_hub__FocusHub_import_json_impl(ptr, rust_vec_len, data_len),
         20 => wire__crate__api__focus_hub__FocusHub_load_warning_impl(ptr, rust_vec_len, data_len),
         21 => wire__crate__api__focus_hub__FocusHub_merge_json_impl(ptr, rust_vec_len, data_len),
         22 => wire__crate__api__focus_hub__FocusHub_move_todo_impl(ptr, rust_vec_len, data_len),
-        23 => wire__crate__api__focus_hub__FocusHub_move_unfinished_to_impl(
-            ptr,
-            rust_vec_len,
-            data_len,
-        ),
+        23 => wire__crate__api__focus_hub__FocusHub_move_unfinished_to_impl(ptr, rust_vec_len, data_len),
         24 => wire__crate__api__focus_hub__FocusHub_open_impl(ptr, rust_vec_len, data_len),
-        25 => wire__crate__api__focus_hub__FocusHub_reload_if_changed_impl(
-            ptr,
-            rust_vec_len,
-            data_len,
-        ),
+        25 => wire__crate__api__focus_hub__FocusHub_reload_if_changed_impl(ptr, rust_vec_len, data_len),
         26 => wire__crate__api__focus_hub__FocusHub_reset_timer_impl(ptr, rust_vec_len, data_len),
-        27 => {
-            wire__crate__api__focus_hub__FocusHub_restore_backup_impl(ptr, rust_vec_len, data_len)
-        }
-        28 => {
-            wire__crate__api__focus_hub__FocusHub_restore_reward_impl(ptr, rust_vec_len, data_len)
-        }
+        27 => wire__crate__api__focus_hub__FocusHub_restore_backup_impl(ptr, rust_vec_len, data_len),
+        28 => wire__crate__api__focus_hub__FocusHub_restore_reward_impl(ptr, rust_vec_len, data_len),
         29 => wire__crate__api__focus_hub__FocusHub_restore_todo_impl(ptr, rust_vec_len, data_len),
         30 => wire__crate__api__focus_hub__FocusHub_rewards_impl(ptr, rust_vec_len, data_len),
         31 => wire__crate__api__focus_hub__FocusHub_save_impl(ptr, rust_vec_len, data_len),
-        32 => wire__crate__api__focus_hub__FocusHub_set_animate_background_impl(
-            ptr,
-            rust_vec_len,
-            data_len,
-        ),
-        33 => {
-            wire__crate__api__focus_hub__FocusHub_set_background_impl(ptr, rust_vec_len, data_len)
-        }
-        34 => wire__crate__api__focus_hub__FocusHub_set_home_icon_offered_impl(
-            ptr,
-            rust_vec_len,
-            data_len,
-        ),
-        35 => wire__crate__api__focus_hub__FocusHub_set_reward_completed_impl(
-            ptr,
-            rust_vec_len,
-            data_len,
-        ),
+        32 => wire__crate__api__focus_hub__FocusHub_set_animate_background_impl(ptr, rust_vec_len, data_len),
+        33 => wire__crate__api__focus_hub__FocusHub_set_background_impl(ptr, rust_vec_len, data_len),
+        34 => wire__crate__api__focus_hub__FocusHub_set_home_icon_offered_impl(ptr, rust_vec_len, data_len),
+        35 => wire__crate__api__focus_hub__FocusHub_set_reward_completed_impl(ptr, rust_vec_len, data_len),
         36 => wire__crate__api__focus_hub__FocusHub_set_time_zone_impl(ptr, rust_vec_len, data_len),
-        37 => wire__crate__api__focus_hub__FocusHub_set_timer_settings_impl(
-            ptr,
-            rust_vec_len,
-            data_len,
-        ),
-        38 => wire__crate__api__focus_hub__FocusHub_set_todo_completed_impl(
-            ptr,
-            rust_vec_len,
-            data_len,
-        ),
+        37 => wire__crate__api__focus_hub__FocusHub_set_timer_settings_impl(ptr, rust_vec_len, data_len),
+        38 => wire__crate__api__focus_hub__FocusHub_set_todo_completed_impl(ptr, rust_vec_len, data_len),
         39 => wire__crate__api__focus_hub__FocusHub_skip_session_impl(ptr, rust_vec_len, data_len),
         40 => wire__crate__api__focus_hub__FocusHub_stats_impl(ptr, rust_vec_len, data_len),
         41 => wire__crate__api__focus_hub__FocusHub_status_now_impl(ptr, rust_vec_len, data_len),
@@ -3631,19 +2985,9 @@ fn pde_ffi_dispatcher_sync_impl(
         45 => wire__crate__api__focus_hub__FocusHub_timer_view_impl(ptr, rust_vec_len, data_len),
         46 => wire__crate__api__focus_hub__FocusHub_todos_for_impl(ptr, rust_vec_len, data_len),
         47 => wire__crate__api__focus_hub__FocusHub_toggle_timer_impl(ptr, rust_vec_len, data_len),
-        48 => wire__crate__api__focus_hub__FocusHub_unfinished_before_impl(
-            ptr,
-            rust_vec_len,
-            data_len,
-        ),
-        49 => {
-            wire__crate__api__focus_hub__FocusHub_upcoming_events_impl(ptr, rust_vec_len, data_len)
-        }
-        50 => wire__crate__api__focus_hub__PreparedBackground_message_impl(
-            ptr,
-            rust_vec_len,
-            data_len,
-        ),
+        48 => wire__crate__api__focus_hub__FocusHub_unfinished_before_impl(ptr, rust_vec_len, data_len),
+        49 => wire__crate__api__focus_hub__FocusHub_upcoming_events_impl(ptr, rust_vec_len, data_len),
+        50 => wire__crate__api__focus_hub__PreparedBackground_message_impl(ptr, rust_vec_len, data_len),
         51 => wire__crate__api__focus_hub__add_days_impl(ptr, rust_vec_len, data_len),
         53 => wire__crate__api__focus_hub__long_date_impl(ptr, rust_vec_len, data_len),
         54 => wire__crate__api__focus_hub__month_of_impl(ptr, rust_vec_len, data_len),
@@ -3659,8 +3003,7 @@ fn pde_ffi_dispatcher_sync_impl(
 // Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<FocusHub> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
-            .into_dart()
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0).into_dart()
     }
 }
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<FocusHub> {}
@@ -3674,14 +3017,10 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<FocusHub>> for FocusHub {
 // Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<PreparedBackground> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
-            .into_dart()
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0).into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for FrbWrapper<PreparedBackground>
-{
-}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<PreparedBackground> {}
 
 impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<PreparedBackground>> for PreparedBackground {
     fn into_into_dart(self) -> FrbWrapper<PreparedBackground> {
@@ -3699,13 +3038,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::BackupView {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::BackupView
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::BackupView>
-    for crate::api::focus_hub::BackupView
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::BackupView {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::BackupView> for crate::api::focus_hub::BackupView {
     fn into_into_dart(self) -> crate::api::focus_hub::BackupView {
         self
     }
@@ -3724,13 +3058,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::CalendarDay {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::CalendarDay
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::CalendarDay>
-    for crate::api::focus_hub::CalendarDay
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::CalendarDay {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::CalendarDay> for crate::api::focus_hub::CalendarDay {
     fn into_into_dart(self) -> crate::api::focus_hub::CalendarDay {
         self
     }
@@ -3748,13 +3077,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::CalendarMonth {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::CalendarMonth
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::CalendarMonth>
-    for crate::api::focus_hub::CalendarMonth
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::CalendarMonth {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::CalendarMonth> for crate::api::focus_hub::CalendarMonth {
     fn into_into_dart(self) -> crate::api::focus_hub::CalendarMonth {
         self
     }
@@ -3769,13 +3093,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::CalendarWeek {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::CalendarWeek
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::CalendarWeek>
-    for crate::api::focus_hub::CalendarWeek
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::CalendarWeek {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::CalendarWeek> for crate::api::focus_hub::CalendarWeek {
     fn into_into_dart(self) -> crate::api::focus_hub::CalendarWeek {
         self
     }
@@ -3792,13 +3111,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::ChartDay {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::ChartDay
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::ChartDay>
-    for crate::api::focus_hub::ChartDay
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::ChartDay {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::ChartDay> for crate::api::focus_hub::ChartDay {
     fn into_into_dart(self) -> crate::api::focus_hub::ChartDay {
         self
     }
@@ -3816,13 +3130,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::DayTodos {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::DayTodos
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::DayTodos>
-    for crate::api::focus_hub::DayTodos
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::DayTodos {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::DayTodos> for crate::api::focus_hub::DayTodos {
     fn into_into_dart(self) -> crate::api::focus_hub::DayTodos {
         self
     }
@@ -3837,13 +3146,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::Deleted {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::Deleted
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::Deleted>
-    for crate::api::focus_hub::Deleted
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::Deleted {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::Deleted> for crate::api::focus_hub::Deleted {
     fn into_into_dart(self) -> crate::api::focus_hub::Deleted {
         self
     }
@@ -3859,13 +3163,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::HistoryFilter {
         }
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::HistoryFilter
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::HistoryFilter>
-    for crate::api::focus_hub::HistoryFilter
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::HistoryFilter {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::HistoryFilter> for crate::api::focus_hub::HistoryFilter {
     fn into_into_dart(self) -> crate::api::focus_hub::HistoryFilter {
         self
     }
@@ -3882,13 +3181,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::HistoryMonth {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::HistoryMonth
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::HistoryMonth>
-    for crate::api::focus_hub::HistoryMonth
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::HistoryMonth {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::HistoryMonth> for crate::api::focus_hub::HistoryMonth {
     fn into_into_dart(self) -> crate::api::focus_hub::HistoryMonth {
         self
     }
@@ -3904,13 +3198,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::ImportSummary {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::ImportSummary
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::ImportSummary>
-    for crate::api::focus_hub::ImportSummary
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::ImportSummary {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::ImportSummary> for crate::api::focus_hub::ImportSummary {
     fn into_into_dart(self) -> crate::api::focus_hub::ImportSummary {
         self
     }
@@ -3926,13 +3215,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::MergeSummary {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::MergeSummary
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::MergeSummary>
-    for crate::api::focus_hub::MergeSummary
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::MergeSummary {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::MergeSummary> for crate::api::focus_hub::MergeSummary {
     fn into_into_dart(self) -> crate::api::focus_hub::MergeSummary {
         self
     }
@@ -3947,13 +3231,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::PresetView {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::PresetView
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::PresetView>
-    for crate::api::focus_hub::PresetView
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::PresetView {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::PresetView> for crate::api::focus_hub::PresetView {
     fn into_into_dart(self) -> crate::api::focus_hub::PresetView {
         self
     }
@@ -3969,13 +3248,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::RewardView {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::RewardView
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::RewardView>
-    for crate::api::focus_hub::RewardView
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::RewardView {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::RewardView> for crate::api::focus_hub::RewardView {
     fn into_into_dart(self) -> crate::api::focus_hub::RewardView {
         self
     }
@@ -3990,13 +3264,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::SessionAlert {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::SessionAlert
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::SessionAlert>
-    for crate::api::focus_hub::SessionAlert
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::SessionAlert {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::SessionAlert> for crate::api::focus_hub::SessionAlert {
     fn into_into_dart(self) -> crate::api::focus_hub::SessionAlert {
         self
     }
@@ -4018,13 +3287,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::StatsView {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::StatsView
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::StatsView>
-    for crate::api::focus_hub::StatsView
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::StatsView {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::StatsView> for crate::api::focus_hub::StatsView {
     fn into_into_dart(self) -> crate::api::focus_hub::StatsView {
         self
     }
@@ -4041,13 +3305,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::TickReport {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::TickReport
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::TickReport>
-    for crate::api::focus_hub::TickReport
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::TickReport {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::TickReport> for crate::api::focus_hub::TickReport {
     fn into_into_dart(self) -> crate::api::focus_hub::TickReport {
         self
     }
@@ -4063,13 +3322,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::TimeZoneView {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::TimeZoneView
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::TimeZoneView>
-    for crate::api::focus_hub::TimeZoneView
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::TimeZoneView {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::TimeZoneView> for crate::api::focus_hub::TimeZoneView {
     fn into_into_dart(self) -> crate::api::focus_hub::TimeZoneView {
         self
     }
@@ -4086,13 +3340,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::TimerStatus {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::TimerStatus
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::TimerStatus>
-    for crate::api::focus_hub::TimerStatus
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::TimerStatus {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::TimerStatus> for crate::api::focus_hub::TimerStatus {
     fn into_into_dart(self) -> crate::api::focus_hub::TimerStatus {
         self
     }
@@ -4120,13 +3369,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::TimerView {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::TimerView
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::TimerView>
-    for crate::api::focus_hub::TimerView
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::TimerView {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::TimerView> for crate::api::focus_hub::TimerView {
     fn into_into_dart(self) -> crate::api::focus_hub::TimerView {
         self
     }
@@ -4142,13 +3386,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::TodoView {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::TodoView
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::TodoView>
-    for crate::api::focus_hub::TodoView
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::TodoView {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::TodoView> for crate::api::focus_hub::TodoView {
     fn into_into_dart(self) -> crate::api::focus_hub::TodoView {
         self
     }
@@ -4165,13 +3404,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::UpcomingEvent {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::UpcomingEvent
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::UpcomingEvent>
-    for crate::api::focus_hub::UpcomingEvent
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::UpcomingEvent {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::UpcomingEvent> for crate::api::focus_hub::UpcomingEvent {
     fn into_into_dart(self) -> crate::api::focus_hub::UpcomingEvent {
         self
     }
@@ -4186,13 +3420,8 @@ impl flutter_rust_bridge::IntoDart for crate::api::focus_hub::YearMonth {
         .into_dart()
     }
 }
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::focus_hub::YearMonth
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::YearMonth>
-    for crate::api::focus_hub::YearMonth
-{
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::focus_hub::YearMonth {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::focus_hub::YearMonth> for crate::api::focus_hub::YearMonth {
     fn into_into_dart(self) -> crate::api::focus_hub::YearMonth {
         self
     }
@@ -4208,20 +3437,24 @@ impl SseEncode for flutter_rust_bridge::for_generated::anyhow::Error {
 impl SseEncode for FocusHub {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
+        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>>::sse_encode(
+            flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self),
+            serializer,
+        );
     }
 }
 
 impl SseEncode for PreparedBackground {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
+        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>>::sse_encode(
+            flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self),
+            serializer,
+        );
     }
 }
 
-impl SseEncode
-    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>>
-{
+impl SseEncode for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<FocusHub>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         let (ptr, size) = self.sse_encode_raw();
@@ -4230,9 +3463,7 @@ impl SseEncode
     }
 }
 
-impl SseEncode
-    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>
-{
+impl SseEncode for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         let (ptr, size) = self.sse_encode_raw();
@@ -4670,10 +3901,7 @@ impl SseEncode for crate::api::focus_hub::UpcomingEvent {
 impl SseEncode for usize {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        serializer
-            .cursor
-            .write_u64::<NativeEndian>(self as _)
-            .unwrap();
+        serializer.cursor.write_u64::<NativeEndian>(self as _).unwrap();
     }
 }
 
@@ -4694,9 +3922,7 @@ mod io {
 
     use super::*;
     use crate::api::focus_hub::*;
-    use flutter_rust_bridge::for_generated::byteorder::{
-        NativeEndian, ReadBytesExt, WriteBytesExt,
-    };
+    use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
     use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
     use flutter_rust_bridge::{Handler, IntoIntoDart};
 
@@ -4722,14 +3948,18 @@ mod io {
     pub extern "C" fn frbgen_focus_hub_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
         ptr: *const std::ffi::c_void,
     ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>::increment_strong_count(ptr as _);
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>::increment_strong_count(
+            ptr as _,
+        );
     }
 
     #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_focus_hub_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPreparedBackground(
         ptr: *const std::ffi::c_void,
     ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>::decrement_strong_count(ptr as _);
+        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PreparedBackground>>::decrement_strong_count(
+            ptr as _,
+        );
     }
 }
 #[cfg(not(target_family = "wasm"))]

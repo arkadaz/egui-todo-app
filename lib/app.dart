@@ -11,19 +11,15 @@ import 'src/rust/api/focus_hub.dart';
 
 /// Colors from the orange of the app icon. Dark like the desktop app, or light when the
 /// phone is set to light mode. Made once: working out a palette from a seed color is slow.
-ThemeData focusHubTheme(Brightness brightness) =>
-    brightness == Brightness.dark ? _darkTheme : _lightTheme;
+ThemeData focusHubTheme(Brightness brightness) => brightness == Brightness.dark ? _darkTheme : _lightTheme;
 
 final _lightTheme = _theme(Brightness.light);
 final _darkTheme = _theme(Brightness.dark);
 
 ThemeData _theme(Brightness brightness) => ThemeData(
-      useMaterial3: true,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: const Color(0xFFE8914A),
-        brightness: brightness,
-      ),
-    );
+  useMaterial3: true,
+  colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFE8914A), brightness: brightness),
+);
 
 class FocusHubApp extends StatelessWidget {
   const FocusHubApp({super.key, required this.controller});
@@ -37,7 +33,6 @@ class FocusHubApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: focusHubTheme(Brightness.light),
       darkTheme: focusHubTheme(Brightness.dark),
-      themeMode: ThemeMode.system, // follow the phone's setting
       home: HomeShell(controller: controller),
     );
   }
@@ -151,9 +146,7 @@ class _HomeShellState extends State<HomeShell> {
   }
 
   void _showMessage(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), behavior: SnackBarBehavior.floating),
-    );
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message), behavior: SnackBarBehavior.floating));
   }
 
   void _showWarning(String warning) {
@@ -163,9 +156,7 @@ class _HomeShellState extends State<HomeShell> {
         icon: const Icon(Icons.warning_amber),
         title: const Text('Saved data problem'),
         content: Text(warning),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK')),
-        ],
+        actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK'))],
       ),
     );
   }
@@ -184,9 +175,7 @@ class _HomeShellState extends State<HomeShell> {
     // playing, and redrawing the screen, behind the other tabs).
     final pages = IndexedStack(
       index: _page,
-      children: [
-        for (var i = 0; i < _pages.length; i++) TickerMode(enabled: i == _page, child: _pages[i]),
-      ],
+      children: [for (var i = 0; i < _pages.length; i++) TickerMode(enabled: i == _page, child: _pages[i])],
     );
     void select(int page) => setState(() => _page = page);
 

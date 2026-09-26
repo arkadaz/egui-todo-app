@@ -1,32 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:focus_hub/controller.dart';
 import 'package:focus_hub/pages/focus_page.dart';
 import 'package:focus_hub/src/rust/api/focus_hub.dart';
 import 'package:focus_hub/src/rust/frb_generated.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'helpers.dart';
-
-/// "2026-09-23" for [days] days before today.
-String daysAgo(int days) {
-  final now = DateTime.now();
-  final d = DateTime(now.year, now.month, now.day - days);
-  return '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
-}
-
-/// Replaces the data with desktop-format JSON.
-void importData(FocusController controller, {Map<String, Object> todos = const {}, Map<String, int> study = const {}}) {
-  controller.importJson(jsonEncode({
-    'todos_by_date': todos,
-    'stats': {'daily_study_seconds': study},
-    'rewards': <Object>[],
-  }));
-}
-
-Map<String, Object> task(String text, {bool done = false}) => {'text': text, 'completed': done};
 
 Future<void> tapVisible(WidgetTester tester, Finder finder) async {
   await tester.ensureVisible(finder);
@@ -37,7 +16,7 @@ Future<void> tapVisible(WidgetTester tester, Finder finder) async {
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  setUpAll(() async => await RustLib.init());
+  setUpAll(() async => RustLib.init());
 
   testWidgets('timer: a preset, then auto-start off and skipping the break', (tester) async {
     final controller = await startApp(tester);
@@ -79,10 +58,13 @@ void main() {
 
   testWidgets('tasks: edit, undo a delete, reorder, and carry over', (tester) async {
     final controller = await startApp(tester);
-    importData(controller, todos: {
-      daysAgo(2): [task('Old one'), task('Old done', done: true)],
-      daysAgo(5): [task('Older one')],
-    });
+    importData(
+      controller,
+      todos: {
+        daysAgo(2): [task('Old one'), task('Old done', done: true)],
+        daysAgo(5): [task('Older one')],
+      },
+    );
     await openTab(tester, 'Tasks');
     controller.addTodo('A');
     controller.addTodo('B');
@@ -137,10 +119,13 @@ void main() {
   testWidgets('tasks: history by month, filtered and searched', (tester) async {
     final controller = await startApp(tester);
     // 37 days apart, so always in different months.
-    importData(controller, todos: {
-      daysAgo(3): [task('Buy milk', done: true), task('Write report')],
-      daysAgo(40): [task('Old report', done: true)],
-    });
+    importData(
+      controller,
+      todos: {
+        daysAgo(3): [task('Buy milk', done: true), task('Write report')],
+        daysAgo(40): [task('Old report', done: true)],
+      },
+    );
     await openTab(tester, 'Tasks');
     await tester.ensureVisible(find.text('Task History'));
     await tester.pumpAndSettle();
@@ -193,7 +178,10 @@ void main() {
 
     await tester.tap(find.byTooltip('Rename reward'));
     await tester.pumpAndSettle();
-    await tester.enterText(find.descendant(of: find.byType(AlertDialog), matching: find.byType(TextField)), 'Cheesecake');
+    await tester.enterText(
+      find.descendant(of: find.byType(AlertDialog), matching: find.byType(TextField)),
+      'Cheesecake',
+    );
     await tester.tap(find.text('Save'));
     await tester.pumpAndSettle();
     expect(find.text('Cheesecake'), findsOneWidget);

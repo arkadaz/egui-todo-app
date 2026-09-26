@@ -72,11 +72,7 @@ class _RewardsPageState extends State<RewardsPage> {
                   const SizedBox(width: 8),
                   Padding(
                     padding: const EdgeInsets.only(top: 4),
-                    child: IconButton.filled(
-                      tooltip: 'Add reward',
-                      icon: const Icon(Icons.add),
-                      onPressed: _add,
-                    ),
+                    child: IconButton.filled(tooltip: 'Add reward', icon: const Icon(Icons.add), onPressed: _add),
                   ),
                 ],
               ),

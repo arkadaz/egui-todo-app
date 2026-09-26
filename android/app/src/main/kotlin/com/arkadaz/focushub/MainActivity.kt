@@ -1,4 +1,4 @@
-package com.example.focus_hub
+package com.arkadaz.focushub
 
 import android.content.BroadcastReceiver
 import android.content.Context

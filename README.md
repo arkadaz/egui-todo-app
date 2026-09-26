@@ -33,12 +33,13 @@ background images. They talk through
 ```
 focus_hub/
 ├── rust/src/
-│   ├── engine/            ← all the logic, plain Rust (no Flutter), with 67 tests
-│   │   ├── domain.rs        saved data (same JSON as the desktop app)
+│   ├── engine/            ← all the logic, plain Rust (no Flutter), with 75 tests
+│   │   ├── domain.rs        the data (and the desktop app's JSON format)
+│   │   ├── database.rs      SQLite: schema migrations, saving, daily backups
+│   │   ├── hub/             the app's operations: timer, tasks, rewards, stats,
+│   │   │                    background, import/export (one file each)
 │   │   ├── timer.rs         Pomodoro timer (wall-clock based, catches up after sleep)
-│   │   ├── hub.rs           tasks, history, rewards, stats, import/export/backups
 │   │   ├── images.rs        shrinks a chosen background to the screen (GIF frames too)
-│   │   ├── persistence.rs   focushub_data.json, saved safely; daily backups
 │   │   └── dates.rs         date math and formatting
 │   └── api/focus_hub.rs   ← the bridge: what Dart can call
 ├── lib/
@@ -50,6 +51,7 @@ focus_hub/
 │   └── widgets/             calendar, settings sheet, dialogs
 ├── android/.../MainActivity.kt   Battery Saver signal and the Home screen icon request
 ├── ios/Runner/AppDelegate.swift  Low Power Mode signal, alerts while the app is open
+├── test/                    12 fast tests on this computer (widgets, and Rust through Dart)
 ├── integration_test/        18 end-to-end tests on a phone/emulator, plus perf_test.dart
 └── assets/                  background GIF and app icon (from the desktop app)
 ```
@@ -57,10 +59,20 @@ focus_hub/
 ## Run it
 
 ```
-flutter run                      # on a connected phone or the emulator
-flutter test integration_test    # the end-to-end tests (needs a device)
-cd rust && cargo test            # the Rust tests
+flutter run                        # on a connected phone or the emulator
 ```
+
+Checks, from quickest to slowest:
+
+```
+cd rust && cargo clippy --all-targets && cargo test   # Rust: lints and 75 tests
+flutter analyze                                       # Dart: strict analysis
+(cd rust && cargo build --release) && flutter test    # 12 tests on this computer, with the real Rust library
+flutter test integration_test                         # 18 tests on a phone or emulator
+```
+
+Formatting: `cargo fmt` in `rust/` and `dart format lib test integration_test`
+(both 120 columns wide, set in `rust/rustfmt.toml` and `analysis_options.yaml`).
 
 After changing anything in `rust/src/api/`, regenerate the bridge:
 
@@ -80,8 +92,13 @@ flutter build apk --release --split-per-abi
 ```
 
 Install `build/app/outputs/flutter-apk/app-arm64-v8a-release.apk` on the phone.
-Release builds are signed with the debug key (fine for your own phone; use your own
-key for Google Play).
+
+The app ID is `com.arkadaz.focushub`, and release builds are signed with your own key:
+`android/key.properties` (never committed) points to the keystore in
+`C:\Users\User\.android\focushub-release.jks`. **Keep a copy of both somewhere safe.**
+Android only installs an update over the app if it's signed with the same key; with a
+lost key, the only way is to uninstall (export your data first). Without
+`key.properties`, release builds fall back to the debug key.
 
 **iOS** needs a Mac with Xcode (Apple allows iOS builds nowhere else) and Rust
 (`rustup`; the build adds the iOS targets by itself). Open `ios/Runner.xcworkspace`,
@@ -126,9 +143,18 @@ Measured on the emulator (profile build, timer running, frames drawn in 3 idle s
   they arrive on time even if the phone sleeps or the app is closed. The app uses
   `USE_EXACT_ALARM` (granted automatically); the Play Store only allows that
   permission for alarm, timer and calendar apps.
-- **Notification buttons** run in a second, short-lived copy of the app. Both copies
-  share `focushub_data.json`; before every change (and before saving when the app is
-  hidden) Rust checks whether the other copy changed the file and loads it if so.
+- **Data** lives in a SQLite database, `focushub.db`, in the app's private folder. The
+  app keeps it in memory and after each change writes only what changed, in one
+  transaction. The tables come from numbered migrations in `database.rs` (SQLite's
+  `user_version` says which have run): to change the schema, add a step at the end,
+  never edit a shipped one. A failed step rolls back; a database from a newer app version
+  is refused, not touched. On first run, an old `focushub_data.json` is moved in (and
+  kept as `focushub_data.before-database.json`). Daily backups are `VACUUM INTO` copies
+  in `backups/`.
+- **Notification buttons** run in a second, short-lived copy of the app with its own
+  database connection; before every change (and before saving when the app is
+  hidden) Rust asks SQLite whether the other connection wrote (`PRAGMA data_version`) and
+  reloads if so.
 - **Home screen icon**: iOS always adds it. Android doesn't let apps add their own icon
   silently: on first launch the app offers it (Android then asks you to confirm), and
   Settings has it too. Launchers such as Pixel's also add new apps by themselves when

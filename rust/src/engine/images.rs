@@ -84,7 +84,9 @@ fn fit(width: u32, height: u32, max_side: u32) -> (u32, u32) {
     if longest <= max_side {
         return (width, height);
     }
-    let scale = |side: u32| ((side as u64 * max_side as u64 + longest as u64 / 2) / longest as u64).max(1) as u32;
+    let scale = |side: u32| {
+        ((u64::from(side) * u64::from(max_side) + u64::from(longest) / 2) / u64::from(longest)).max(1) as u32
+    };
     (scale(width), scale(height))
 }
 
@@ -136,7 +138,13 @@ fn prepare_still(bytes: &[u8], format: ImageFormat, max_side: u32) -> Result<Pre
         JpegEncoder::new_with_quality(&mut out, JPEG_QUALITY).encode_image(&image.to_rgb8())?;
         "jpg"
     };
-    Ok(Prepared { bytes: out, extension, original_size: turned((width, height)), size: turned(size), frames: 1 })
+    Ok(Prepared {
+        bytes: out,
+        extension,
+        original_size: turned((width, height)),
+        size: turned(size),
+        frames: 1,
+    })
 }
 
 /// Shrinks every frame of an animation and writes it as a GIF. `original` is the file
@@ -173,7 +181,11 @@ where
         let batch_size = thread::available_parallelism().map_or(4, NonZeroUsize::get).min(8);
         let mut frames = frames.peekable();
         while frames.peek().is_some() {
-            let batch = frames.by_ref().take(batch_size).collect::<Result<Vec<_>, _>>().context(UNREADABLE)?;
+            let batch = frames
+                .by_ref()
+                .take(batch_size)
+                .collect::<Result<Vec<_>, _>>()
+                .context(UNREADABLE)?;
             count += batch.len() as u32;
             for frame in shrink_frames(batch, size, gif_size) {
                 encoder.write_frame(&frame)?;
@@ -183,7 +195,13 @@ where
     if count == 0 {
         bail!(UNREADABLE);
     }
-    Ok(Prepared { bytes: out, extension: "gif", original_size: (width, height), size, frames: count })
+    Ok(Prepared {
+        bytes: out,
+        extension: "gif",
+        original_size: (width, height),
+        size,
+        frames: count,
+    })
 }
 
 /// Resizes and color-reduces a batch of frames, one thread per frame. Keeps their order.
@@ -211,7 +229,10 @@ fn shrink_frames(batch: Vec<Frame>, size: (u32, u32), gif_size: (u16, u16)) -> V
                 })
             })
             .collect();
-        workers.into_iter().map(|worker| worker.join().expect("a frame worker panicked")).collect()
+        workers
+            .into_iter()
+            .map(|worker| worker.join().expect("a frame worker panicked"))
+            .collect()
     })
 }
 
@@ -229,13 +250,15 @@ mod tests {
             for i in 0..frames {
                 let shade = (i * 60 % 256) as u8;
                 let buffer = RgbaImage::from_pixel(width, height, Rgba([shade, 100, 200, 255]));
-                encoder.encode_frame(Frame::from_parts(buffer, 0, 0, Delay::from_numer_denom_ms(80, 1))).unwrap();
+                encoder
+                    .encode_frame(Frame::from_parts(buffer, 0, 0, Delay::from_numer_denom_ms(80, 1)))
+                    .unwrap();
             }
         }
         out
     }
 
-    fn encoded(image: DynamicImage, format: ImageFormat) -> Vec<u8> {
+    fn encoded(image: &DynamicImage, format: ImageFormat) -> Vec<u8> {
         let mut out = Vec::new();
         image.write_to(&mut Cursor::new(&mut out), format).unwrap();
         out
@@ -252,7 +275,7 @@ mod tests {
     #[test]
     fn a_big_photo_is_shrunk_to_the_screen() {
         let photo = DynamicImage::ImageRgb8(image::RgbImage::from_pixel(3000, 2000, image::Rgb([200, 120, 40])));
-        let prepared = prepare_background(&encoded(photo, ImageFormat::Jpeg), 1500).unwrap();
+        let prepared = prepare_background(&encoded(&photo, ImageFormat::Jpeg), 1500).unwrap();
         assert_eq!(prepared.extension, "jpg");
         assert_eq!((prepared.original_size, prepared.size), ((3000, 2000), (1500, 1000)));
         assert!(prepared.was_shrunk());
@@ -263,14 +286,17 @@ mod tests {
     #[test]
     fn transparency_is_kept_as_png() {
         let sticker = DynamicImage::ImageRgba8(RgbaImage::from_pixel(3000, 3000, Rgba([0, 0, 0, 0])));
-        let prepared = prepare_background(&encoded(sticker, ImageFormat::Png), 1000).unwrap();
+        let prepared = prepare_background(&encoded(&sticker, ImageFormat::Png), 1000).unwrap();
         assert_eq!((prepared.extension, prepared.size), ("png", (1000, 1000)));
         assert!(image::load_from_memory(&prepared.bytes).unwrap().color().has_alpha());
     }
 
     #[test]
     fn an_image_that_fits_is_kept_byte_for_byte() {
-        let small = encoded(DynamicImage::ImageRgb8(image::RgbImage::new(640, 480)), ImageFormat::Png);
+        let small = encoded(
+            &DynamicImage::ImageRgb8(image::RgbImage::new(640, 480)),
+            ImageFormat::Png,
+        );
         let prepared = prepare_background(&small, 2000).unwrap();
         assert_eq!(prepared.bytes, small);
         assert!(!prepared.was_shrunk());
@@ -283,7 +309,11 @@ mod tests {
     #[test]
     fn a_big_gif_keeps_every_frame_and_its_timing() {
         let prepared = prepare_background(&gif_bytes(2560, 1600, 11), 3000).unwrap();
-        assert_eq!(prepared.size, (MAX_ANIMATION_SIDE, 800), "animations are capped below the screen size");
+        assert_eq!(
+            prepared.size,
+            (MAX_ANIMATION_SIDE, 800),
+            "animations are capped below the screen size"
+        );
         assert_eq!(prepared.frames, 11);
 
         let decoder = GifDecoder::new(Cursor::new(&prepared.bytes)).unwrap();
@@ -291,8 +321,11 @@ mod tests {
         let frames = decoder.into_frames().collect_frames().unwrap();
         assert_eq!(frames.len(), 11, "frames come back in full, in order");
         assert_eq!(frames[0].delay().numer_denom_ms(), (80, 1));
-        let shade = |i: usize| frames[i].buffer().get_pixel(640, 400)[0] as i32;
-        assert!((shade(1) - 60).abs() <= 8 && (shade(4) - 240).abs() <= 8, "frame order is kept");
+        let shade = |i: usize| i32::from(frames[i].buffer().get_pixel(640, 400)[0]);
+        assert!(
+            (shade(1) - 60).abs() <= 8 && (shade(4) - 240).abs() <= 8,
+            "frame order is kept"
+        );
     }
 
     #[test]
@@ -307,7 +340,14 @@ mod tests {
         let mut photo = Vec::new();
         let mut encoder = JpegEncoder::new_with_quality(&mut photo, 90);
         encoder.set_exif_metadata(exif_rotate_90).unwrap();
-        encoder.write_image(&image::RgbImage::new(400, 200), 400, 200, image::ExtendedColorType::Rgb8).unwrap();
+        encoder
+            .write_image(
+                &image::RgbImage::new(400, 200),
+                400,
+                200,
+                image::ExtendedColorType::Rgb8,
+            )
+            .unwrap();
 
         let prepared = prepare_background(&photo, 1000).unwrap();
         assert_eq!((prepared.original_size, prepared.size), ((200, 400), (200, 400)));

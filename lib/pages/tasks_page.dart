@@ -4,6 +4,7 @@ import '../controller.dart';
 import '../src/rust/api/focus_hub.dart';
 import '../widgets/calendar_card.dart';
 import '../widgets/edit_helpers.dart';
+import '../widgets/task_history.dart';
 
 /// The desktop app's To-Do List and Calendar windows, together on one screen.
 /// Tap a task to edit it, drag the handle to reorder, delete with Undo. Earlier days are
@@ -278,12 +279,12 @@ class _TasksPageState extends State<TasksPage> {
                 sliver: SliverList.builder(
                   itemCount: rows.length,
                   itemBuilder: (context, i) => switch (rows[i]) {
-                    (final HistoryMonth month, final bool open) => _MonthHeader(
+                    (final HistoryMonth month, final bool open) => MonthHeader(
                       month: month,
                       open: open,
                       onTap: () => _flip(month),
                     ),
-                    final DayTodos day => _HistoryDay(
+                    final DayTodos day => HistoryDayCard(
                       day: day,
                       showTasks: _showsTasks(day),
                       onToggle: day.allDone ? () => _flipDay(day) : null,
@@ -298,100 +299,6 @@ class _TasksPageState extends State<TasksPage> {
           );
         },
       ),
-    );
-  }
-}
-
-/// "September 2026 · 12 days · 5 unfinished", tap to open or close the month.
-class _MonthHeader extends StatelessWidget {
-  const _MonthHeader({required this.month, required this.open, required this.onTap});
-
-  final HistoryMonth month;
-  final bool open;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.only(top: 8),
-      child: Material(
-        color: theme.colorScheme.surfaceContainerHigh,
-        borderRadius: BorderRadius.circular(12),
-        child: ListTile(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          title: Text(month.title, style: theme.textTheme.titleMedium),
-          subtitle: Text(month.summary),
-          trailing: Icon(open ? Icons.expand_less : Icons.expand_more),
-          onTap: onTap,
-        ),
-      ),
-    );
-  }
-}
-
-/// An earlier day in the history: its date, how much got done, and its tasks. A finished
-/// day is folded to one line (tap it to see its tasks), so unfinished days stand out.
-class _HistoryDay extends StatelessWidget {
-  const _HistoryDay({
-    required this.day,
-    required this.showTasks,
-    required this.onToggle,
-    required this.onChanged,
-    required this.onOpen,
-  });
-
-  final DayTodos day;
-  final bool showTasks;
-  final VoidCallback? onToggle;
-  final void Function(int index, bool done) onChanged;
-  final VoidCallback onOpen;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 8),
-          child: InkWell(
-            onTap: onToggle,
-            borderRadius: BorderRadius.circular(8),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 4),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(day.title, style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold)),
-                  ),
-                  if (day.allDone) Icon(Icons.check_circle, size: 16, color: theme.colorScheme.primary),
-                  const SizedBox(width: 4),
-                  Text(day.summary, style: theme.textTheme.bodySmall),
-                  if (onToggle != null) Icon(showTasks ? Icons.expand_less : Icons.expand_more, size: 20),
-                  TextButton(onPressed: onOpen, child: const Text('Open')),
-                ],
-              ),
-            ),
-          ),
-        ),
-        if (showTasks)
-          Card(
-            margin: EdgeInsets.zero,
-            child: Column(
-              children: [
-                for (final todo in day.todos)
-                  CheckboxListTile(
-                    dense: true,
-                    value: todo.completed,
-                    controlAffinity: ListTileControlAffinity.leading,
-                    onChanged: (done) => onChanged(todo.index, done ?? false),
-                    title: _TaskText(text: todo.text, done: todo.completed),
-                  ),
-              ],
-            ),
-          ),
-      ],
     );
   }
 }
@@ -420,7 +327,7 @@ class _TaskTile extends StatelessWidget {
       child: ListTile(
         contentPadding: const EdgeInsets.only(left: 4),
         leading: Checkbox(value: todo.completed, onChanged: (done) => onChanged(done ?? false)),
-        title: _TaskText(text: todo.text, done: todo.completed),
+        title: TaskText(text: todo.text, done: todo.completed),
         onTap: onEdit,
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
@@ -436,23 +343,6 @@ class _TaskTile extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _TaskText extends StatelessWidget {
-  const _TaskText({required this.text, required this.done});
-
-  final String text;
-  final bool done;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: done
-          ? TextStyle(decoration: TextDecoration.lineThrough, color: Theme.of(context).colorScheme.onSurfaceVariant)
-          : null,
     );
   }
 }

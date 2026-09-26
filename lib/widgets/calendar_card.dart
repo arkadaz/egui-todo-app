@@ -41,11 +41,7 @@ class CalendarCard extends StatelessWidget {
                   onPressed: () => expanded ? controller.showMonth(-1) : controller.shiftWeek(-1),
                 ),
                 Expanded(
-                  child: Text(
-                    title,
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.titleMedium,
-                  ),
+                  child: Text(title, textAlign: TextAlign.center, style: theme.textTheme.titleMedium),
                 ),
                 TextButton(onPressed: controller.goToToday, child: const Text('Today')),
                 IconButton(

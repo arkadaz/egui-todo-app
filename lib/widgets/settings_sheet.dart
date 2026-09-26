@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../controller.dart';
 import '../services/alerts.dart';
@@ -36,6 +37,7 @@ class SettingsSheet extends StatefulWidget {
 class _SettingsSheetState extends State<SettingsSheet> {
   late Future<AlertStatus> _status;
   late final Future<bool> _canAddIcon = _controller.homeScreen.canAdd();
+  final Future<PackageInfo> _appInfo = PackageInfo.fromPlatform();
   late final AppLifecycleListener _lifecycle;
   bool _settingBackground = false;
 
@@ -58,9 +60,7 @@ class _SettingsSheetState extends State<SettingsSheet> {
   void _refreshStatus() => setState(() => _status = _controller.alerts.status());
 
   void _say(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), behavior: SnackBarBehavior.floating),
-    );
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message), behavior: SnackBarBehavior.floating));
   }
 
   Future<void> _pickTimeZone() async {
@@ -152,12 +152,16 @@ class _SettingsSheetState extends State<SettingsSheet> {
     try {
       if (choice == 'merge') {
         final merged = _controller.mergeJson(text);
-        _say('Added ${_count(merged.tasksAdded, 'task')} and ${_count(merged.rewardsAdded, 'reward')}; '
-            'updated study time on ${_count(merged.studyDaysUpdated, 'day')}.');
+        _say(
+          'Added ${_count(merged.tasksAdded, 'task')} and ${_count(merged.rewardsAdded, 'reward')}; '
+          'updated study time on ${_count(merged.studyDaysUpdated, 'day')}.',
+        );
       } else {
         final summary = _controller.importJson(text);
-        _say('Imported ${_count(summary.tasks, 'task')} on ${_count(summary.days, 'day')}, '
-            'and ${_count(summary.rewards, 'reward')}.');
+        _say(
+          'Imported ${_count(summary.tasks, 'task')} on ${_count(summary.days, 'day')}, '
+          'and ${_count(summary.rewards, 'reward')}.',
+        );
       }
     } on AnyhowException catch (e) {
       _say(e.message);
@@ -307,6 +311,7 @@ class _SettingsSheetState extends State<SettingsSheet> {
               builder: (context, snapshot) => snapshot.data != true
                   ? const SizedBox.shrink()
                   : Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const _Header('Home screen'),
                         ListTile(
@@ -342,9 +347,26 @@ class _SettingsSheetState extends State<SettingsSheet> {
               onTap: _restoreBackup,
             ),
             ListTile(
-              leading: const Icon(Icons.folder_outlined),
-              title: const Text('Data file'),
+              leading: const Icon(Icons.storage_outlined),
+              title: const Text('Database'),
               subtitle: Text(_controller.hub.dataFile()),
+            ),
+            const _Header('About'),
+            FutureBuilder<PackageInfo>(
+              future: _appInfo,
+              builder: (context, snapshot) {
+                final info = snapshot.data;
+                return ListTile(
+                  leading: const Icon(Icons.info_outline),
+                  title: const Text('Focus Hub'),
+                  subtitle: Text(info == null ? '' : 'Version ${info.version}'),
+                  onTap: () => showLicensePage(
+                    context: context,
+                    applicationName: 'Focus Hub',
+                    applicationVersion: info?.version,
+                  ),
+                );
+              },
             ),
           ],
         );

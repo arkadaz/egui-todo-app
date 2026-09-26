@@ -11,9 +11,9 @@ ValueListenable<bool> _watchBatterySaver() {
   final on = ValueNotifier(false);
   if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
     const EventChannel('focus_hub/battery_saver').receiveBroadcastStream().listen(
-          (value) => on.value = value == true,
-          onError: (Object _) {}, // not available: treat it as off
-        );
+      (value) => on.value = value == true,
+      onError: (Object _) {}, // not available: treat it as off
+    );
   }
   return on;
 }

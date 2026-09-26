@@ -32,9 +32,7 @@ class Alerts {
     'Timer alerts',
     description: 'Tells you when a study session or break ends.',
     importance: Importance.max,
-    playSound: true,
     sound: RawResourceAndroidNotificationSound('beep'),
-    enableVibration: true,
   );
 
   static const _statusChannel = AndroidNotificationChannel(
@@ -53,7 +51,6 @@ class Alerts {
       channelDescription: _alertChannel.description,
       importance: Importance.max,
       priority: Priority.high,
-      playSound: true,
       sound: const RawResourceAndroidNotificationSound('beep'),
       category: AndroidNotificationCategory.alarm,
       visibility: NotificationVisibility.public,
@@ -160,8 +157,7 @@ class Alerts {
       final events = hub.upcomingEvents();
       if (events.isEmpty) return;
       final onTime = await _android?.canScheduleExactNotifications() ?? false;
-      final mode =
-          onTime ? AndroidScheduleMode.exactAllowWhileIdle : AndroidScheduleMode.inexactAllowWhileIdle;
+      final mode = onTime ? AndroidScheduleMode.exactAllowWhileIdle : AndroidScheduleMode.inexactAllowWhileIdle;
       final now = tz.TZDateTime.now(tz.UTC);
       for (var i = 0; i < events.length; i++) {
         final event = events[i];

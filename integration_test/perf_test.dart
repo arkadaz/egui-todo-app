@@ -16,8 +16,7 @@ import 'helpers.dart';
 
 /// 120 days of history with 6 tasks each, daily study time, and 20 rewards.
 String heavyUserJson() {
-  String iso(DateTime d) =>
-      '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
+  String iso(DateTime d) => '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
   final today = DateTime.now();
   final todos = <String, Object>{};
   final study = <String, int>{};
@@ -41,7 +40,7 @@ String heavyUserJson() {
 
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  setUpAll(() async => await RustLib.init());
+  setUpAll(() async => RustLib.init());
 
   testWidgets('a heavy user: idle, switch tabs, scroll', (tester) async {
     final controller = await startApp(tester, animate: true);
@@ -51,8 +50,7 @@ void main() {
     binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
     Future<void> idle(int ms) => tester.runAsync(() => Future<void>.delayed(Duration(milliseconds: ms)));
-    Future<void> watch(String key, Future<void> Function() action) =>
-        binding.watchPerformance(action, reportKey: key);
+    Future<void> watch(String key, Future<void> Function() action) => binding.watchPerformance(action, reportKey: key);
     Future<void> fling(double dy) async {
       await tester.fling(find.byType(Scrollable).first, Offset(0, dy), 2500);
       await idle(1500);

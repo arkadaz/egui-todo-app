@@ -31,5 +31,9 @@ Future<void> main() async {
   await alerts.init();
 
   debugPrint('FocusHub startup: ready');
-  runApp(FocusHubApp(controller: FocusController(hub: hub, alerts: alerts)));
+  runApp(
+    FocusHubApp(
+      controller: FocusController(hub: hub, alerts: alerts),
+    ),
+  );
 }

@@ -46,7 +46,7 @@ pub struct Completion {
 
 impl Completion {
     /// The alert shown when this session ends.
-    pub fn message(&self) -> (&'static str, &'static str) {
+    pub fn message(self) -> (&'static str, &'static str) {
         match (self.mode, self.next_is_long_break, self.all_done) {
             (TimerMode::Work, true, _) => ("Work Complete!", "Time for a long break. You earned it."),
             (TimerMode::Work, false, _) => ("Work Complete!", "Time for a short break."),
@@ -94,7 +94,10 @@ pub struct StudyTimer {
 impl StudyTimer {
     pub fn new(config: TimerConfig) -> Self {
         let mut timer = Self {
-            config: TimerConfig { total_loops: config.total_loops.max(1), ..config },
+            config: TimerConfig {
+                total_loops: config.total_loops.max(1),
+                ..config
+            },
             timer_mode: TimerMode::Work,
             long_break: false,
             timer_state: TimerState::Paused,
@@ -108,7 +111,10 @@ impl StudyTimer {
 
     /// Changes how the timer runs, then resets it (like the desktop app).
     pub fn configure(&mut self, config: TimerConfig) {
-        self.config = TimerConfig { total_loops: config.total_loops.max(1), ..config };
+        self.config = TimerConfig {
+            total_loops: config.total_loops.max(1),
+            ..config
+        };
         self.reset();
     }
 
@@ -225,7 +231,11 @@ impl StudyTimer {
                 self.long_break = every > 0 && self.current_loop.is_multiple_of(every);
                 self.timer_mode = TimerMode::Break;
                 self.time_remaining = self.break_duration();
-                Completion { mode: TimerMode::Work, next_is_long_break: self.long_break, all_done: false }
+                Completion {
+                    mode: TimerMode::Work,
+                    next_is_long_break: self.long_break,
+                    all_done: false,
+                }
             }
             TimerMode::Break => {
                 let all_done = self.current_loop >= self.config.total_loops;
@@ -237,7 +247,11 @@ impl StudyTimer {
                     self.long_break = false;
                     self.time_remaining = self.config.work;
                 }
-                Completion { mode: TimerMode::Break, next_is_long_break: false, all_done }
+                Completion {
+                    mode: TimerMode::Break,
+                    next_is_long_break: false,
+                    all_done,
+                }
             }
         }
     }
@@ -459,7 +473,10 @@ mod tests {
 
     #[test]
     fn long_break_every_few_loops() {
-        let mut t = StudyTimer::new(TimerConfig { long_break_every: 2, ..config(10, 5, 4) });
+        let mut t = StudyTimer::new(TimerConfig {
+            long_break_every: 2,
+            ..config(10, 5, 4)
+        });
         t.toggle(0);
         let out = t.advance(10 * SEC); // loop 1 work done -> short break
         assert!(!out.completed[0].next_is_long_break);
@@ -478,10 +495,17 @@ mod tests {
 
     #[test]
     fn without_auto_start_the_timer_waits_between_sessions() {
-        let mut t = StudyTimer::new(TimerConfig { auto_start: false, ..config(10, 5, 2) });
+        let mut t = StudyTimer::new(TimerConfig {
+            auto_start: false,
+            ..config(10, 5, 2)
+        });
         t.toggle(0);
         let out = t.advance(100 * SEC);
-        assert_eq!(modes(&out), vec![(TimerMode::Work, false)], "only the running session ends");
+        assert_eq!(
+            modes(&out),
+            vec![(TimerMode::Work, false)],
+            "only the running session ends"
+        );
         assert!(!t.is_running());
         assert_eq!(t.timer_mode, TimerMode::Break);
         assert_eq!(t.time_remaining, Duration::from_secs(5), "the break waits, untouched");
@@ -502,7 +526,11 @@ mod tests {
         let out = t.skip(4 * SEC); // skip the break
         assert_eq!(modes(&out), vec![(TimerMode::Break, false)]);
         assert_eq!(t.current_loop, 2);
-        assert_eq!(t.advance(6 * SEC).study, Duration::from_secs(2), "counting from the skip");
+        assert_eq!(
+            t.advance(6 * SEC).study,
+            Duration::from_secs(2),
+            "counting from the skip"
+        );
     }
 
     #[test]
@@ -527,14 +555,21 @@ mod tests {
         assert_eq!(times, vec![5, 10, 20, 25]);
         assert!(list.last().unwrap().1.all_done);
         let (_, _, after_first) = &list[0];
-        assert_eq!(after_first.timer_mode, TimerMode::Break, "the state right after each end");
+        assert_eq!(
+            after_first.timer_mode,
+            TimerMode::Break,
+            "the state right after each end"
+        );
         t.toggle(6 * SEC);
         assert!(t.upcoming(6 * SEC).is_empty(), "a paused timer has nothing coming");
     }
 
     #[test]
     fn upcoming_stops_at_the_first_end_without_auto_start() {
-        let mut t = StudyTimer::new(TimerConfig { auto_start: false, ..config(10, 5, 2) });
+        let mut t = StudyTimer::new(TimerConfig {
+            auto_start: false,
+            ..config(10, 5, 2)
+        });
         t.toggle(0);
         let list = t.upcoming(0);
         assert_eq!(list.len(), 1);
@@ -552,13 +587,19 @@ mod tests {
 
     #[test]
     fn save_and_restore_keeps_a_running_timer() {
-        let mut t = StudyTimer::new(TimerConfig { long_break_every: 1, ..config(10, 5, 2) });
+        let mut t = StudyTimer::new(TimerConfig {
+            long_break_every: 1,
+            ..config(10, 5, 2)
+        });
         t.toggle(0);
         t.advance(12 * SEC); // in a long break (every loop), 13s left of 15
         let saved = t.save();
         assert!(saved.long_break);
 
-        let mut restored = StudyTimer::new(TimerConfig { long_break_every: 1, ..config(10, 5, 2) });
+        let mut restored = StudyTimer::new(TimerConfig {
+            long_break_every: 1,
+            ..config(10, 5, 2)
+        });
         restored.restore(&saved);
         assert!(restored.is_running());
         assert!(restored.long_break);
@@ -588,7 +629,11 @@ mod tests {
 
     #[test]
     fn messages_match_the_session_that_ended() {
-        let c = |mode, next_is_long_break, all_done| Completion { mode, next_is_long_break, all_done };
+        let c = |mode, next_is_long_break, all_done| Completion {
+            mode,
+            next_is_long_break,
+            all_done,
+        };
         assert_eq!(c(TimerMode::Work, false, false).message().0, "Work Complete!");
         assert_eq!(c(TimerMode::Break, false, false).message().0, "Break Over!");
         assert_eq!(c(TimerMode::Break, false, true).message().0, "All Sessions Done!");
