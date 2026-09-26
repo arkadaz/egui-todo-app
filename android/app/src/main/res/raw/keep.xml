@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Release builds remove resources that code doesn't reference directly. The notification
+     icon and sound are only referenced by name from Dart, so keep them explicitly. -->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@drawable/ic_stat_timer,@raw/beep" />
